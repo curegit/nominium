@@ -1,0 +1,35 @@
+body {
+	background-color: #505050;
+	color: #FFF;
+}
+
+a {
+	color: #fff465;
+}
+
+h1 {
+	color: #cac6ff;
+}
+
+h2 {
+	color: #fa91ff;
+}
+
+table {
+	background-color: #303030;
+	margin: 15px;
+	border-collapse: collapse;
+	border: solid 2px #FEFEFE;
+}
+
+td, th {
+	border: solid 1px #818181;
+}
+
+th {
+	text-align: center;
+}
+
+td {
+	text-align: left;
+}
