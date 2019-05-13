@@ -1,33 +1,42 @@
 # Ziraffe Roams Markets
 
-## 要件
+
+
+## Requirements
+
+### Raspbian
 
 - PHP7 + sqlite(PDO)
-- Python3
-- Selenium(Python) + WebDriver
+- Python3 + Selenium(Python) + WebDriver(Chromium)
 
-## インストール
+## Installation
 
-- app/settings.ini を書き換える
-- app/setup.py を実行
-- web/settings/password.php を書き換える
-- /web/ にブラウザでアクセスしてキーワードを登録
-- app/ziraffem.py を定期実行するように登録する
+1. Rewrite `app/settings.ini`
+2. Execute `app/setup.py`
+3. Rewrite `web/settings/password.php`
+4. Go to `/web/` via browser, and register keywords
+5. Make `app/ziraffem.py` run continuously
 
-### 稼働時間
+### Running Time
 
-settings.ini の time 秒実行される。time を 64800 として朝7時に起動すると25時に終了する。
+The crawler keeps running for `time` seconds written in `settings.ini` every execution.
+For example, if `time` is set to 64800, it finishes at 1 a.m. when it is executed at 7 a.m.
+settings.ini の time 秒実行される。time を  として朝7時に起動すると25時に終了する。
 
-### crontab の例
+### Crontab Instance
+
+Common one that it wake up at 7 everyday
 
 ```
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
-## Selenium のテスト
+## Tests
 
-app/seletest.py を実行
+### Selenium
 
-## メール送信テスト
+Run `app/seletest.py`
 
-app/mailtest.py を実行
+### Mail
+
+Run `app/mailtest.py`
