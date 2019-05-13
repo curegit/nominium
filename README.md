@@ -21,7 +21,6 @@
 
 The crawler keeps running for `time` seconds written in `settings.ini` every execution.
 For example, if `time` is set to 64800, it finishes at 1 a.m. when it is executed at 7 a.m.
-settings.ini の time 秒実行される。time を  として朝7時に起動すると25時に終了する。
 
 ### Crontab Instance
 
