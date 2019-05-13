@@ -1,6 +1,8 @@
+<img alt="Ziraffe" src="web/assets/ziraffe.png" width=80 height=80>
+
 # Ziraffe Roams Markets
 
-
+A crawler of some c2c e-commerce sites to buy what you want faster than anybody else
 
 ## Requirements
 
