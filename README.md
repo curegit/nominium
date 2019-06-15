@@ -13,11 +13,12 @@ A crawler of some c2c e-commerce sites to buy what you want faster than anybody 
 
 ## Installation
 
-1. Rewrite `app/settings.ini`
-2. Execute `app/setup.py`
-3. Rewrite `web/settings/password.php`
-4. Go to `/web/` via browser, and register keywords
-5. Make `app/ziraffem.py` run continuously
+1. Deploy all files to a server
+2. Rewrite `app/settings.ini`
+3. Execute `app/setup.py`
+4. Rewrite `web/settings/password.php`
+5. Go to `/web/` via browser, and register keywords
+6. Make `app/ziraffem.py` run continuously
 
 ### Running Time
 
