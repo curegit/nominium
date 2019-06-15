@@ -217,7 +217,7 @@ try:
 
 								# メール送信
 								if inform:
-									subject = "Mercari: {}".format(name)
+									subject = "Rakuma: {}".format(name)
 									body = "{}\n{}\n{}\n\n{}\n".format(name, price, url, img_url)
 									sendmail(subject, body)
 									write_log_line(my_time() + " Sent: `{}`".format(subject))
