@@ -178,7 +178,6 @@ try:
 					result = False
 					write_log_line(my_time() + " " + str(e))
 
-				# ランダムウェイト
 				finally:
 					write_log_line(my_time() + " Done: Mercari")
 
@@ -231,7 +230,6 @@ try:
 					result = False
 					write_log_line(my_time() + " " + str(e))
 
-				# ランダムウェイト
 				finally:
 					write_log_line(my_time() + " Done: Rakuma")
 
