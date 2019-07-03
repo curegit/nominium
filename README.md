@@ -1,44 +1,42 @@
-<img alt="Ziraffe" src="web/assets/ziraffe.png" width=80 height=80>
-
 # Ziraffe Roams Markets
 
-A crawler of some c2c e-commerce sites to buy what you want faster than anybody else
+メルカリとラクマの新着商品をメールで通知するクローラー
 
-## Requirements
+## 動作条件
 
-### Raspbian
+### Raspbian の場合
 
-- PHP7 + sqlite(PDO)
-- Python3 + Selenium(Python) + WebDriver(Chromium)
+- PHP 7 + SQLite (PDO)
+- Python 3 + Selenium (Python) + WebDriver (Chromium)
 
-## Installation
+## インストール
 
-1. Deploy all files to a server
-2. Rewrite `app/settings.ini`
-3. Execute `app/setup.py`
-4. Rewrite `web/settings/password.php`
-5. Go to `/web/` via browser, and register keywords
-6. Make `app/ziraffem.py` run continuously
+1. すべてのファイルをサーバーに配置する
+2. `app/settings.ini` を書き換える
+3. `app/setup.py` を実行
+4. `web/settings/password.php` を書き換える
+5. ブラウザで `/web/` へ行って検索キーワードを登録
+6. `app/ziraffem.py` が毎日実行されるようにする
 
-### Running Time
+### 稼働時間
 
-The crawler keeps running for `time` seconds written in `settings.ini` every execution.
-For example, if `time` is set to 64800, it finishes at 1 a.m. when it is executed at 7 a.m.
+`app/ziraffem.py` の稼働時間は `settings.ini` の `time` で制御する。
+例えば、64800 に設定して午前7時に起動すると、午前1時に終了する。
 
-### Crontab Instance
+### Crontab の例
 
-Common one that it wake up at 7 everyday
+毎朝7時に起動する例
 
 ```
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
-## Tests
+## 動作確認
 
 ### Selenium
 
-Run `app/seletest.py`
+`app/seletest.py` を実行
 
-### Mail
+### メール送信
 
-Run `app/mailtest.py`
+`app/mailtest.py` を実行
