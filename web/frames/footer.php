@@ -1,4 +1,4 @@
     <hr>
-    <p>Ziraffe Roams Markets</p>
+    <p><?= h(APP_NAME) ?></p>
   </body>
 </html>
