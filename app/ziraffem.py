@@ -178,7 +178,7 @@ try:
 								sql = "INSERT INTO item(url, name, img_url) VALUES(?, ?, ?)"
 								cursor.execute(sql, (url, name, img_url))
 
-				# エラーをログに書くて続行
+				# エラーをログに書いて続行
 				except Exception as e:
 					result = False
 					write_log_line(my_time() + " " + str(e))
@@ -230,7 +230,7 @@ try:
 								sql = "INSERT INTO item(url, name, img_url) VALUES(?, ?, ?)"
 								cursor.execute(sql, (url, name, img_url))
 
-				# エラーをログに書くて続行
+				# エラーをログに書いて続行
 				except Exception as e:
 					result = False
 					write_log_line(my_time() + " " + str(e))
