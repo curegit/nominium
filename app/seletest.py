@@ -25,6 +25,9 @@ options.add_argument("--disable-gpu")
 options.add_argument("--disable-desktop-notifications")
 options.add_argument("--disable-extensions")
 
+# 画像を読まない
+options.add_argument("--blink-settings=imagesEnabled=false")
+
 # エラーの許容
 options.add_argument("--ignore-certificate-errors")
 options.add_argument("--allow-running-insecure-content")
