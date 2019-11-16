@@ -95,17 +95,17 @@ try:
 	options.add_argument("--disable-gpu")
 	options.add_argument("--disable-desktop-notifications")
 	options.add_argument("--disable-extensions")
+	options.add_argument("--blink-settings=imagesEnabled=false")
 	options.add_argument("--ignore-certificate-errors")
 	options.add_argument("--allow-running-insecure-content")
 	options.add_argument("--disable-web-security")
 	driver = webdriver.Chrome(executable_path=driver_path, chrome_options=options)
-	driver.implicitly_wait(1)
 
 	# 稼働時間内なら続ける
 	while target_time > time.time() - start:
 
 		# ランダムウェイト
-		sleep(random.randrange(3) + 1)
+		sleep(random.randrange(10) + 5)
 
 		# キーワード取得
 		sql = "SELECT * FROM keyword"
@@ -136,30 +136,28 @@ try:
 				try:
 
 					# ページ遷移
-					url = "https://www.mercari.com/jp/search/?sortId=1&statusIds=%5B\"on_sale\"%5D&keyword={}".format(kr["keyword"])
+					url = "https://www.mercari.com/jp/search/?status_on_sale=1&sort_order=created_desc&page=1&keyword={}".format(kr["keyword"])
 					driver.get(url)
-
 					write_log_line(my_time() + " Loaded: Mercari")
 
 					# 検索結果があるか確認
-					hit = ["見つかりません" for p in driver.find_elements_by_tag_name("p") if "見つかりません" in p.text]
+					hit = driver.find_elements_by_class_name("search-result-description")
 					if not len(hit) == 0:
 						write_log_line(my_time() + " No hits: {}".format(kr["keyword"]))
-
 					else:
-						# DOMをある程度下まで読ませる
-						driver.execute_script("window.scrollTo(0, 1000);")
 
 						# 商品のRemote WebDriver WebElementを抜き出す
-						items = [e.find_element_by_xpath("..").find_element_by_xpath("..").find_element_by_xpath("..") for e in driver.find_elements_by_tag_name("figcaption")]
+						items = driver.find_elements_by_class_name("items-box")
 						write_log_line(my_time() + " {} hit(s): {}".format(len(items), kr["keyword"]))
 
 						# それぞれの属性を抜き出す
 						for k, i in enumerate(items):
-							name = i.find_element_by_tag_name("figcaption").find_element_by_tag_name("span").text
+							name = i.find_element_by_class_name("items-box-name").text
 							url = i.find_element_by_tag_name("a").get_attribute("href")
-							img_url = i.find_element_by_tag_name("img").get_attribute("src")
-							price = i.find_element_by_tag_name("figure").find_element_by_tag_name("div").find_element_by_tag_name("span").text
+							p = urllib.parse.urlparse(url)
+							url = p.scheme + "://" + p.netloc + p.path
+							img_url = i.find_element_by_tag_name("img").get_attribute("data-src")
+							price = i.find_element_by_class_name("items-box-price").text
 
 							# すでに存在するものか確認
 							sql = "SELECT COUNT(*) AS count FROM item WHERE url = ?"
