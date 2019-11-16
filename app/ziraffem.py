@@ -34,6 +34,9 @@ target_time = int(config.get("general", "time"))
 # 発火確率
 possibility = float(config.get("general", "possibility"))
 
+# 最大処理数
+max_items = int(config.get("general", "max_items"))
+
 # ログを1行追記する関数
 def write_log_line(str):
 	filename = "./logs/" + datetime.date.today().strftime("%Y-%m-%d") + ".log"
@@ -148,7 +151,7 @@ try:
 						write_log_line(my_time() + " {} hit(s): {}".format(len(items), kr["keyword"]))
 
 						# それぞれの属性を抜き出す
-						for i in items:
+						for k, i in enumerate(items):
 							name = i.find_element_by_class_name("items-box-name").text
 							url = i.find_element_by_tag_name("a").get_attribute("href")
 							p = urllib.parse.urlparse(url)
@@ -163,7 +166,7 @@ try:
 							if r == 0:
 
 								# メール送信
-								if inform:
+								if inform and k <= max_items:
 									subject = "Mercari: {}".format(name)
 									body = "{}\n{}\n{}\n\n{}\n".format(name, price, url, img_url)
 									sendmail(subject, body)
@@ -200,7 +203,7 @@ try:
 						write_log_line(my_time() + " {} hit(s): {}".format(len(items), kr["keyword"]))
 
 						# それぞれの属性を抜き出す
-						for i in items:
+						for k, i in enumerate(items):
 							name = i.find_element_by_class_name("item-box__item-name").text
 							url = i.find_element_by_tag_name("a").get_attribute("href")
 							img_url = i.find_element_by_tag_name("img").get_attribute("data-original")
@@ -215,7 +218,7 @@ try:
 							if r == 0:
 
 								# メール送信
-								if inform:
+								if inform and k <= max_items:
 									subject = "Rakuma: {}".format(name)
 									body = "{}\n{}\n{}\n\n{}\n".format(name, price, url, img_url)
 									sendmail(subject, body)
