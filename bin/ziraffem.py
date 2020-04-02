@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import sqlite3
 import random
@@ -7,17 +8,15 @@ import configparser
 import urllib.parse
 from time import sleep
 from selenium import webdriver
-import smtplib
-from email.mime.text import MIMEText
-from email.utils import formatdate
 
-# カレントディレクトリ変更
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# Chromeドライバーへのパス
-config = configparser.SafeConfigParser()
-config.read("settings.ini")
-driver_path = config.get("general", "driver")
+from modules.util import filepath, file_relpath
+from modules.config import read_appconf, read_settings
+from modules.database import connect_db, close_db
+from modules.browser import start_browser, close_browser
+from modules.logging import make_writelog
+from modules.notification import make_sendmail
+from plugins.loader import 
 
 # メール関係の設定
 email = config.get("general", "email")
@@ -27,6 +26,14 @@ port = int(config.get("general", "port"))
 efrom = config.get("general", "from")
 user = config.get("general", "user")
 password = config.get("general", "password")
+
+#
+appconf = read_appconf()
+settings = read_settings()
+
+#
+send = make_sendmail(host, port, user, password, mailfrom, mailto)
+send(subject, body)
 
 # 目標稼働時間
 target_time = int(config.get("general", "time"))

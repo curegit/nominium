@@ -18,7 +18,8 @@ def driver_options():
 def start_browser():
 	driver_path = config.get("general", "driver")
 
-def finish_browser():
+def finish_browser(driver):
+	driver.quit()
 
 # オプションをつくる
 options = webdriver.ChromeOptions() 
@@ -50,4 +51,4 @@ driver.get(url)
 print(driver.page_source)
 
 # 終了
-driver.quit()
+

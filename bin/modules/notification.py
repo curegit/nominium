@@ -1,46 +1,27 @@
-import os
-import configparser
-from selenium import webdriver
+import smtplib
+from email.utils import formatdate
+from email.mime.text import MIMEText
 
-# カレントディレクトリ変更
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# メール文字列をつくる関数
+def create_message(mailfrom, mailto, bcc, subject, body):
+	msg = MIMEText(body)
+	msg["Subject"] = subject
+	msg["From"] = mailfrom
+	msg["To"] = mailto
+	msg["Bcc"] = bcc
+	msg["Date"] = formatdate()
+	return msg
 
-# Chromeドライバーへのパス
-config = configparser.SafeConfigParser()
-config.read("settings.ini")
-driver_path = config.get("general", "driver")
+# SMTP サーバーを通してメールを送る関数
+def smtp_send(host, port, user, password, mailfrom, mailto, msg):
+	smtpobj = smtplib.SMTP_SSL(host, port)
+	smtpobj.login(user, password)
+	smtpobj.sendmail(mailfrom, mailto, msg.as_string())
+	smtpobj.quit()
 
-# 読み込むURL
-url = "http://example.com/"
-
-# オプションをつくる
-options = webdriver.ChromeOptions() 
-options.add_argument("--headless")
-
-# バグ回避
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-gpu")
-
-# いらない機能
-options.add_argument("--disable-desktop-notifications")
-options.add_argument("--disable-extensions")
-
-# 画像を読まない
-options.add_argument("--blink-settings=imagesEnabled=false")
-
-# エラーの許容
-options.add_argument("--ignore-certificate-errors")
-options.add_argument("--allow-running-insecure-content")
-options.add_argument("--disable-web-security")
-
-# スタート
-driver = webdriver.Chrome(executable_path=driver_path, chrome_options=options)
-
-# ページ取得
-driver.get(url)
-
-# ソース出力
-print(driver.page_source)
-
-# 終了
-driver.quit()
+# メールを送る関数を作成する関数
+def make_sendmail(host, port, user, password, mailfrom, mailto):
+	def sendmail(subject, body):
+		msg = create_message(mailfrom, mailto, bcc, subject, body)
+		smtp_send(host, port, user, password, mailfrom, mailto, msg)
+	return sendmail
