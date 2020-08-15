@@ -1,4 +1,4 @@
-# Ziraffe Roams Markets
+# Nominium
 
 メルカリとラクマの新着商品をメールで通知するクローラー
 
