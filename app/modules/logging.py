@@ -26,15 +26,15 @@ class Logger():
 		self.queue = Queue()
 
 	# ログキューに1行追記する
-	def log_line(message):
+	def log_line(self, message):
 		self.queue.put((datetime.datetime.now(), message))
 
 	# ログキューに発生した例外情報を追記する
-	def log_exception(exception):
-		log_line(str(exception))
+	def log_exception(self, exception):
+		self.log_line(str(exception))
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
-	def commit():
+	def commit(self):
 		qsize = self.queue.qsize
 		if qsize > 0:
 			dtime, message = self.queue.get()
