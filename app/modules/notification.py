@@ -46,3 +46,4 @@ class NotificationController():
 		num = min(len(mails), self.max_per_hour - self.count)
 		self.count += num
 		send(mails[0:num])
+		return num
