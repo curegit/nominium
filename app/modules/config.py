@@ -16,6 +16,7 @@ cut = int(config.get("general", "cut"))
 enough = int(config.get("general", "enough"))
 n_fetchers = int(config.get("general", "n_fetchers"))
 n_extracters = int(config.get("general", "n_extracters"))
+max_price = int(config.get("general", "max_price"))
 max_notify_hourly = int(config.get("general", "max_notify_hourly"))
 while_stopped = bool(int(config.get("general", "while_stopped")))
 
