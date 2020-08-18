@@ -30,8 +30,11 @@ class Logger():
 		self.queue.put((datetime.datetime.now(), message))
 
 	# ログキューに発生した例外情報を追記する
-	def log_exception(self, exception):
-		self.log_line(str(exception))
+	def log_exception(self, exception, message=None):
+		if message is None:
+			self.log_line(str(exception))
+		else:
+			self.log_line(f"{message}\n{str(exception)}")
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
 	def commit(self):
