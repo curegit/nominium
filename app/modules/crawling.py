@@ -61,7 +61,7 @@ class Fetcher(Thread):
 				sleep(self.max_rate - elapsed)
 		self.logger.log_line(f"フェッチャー {self.id} が終了しました。")
 
-# 必要な情報の抽出機
+# 必要な情報の抽出器
 class Extracter():
 
 	# コンストラクタ
@@ -73,7 +73,7 @@ class Extracter():
 		self.cut = cut
 		self.enough = enough
 
-	# 抽出機のスレッドタスク
+	# 抽出器のスレッドタスク
 	def __call__(self, site, keyword, notify, documents, filter_patterns):
 		try:
 			count = 0
