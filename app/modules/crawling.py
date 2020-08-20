@@ -46,7 +46,7 @@ class Fetcher(Thread):
 			maybe_task = self.in_queue.get()
 			if maybe_task is None:
 				break
-			site, keyword, notify = maybe_task
+			site, kid, keyword = maybe_task
 			self.logger.log_line(f"フェッチャー {self.id} が {site.name} で「{keyword}」をロードします。")
 			try:
 				documents = site.get(self.driver, keyword)
@@ -54,7 +54,7 @@ class Fetcher(Thread):
 				self.logger.log_exception(e, f"フェッチャー {self.id} が {site.name} でフェッチに失敗しました。")
 			else:
 				self.logger.log_line(f"フェッチャー {self.id} がフェッチを完了しました。")
-				self.out_queue.put((site, keyword, notify, documents))
+				self.out_queue.put((site, kid, keyword, documents))
 			sleep(self.wait)
 			elapsed = time() - start
 			if elapsed < self.max_rate:
@@ -62,7 +62,7 @@ class Fetcher(Thread):
 		self.logger.log_line(f"フェッチャー {self.id} が終了しました。")
 
 # 必要な情報の抽出器
-class Extracter():
+class Extractor():
 
 	# コンストラクタ
 	def __init__(self, logger, queue, max_price, cut=10, enough=100):
@@ -72,36 +72,51 @@ class Extracter():
 		self.cut = cut
 		self.enough = enough
 		self.cache = set()
+		self.history = set()
+		self.fresh = set()
 		self.filter_patterns = []
 
-	# 抽出器のスレッドタスク
-	def __call__(self, site, keyword, notify, documents, filter_patterns):
-		try:
-			count = 0
-			cut_count = 0
-			put_count = 0
-			for item in site.extract(documents):
-				count += 1
-				id, url, title, img, price = item
-				id_pair = (site.name, id)
-				if id_pair in self.cache:
-					cut_count += 1
-				else:
-					cut_count = 0
-					self.cache.add(id_pair)
-					item_notify = notify
-					if price > self.max_price:
-						item_notify = False
-					if item_notify:
-						for pattern in filter_patterns:
-							if search(pattern, title) is not None:
-								item_notify = False
-					self.queue.put((site, keyword, item_notify, item))
-					put_count += 1
-				if count >= self.enough:
-					break
-				if cut_count >= self.cut:
-					break
-			self.logger.log_line(f"{site.name} から「{keyword}」について {count} 件抽出した内 {put_count} 件をエンキューしました。")
-		except Exception as e:
-			self.logger.log_exception(e, f"{site.name} からの「{keyword}」についての抽出に失敗しました（{put_count} 件エンキュー済み）。")
+	# 観測した新規フェッチをすべて取り出す
+	def pop_fresh(self):
+		fresh = list(self.fresh)
+		self.fresh = set()
+		return fresh
+
+	# キューにある情報をすべて抽出
+	def pop_all_items(self):
+		for i in range(self.queue.qsize):
+			site, kid, keyword, documents = self.queue.get()
+			fresh = (site.name, kid) not in self.history
+			try:
+				count = 0
+				cut_count = 0
+				put_count = 0
+				for item in site.extract(documents):
+					count += 1
+					id, url, title, img, price = item
+					id_pair = (site.name, id)
+					if id_pair in self.cache:
+						cut_count += 1
+					else:
+						cut_count = 0
+						self.cache.add(id_pair)
+						notify = not fresh
+						if price > self.max_price:
+							notify = False
+						if notify:
+							for pattern in self.filter_patterns:
+								if search(pattern, title) is not None:
+									notify = False
+						put_count += 1
+						yield (site, keyword, notify, item)
+					if count >= self.enough:
+						break
+					if cut_count >= self.cut:
+						break
+				if fresh:
+					self.fresh.add((site.name, kid))
+					self.history.add((site.name, kid))
+			except Exception as e:
+				self.logger.log_exception(e, f"{site.name} からの「{keyword}」についての抽出に失敗しました（{put_count} 件送出済み）。")
+			else:
+				self.logger.log_line(f"{site.name} から「{keyword}」について {count} 件抽出した内 {put_count} 件を送出しました。")
