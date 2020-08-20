@@ -25,7 +25,7 @@ def init_driver():
 class Fetcher(Thread):
 
 	# コンストラクタ
-	def __init__(self, id, driver, logger, in_queue, out_queue, wait=0, max_rate=5):
+	def __init__(self, id, driver, logger, in_queue, out_queue, wait=1, max_rate=5):
 		super().__init__(daemon=True)
 		self.id = id
 		self.driver = driver
@@ -65,13 +65,14 @@ class Fetcher(Thread):
 class Extracter():
 
 	# コンストラクタ
-	def __init__(self, logger, queue, max_price, cut=None, enough=100):
-		self.cache = set()
+	def __init__(self, logger, queue, max_price, cut=10, enough=100):
 		self.logger = logger
 		self.queue = queue
 		self.max_price = max_price
 		self.cut = cut
 		self.enough = enough
+		self.cache = set()
+		self.filter_patterns = []
 
 	# 抽出器のスレッドタスク
 	def __call__(self, site, keyword, notify, documents, filter_patterns):
