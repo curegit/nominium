@@ -21,7 +21,7 @@ def smtp_send(host, port, user, password, mailfrom, mailto, messages):
 	with SMTP_SSL(host, port) as smtp:
 		smtp.login(user, password)
 		for message in messages:
-			smtpobj.sendmail(mailfrom, mailto, message.as_string())
+			smtp.sendmail(mailfrom, mailto, message.as_string())
 
 # 複数のメールを設定に基づいて送信する
 def send(mails):
