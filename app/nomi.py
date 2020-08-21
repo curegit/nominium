@@ -108,11 +108,12 @@ with connect() as connection:
 				if not existence:
 					cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site.name, kid))
 			# 通知
-			try:
-				count = nc.send(mails)
-				logger.log_line(f"通知を {count} 送信しました。")
-			except Exception as e:
-				logger.log_exception(e, f"メールの送信に失敗しました。")
+			if mails:
+				try:
+					count = nc.send(mails)
+					logger.log_line(f"通知を {count} 送信しました。")
+				except Exception as e:
+					logger.log_exception(e, f"メールの送信に失敗しました。")
 			# ログに書き込む
 			logger.commit()
 	#
