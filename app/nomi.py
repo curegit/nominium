@@ -79,8 +79,8 @@ with connect() as connection:
 			# キーワードを取り出してイテレータを更新する
 			cursor.execute("SELECT * FROM keyword")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
-			# フェッチタスクをキューに入るだけ入れる
-			for i in range(fetch_queue.qsize()):
+			# フェッチタスクを最低でも1つキューに入るだけ入れる
+			for i in range(max(1, fetch_queue.maxsize - fetch_queue.qsize())):
 				maybe_fetch = next(fetch_iter)
 				if maybe_fetch is None:
 					break
