@@ -16,8 +16,8 @@ uptime = int(sys.argv[1])
 start = time.time()
 
 # タスクキューを作成する
-fetch_queue = Queue(conf.parallel * 10)
-documents_queue = Queue(conf.parallel * 10)
+fetch_queue = Queue(conf.parallel * 3)
+documents_queue = Queue(conf.parallel * 3)
 
 # ロギングを開始する
 logger = Logger()
