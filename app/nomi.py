@@ -80,7 +80,7 @@ with connect() as connection:
 			cursor.execute("SELECT * FROM keyword")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
 			# フェッチタスクをキューに入るだけ入れる
-			for i in range(fetch_queue.qsize):
+			for i in range(fetch_queue.qsize()):
 				maybe_fetch = next(fetch_iter)
 				if maybe_fetch is None:
 					break

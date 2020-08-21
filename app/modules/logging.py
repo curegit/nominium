@@ -38,7 +38,7 @@ class Logger():
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
 	def commit(self):
-		qsize = self.queue.qsize
+		qsize = self.queue.qsize()
 		if qsize > 0:
 			dtime, message = self.queue.get()
 			log_path = log_file_path(dtime)

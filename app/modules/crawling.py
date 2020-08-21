@@ -84,7 +84,7 @@ class Extractor():
 
 	# キューにある情報をすべて抽出
 	def pop_all_items(self):
-		for i in range(self.queue.qsize):
+		for i in range(self.queue.qsize()):
 			site, kid, keyword, documents = self.queue.get()
 			fresh = (site.name, kid) not in self.history
 			try:
