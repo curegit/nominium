@@ -98,7 +98,7 @@ with connect() as connection:
 					cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
 					if notify:
 						subject = f"{site.name}: {title}"
-						body = "{title}\n{price}\n{url}\n\n{img}\n"
+						body = f"{title}\n{price}\n{url}\n\n{img}\n"
 						mails.append((subject, body))
 						logger.log_line(f"通知 {subject}")
 			# 履歴を更新する
