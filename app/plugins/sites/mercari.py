@@ -20,7 +20,7 @@ def extract(documents):
 	for document in documents:
 		bs = BeautifulSoup(document, "html.parser")
 		path = urlparse(bs.select_one("a")["href"]).path
-		id = re.search("/m([0-9]+)/", path).group(1)
+		id = re.search("/(m[0-9]+)/", path).group(1)
 		url = "https://www.mercari.com" + path
 		title = bs.select_one("h3").get_text(strip=True)
 		img_url = urlparse(bs.select_one("img")["data-src"])
