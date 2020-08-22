@@ -34,7 +34,7 @@ class Logger():
 		if message is None:
 			self.log_line(str(exception))
 		else:
-			self.log_line(f"{message}\n{str(exception)}")
+			self.log_line(f"{message}\n{(str(exception)).rstrip()}")
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
 	def commit(self):
