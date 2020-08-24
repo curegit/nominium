@@ -2,15 +2,14 @@ import datetime
 from smtplib import SMTP_SSL
 from email.utils import formatdate
 from email.mime.text import MIMEText
-from modules.config import mail_from, mail_to, mail_bcc, smtp_host, smtp_port, smtp_user, smtp_passwd
+from modules.config import mail_from, mail_to, smtp_host, smtp_port, smtp_user, smtp_passwd
 
 # メッセージオブジェクトをつくる関数
-def create_message(frm, to, bcc, subject, body):
+def create_message(frm, to, subject, body):
 	msg = MIMEText(body)
 	msg["Subject"] = subject
 	msg["From"] = frm
 	msg["To"] = to
-	msg["Bcc"] = bcc
 	msg["Date"] = formatdate()
 	return msg
 
@@ -25,7 +24,7 @@ def smtp_send(host, port, user, password, mailfrom, mailto, messages):
 
 # 複数のメールを設定に基づいて送信する
 def send(mails):
-	messages = [create_message(mail_from, mail_to, mail_bcc, subject, body) for subject, body in mails]
+	messages = [create_message(mail_from, mail_to, subject, body) for subject, body in mails]
 	smtp_send(smtp_host, smtp_port, smtp_user, smtp_passwd, mail_from, mail_to, messages)
 
 # 通知配信を制限に則って行うクラス

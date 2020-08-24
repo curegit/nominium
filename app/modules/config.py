@@ -25,7 +25,6 @@ driver_path = config.get("selenium", "driver")
 # SMTP関係の設定
 mail_to = config.get("smtp", "to")
 mail_from = config.get("smtp", "from")
-mail_bcc = config.get("smtp", "bcc")
 smtp_host = config.get("smtp", "host")
 smtp_port = int(config.get("smtp", "port"))
 smtp_user = config.get("smtp", "user")
