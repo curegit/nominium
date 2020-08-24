@@ -6,17 +6,22 @@
 
 ### Raspbian の場合
 
-- PHP 7 + SQLite (PDO)
-- Python 3 + Selenium (Python) + WebDriver (Chromium)
+- Apache 2
+- PHP 7
+  - SQLite (PDO)
+- Python 3
+  - Selenium (Python) + WebDriver (Chromium)
 
 ## インストール
 
 1. すべてのファイルをサーバーに配置する
-2. `app/settings.ini` を書き換える
+2. `conf/settings.ini` を書き換える
 3. `app/setup.py` を実行
-4. `web/settings/password.php` を書き換える
-5. ブラウザで `/web/` へ行って検索キーワードを登録
-6. `app/ziraffem.py` が毎日実行されるようにする
+
+## 
+
+4. ブラウザで `web/` へ行って検索キーワードを登録
+5. `app/nominium.py` が毎日実行されるようにする
 
 ### 稼働時間
 
