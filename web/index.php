@@ -1,11 +1,8 @@
 <?php
-// 認証
-require_once "./auth.php";
-// インポート
-require_once "./modules/manifest.php";
-require_once "./modules/html.php";
-require_once "./modules/logging.php";
-require_once "./modules/database.php";
+//
+require_once "./modules/auth.php";
+require_once "./modules/functions.php";
+
 // エラーメッセージなし
 $error = "";
 // エラー検証
@@ -23,17 +20,13 @@ try {
 }
 // ページ変数
 define("PAGE_TITLE", "Home");
+define("APP_ABBREVIATION", "Nominium");
+define("APP_NAME", "Nominium");
 ?>
 <?php include "./frames/header.php"; ?>
     <p><?= h(APP_ABBREVIATION) ?> works for you!</p>
     <section>
       <h2>General</h2>
-      <p>
-        Name: <?= h(APP_NAME) ?> (<?= h(APP_ABBREVIATION) ?>)<br>
-        Version: <?= h(VERSION) ?><br>
-        DB: <?= h(DB_PATH) ?><br>
-        Logs: <?= h(LOG_DIR) ?>
-      </p>
     </section>
 <?php IF($error): ?>
     <section>
@@ -46,8 +39,8 @@ define("PAGE_TITLE", "Home");
 <?php FOREACH($items as $item): ?>
       <a href="<?= h($item["url"]) ?>">
         <div style="width: 200px; height: 260px; float: left; margin: 10px; overflow: hidden;">
-          <img src="<?= h($item["img_url"]) ?>" style="width: 200px; height: 200px;">
-          <div><?= h($item["name"]) ?></div>
+          <img src="<?= h($item["img"]) ?>" style="width: 200px; height: 200px;">
+          <div><?= h($item["title"]) ?></div>
         </div>
       </a>
 <?php ENDFOREACH; ?>
