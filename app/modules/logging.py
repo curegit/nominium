@@ -1,4 +1,5 @@
 import datetime
+import traceback
 from queue import Queue
 from modules.utilities import file_path, rel_path
 
@@ -31,10 +32,9 @@ class Logger():
 
 	# ログキューに発生した例外情報を追記する
 	def log_exception(self, exception, message=None):
-		if message is None:
-			self.log_line(str(exception))
-		else:
-			self.log_line(f"{message}\n{(str(exception)).rstrip()}")
+		trace = "".join(traceback.TracebackException.from_exception(exception).format())
+		message = message or (str(exception)).rstrip()
+		self.log_line(f"{message}\n{trace.rstrip()}")
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
 	def commit(self):
