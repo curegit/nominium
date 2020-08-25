@@ -19,7 +19,7 @@ def get(driver, keyword):
 def extract(documents):
 	for document in documents:
 		bs = BeautifulSoup(document, "html.parser")
-		for b in bs.select("items-box"):
+		for b in bs.select(".items-box"):
 			path = urlparse(b.select_one("a")["href"]).path
 			id = re.search("/(m[0-9]+)/", path).group(1)
 			url = "https://www.mercari.com" + path
