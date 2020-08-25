@@ -1,4 +1,4 @@
 from plugins.sites import mercari
-#from plugins.sites import fril
+from plugins.sites import fril
 
-sites = [mercari]
+sites = [mercari, fril]
