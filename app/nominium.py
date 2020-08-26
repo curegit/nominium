@@ -102,11 +102,11 @@ with connect() as connection:
 						mails.append((subject, body))
 						logger.log_line(f"通知 {subject}")
 			# 履歴を更新する
-			for site.name, kid in extractor.pop_fresh():
-				cursor.execute("SELECT COUNT(*) AS count FROM history WHERE site = ? AND keyword = ?", (site.name, kid))
+			for site, kid in extractor.pop_fresh():
+				cursor.execute("SELECT COUNT(*) AS count FROM history WHERE site = ? AND keyword = ?", (site, kid))
 				existence = bool(int(cursor.fetchone()["count"]))
 				if not existence:
-					cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site.name, kid))
+					cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site, kid))
 			# 通知
 			if mails:
 				try:
