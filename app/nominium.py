@@ -49,12 +49,14 @@ for fetcher in fetchers:
 fetch_table = []
 def fetch_iterater():
 	while True:
-		if not fetch_table:
-			yield None
+		count = 0
 		for kid, keyword, probability in fetch_table:
 			if random.random() < probability:
 				for site in sites:
+					count += 1
 					yield site, kid, keyword
+		if count == 0:
+			yield None
 fetch_iter = fetch_iterater()
 
 # データベースに繋いで作業する
