@@ -95,6 +95,8 @@ class Extractor():
 				for item in site.extract(documents):
 					count += 1
 					id, url, title, img, price = item
+					assert type(id) == type(url) == type(title) == type(img) == str
+					assert type(price) == int
 					id_pair = (site.name, id)
 					if id_pair in self.cache:
 						cut_count += 1
