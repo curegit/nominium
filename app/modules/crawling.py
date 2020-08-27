@@ -123,4 +123,5 @@ class Extractor():
 			except Exception as e:
 				self.logger.log_exception(e, f"{site.name} からの「{keyword}」についての抽出に失敗しました（{put_count} 件送出済み）。")
 			else:
-				self.logger.log_line(f"{site.name} から「{keyword}」について {count} 件抽出した内 {put_count} 件を送出しました。")
+				if put_count > 0:
+					self.logger.log_line(f"{site.name} から「{keyword}」について {count} 件抽出した内 {put_count} 件を送出しました。")
