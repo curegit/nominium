@@ -76,15 +76,16 @@ class Extractor():
 		self.fresh = set()
 		self.filter_patterns = []
 
-	# 観測した新規フェッチをすべて取り出す
+	# 新規のフェッチをすべて取り出す
 	def pop_fresh(self):
 		fresh = list(self.fresh)
 		self.fresh = set()
 		return fresh
 
 	# キューにある情報をすべて抽出
-	def pop_all_items(self):
-		for i in range(self.queue.qsize()):
+	def pop_all_items(self, least_one=False):
+		qsize = max(1, self.queue.qsize()) if least_one else self.queue.qsize()
+		for i in range(qsize):
 			site, kid, keyword, documents = self.queue.get()
 			fresh = (site.name, kid) not in self.history
 			try:

@@ -16,8 +16,8 @@ uptime = int(sys.argv[1])
 start = time.time()
 
 # タスクキューを作成する
-fetch_queue = Queue(conf.parallel * 3)
-documents_queue = Queue(conf.parallel * 3)
+fetch_queue = Queue(conf.parallel * 2)
+documents_queue = Queue()
 
 # ロギングを開始する
 logger = Logger()
@@ -81,8 +81,8 @@ with connect() as connection:
 			# キーワードを取り出してイテレータを更新する
 			cursor.execute("SELECT * FROM keyword")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
-			# フェッチタスクを最低でも1つキューに入るだけ入れる
-			for i in range(max(1, fetch_queue.maxsize - fetch_queue.qsize())):
+			# フェッチタスクをキューに入るだけ入れる
+			for i in range(fetch_queue.maxsize - fetch_queue.qsize()):
 				maybe_fetch = next(fetch_iter)
 				if maybe_fetch is None:
 					break
