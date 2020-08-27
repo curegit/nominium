@@ -19,6 +19,7 @@ def init_driver():
 	options.add_argument("--ignore-certificate-errors")
 	options.add_argument("--allow-running-insecure-content")
 	options.add_argument("--disable-web-security")
+	options.add_argument("--lang=ja")
 	return Chrome(executable_path=driver_path, options=options)
 
 # フェッチャースレッド
