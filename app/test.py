@@ -7,4 +7,4 @@ driver.get("http://example.com/")
 driver.quit()
 
 # メール送信のテスト
-send([("テストメール", "テストメール")])
+send([("テストメール", "Nominium テストメールです。")])
