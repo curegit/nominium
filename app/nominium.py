@@ -59,6 +59,35 @@ def fetch_iterater():
 			yield None
 fetch_iter = fetch_iterater()
 
+# フェッチ結果から新規のアイテムについて通知する
+def update(extractor, cursor, nc, logger):
+	# 新規のアイテムを取り出す
+	mails = []
+	for site, keyword, notify, item in extractor.pop_all_items():
+		id, url, title, img, price = item
+		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
+		existence = bool(int(cursor.fetchone()["count"]))
+		if not existence:
+			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
+			if notify:
+				subject = f"{site.name}: {title}"
+				body = f"{title}\n{price}\n{url}\n\n{img}\n"
+				mails.append((subject, body))
+				logger.log_line(f"{site.name} で「{keyword}」について発見：{title}")
+	# 履歴を更新する
+	for site, kid in extractor.pop_fresh():
+		cursor.execute("SELECT COUNT(*) AS count FROM history WHERE site = ? AND keyword = ?", (site, kid))
+		existence = bool(int(cursor.fetchone()["count"]))
+		if not existence:
+			cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site, kid))
+	# 通知を送信する
+	if mails:
+		try:
+			count = nc.send(mails)
+			logger.log_line(f"通知を {count} 件送信しました。")
+		except Exception as e:
+			logger.log_exception(e, f"通知の送信に失敗しました。")
+
 # データベースに繋いで作業する
 with connect() as connection:
 	cursor = connection.cursor()
@@ -90,44 +119,10 @@ with connect() as connection:
 			# フィルタを更新する
 			cursor.execute("SELECT * FROM filter")
 			extractor.filter_patterns = [fr["pattern"] for fr in cursor.fetchall()]
-			#
-			mails = []
-			for site, keyword, notify, item in extractor.pop_all_items():
-				id, url, title, img, price = item
-				cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
-				existence = bool(int(cursor.fetchone()["count"]))
-				if not existence:
-					cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
-					if notify:
-						subject = f"{site.name}: {title}"
-						body = f"{title}\n{price}\n{url}\n\n{img}\n"
-						mails.append((subject, body))
-						logger.log_line(f"通知 {subject}")
-			# 履歴を更新する
-			for site, kid in extractor.pop_fresh():
-				cursor.execute("SELECT COUNT(*) AS count FROM history WHERE site = ? AND keyword = ?", (site, kid))
-				existence = bool(int(cursor.fetchone()["count"]))
-				if not existence:
-					cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site, kid))
-			# 通知
-			if mails:
-				try:
-					count = nc.send(mails)
-					logger.log_line(f"通知を {count} 送信しました。")
-				except Exception as e:
-					logger.log_exception(e, f"メールの送信に失敗しました。")
+			# 新規のアイテムについて通知する
+			update(extractor, cursor, nc, logger)
 			# ログに書き込む
 			logger.commit()
-	#
-	except Exception as e:
-		try:
-			logger.log_exception(e, "重大なエラーが発生")
-			logger.commit()
-		except:
-			pass
-		raise
-	# リソース開放などの後始末を行う
-	finally:
 		# フェッチャーを終了させる
 		for fetcher in fetchers:
 			fetcher.complete = True
@@ -137,7 +132,19 @@ with connect() as connection:
 			fetch_queue.put(None, block=False)
 		for fetcher in fetchers:
 			fetcher.join(timeout=60)
-		# ブラウザを終了させる
+		# バッファに残っているアイテムについて処理する
+		update(extractor, cursor, nc, logger)
+	# 重いエラーが起きた場合
+	except Exception as e:
+		try:
+			logger.log_exception(e, "重大なエラーが発生しました。")
+			logger.commit()
+		except:
+			pass
+		raise
+	# リソース開放などの後始末を行う
+	finally:
+		# WebDriverを終了させる
 		for driver in drivers:
 			try:
 				driver.quit()
@@ -146,6 +153,6 @@ with connect() as connection:
 			else:
 				logger.log_line("ブラウザを正常に終了させました。")
 
-#
+# 終了を報告する
 logger.log_line("プロセスを終了しました。")
 logger.commit()
