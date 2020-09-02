@@ -46,7 +46,7 @@ try {
       <h2>Registered Keywords</h2>
       <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-        <li><?= h($keyword_record["keyword"]) ?> [<?= h($keyword_record["importance"]) ?>] (Crawled <?= h($keyword_record["count"]) ?> times)</li>
+        <li><?= h($keyword_record["keyword"]) ?> [<?= h($keyword_record["importance"]) ?>]</li>
 <?php ENDFOREACH; ?>
       </ul>
     </section>
