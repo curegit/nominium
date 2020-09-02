@@ -1,13 +1,11 @@
 <?php
-// インポート
-require_once __DIR__."/../modules/manifest.php";
-require_once __DIR__."/../modules/html.php";
+require_once __DIR__."/../modules/functions.php";
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title><?= h(PAGE_TITLE) ?> | <?= h(APP_NAME) ?></title>
+    <title><?= h(PAGE_TITLE) ?> | Nominium</title>
     <link href="./assets/style.css" rel="stylesheet">
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/ziraffe.png" rel="apple-touch-icon">
@@ -15,7 +13,7 @@ require_once __DIR__."/../modules/html.php";
   <body>
     <header>
       <img src="./assets/ziraffe.png" alt="Ziraffe Symbol" width="120" height="120" style="float: left;">
-      <h1><?= h(APP_NAME) ?></h1>
+      <h1>Nominium</h1>
       <p>Big Ziraffe is watching.</p>
     </header>
     <hr style="clear: both;">

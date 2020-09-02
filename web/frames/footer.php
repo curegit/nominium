@@ -1,4 +1,4 @@
     <hr>
-    <p><?= h(APP_NAME) ?></p>
+    <p>Nominium</p>
   </body>
 </html>
