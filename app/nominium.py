@@ -73,7 +73,7 @@ def update(extractor, cursor, nc, logger):
 				subject = f"{site.name}: {title}"
 				body = f"{title}\n{price}\n{url}\n\n{img}\n"
 				mails.append((subject, body))
-				logger.log_line(f"{site.name} で「{keyword}」について発見：{title}")
+				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
 	for site, kid in extractor.pop_fresh():
 		cursor.execute("SELECT COUNT(*) AS count FROM history WHERE site = ? AND keyword = ?", (site, kid))
