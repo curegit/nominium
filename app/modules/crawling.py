@@ -84,11 +84,15 @@ class Extractor():
 		return fresh
 
 	# キューにある情報をすべて抽出
-	def pop_all_items(self, least_one=False):
+	def pop_all_items(self, least_one=False, timeout=None):
 		qsize = max(1, self.queue.qsize()) if least_one else self.queue.qsize()
 		for i in range(qsize):
-			site, kid, keyword, documents = self.queue.get()
-			fresh = (site.name, kid) not in self.history
+			try:
+				site, kid, keyword, documents = self.queue.get(timeout=timeout)
+			except:
+				break
+			else:
+				fresh = (site.name, kid) not in self.history
 			try:
 				count = 0
 				cut_count = 0

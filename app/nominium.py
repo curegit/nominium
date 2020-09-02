@@ -60,10 +60,10 @@ def fetch_iterater():
 fetch_iter = fetch_iterater()
 
 # フェッチ結果から新規のアイテムについて通知する
-def update(extractor, cursor, nc, logger):
+def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
-	for site, keyword, notify, item in extractor.pop_all_items(least_one=True):
+	for site, keyword, notify, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
 		id, url, title, img, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
@@ -120,7 +120,7 @@ with connect() as connection:
 			cursor.execute("SELECT * FROM filter")
 			extractor.filter_patterns = [fr["pattern"] for fr in cursor.fetchall()]
 			# 新規のアイテムについて通知する
-			update(extractor, cursor, nc, logger)
+			update(extractor, cursor, nc, logger, least_one=True)
 			# ログに書き込む
 			logger.commit()
 		# フェッチャーを終了させる
