@@ -1,36 +1,27 @@
 <?php
-// 認証
-require_once "./auth.php";
-// インポート
-require_once "./modules/html.php";
-require_once "./modules/database.php";
-// エラーメッセージなし
-$error = "";
-// エラー検証
+require_once "./modules/auth.php";
+require_once "./modules/functions.php";
+
+define("PAGE_TITLE", "登録");
+
 try {
-	// DB接続
-	$pdo = open_db();
-	// 登録
-	$keyword = (string)filter_var($_POST["keyword"] ?? "");
-	$importance = (float)filter_var($_POST["importance"] ?? 0, FILTER_VALIDATE_FLOAT);
-	if ($keyword && $importance > 0 && $importance <= 1) {
-		$stmt = $pdo->prepare("INSERT INTO keyword(keyword,importance) VALUES(?,?)");
-		$stmt->bindValue(1, $keyword);
-		$stmt->bindValue(2, $importance);
-		$stmt->execute();
-	}
-	// 一覧取得
-	$stmt = $pdo->query("SELECT * FROM keyword");
-	$keywords = $stmt->fetchAll();
-// エラー時
+  $pdo = open_db();
+  $keyword = (string)filter_var($_POST["keyword"] ?? "");
+  $importance = (float)filter_var($_POST["importance"] ?? 0, FILTER_VALIDATE_FLOAT);
+  if ($keyword !== "" && $importance > 0 && $importance <= 1) {
+    $stmt = $pdo->prepare("INSERT INTO keyword(keyword, importance) VALUES(?, ?)");
+    $stmt->bindValue(1, $keyword);
+    $stmt->bindValue(2, $importance);
+    $stmt->execute();
+  }
+  $stmt = $pdo->query("SELECT * FROM keyword");
+  $keywords = $stmt->fetchAll();
 } catch (PDOException $e) {
 	$error = $e->getMessage();
 }
-// ページ変数
-define("PAGE_TITLE", "Register");
 ?>
 <?php include "./frames/header.php"; ?>
-<?php IF($error): ?>
+<?php IF($error ?? ""): ?>
     <section>
       <h2>Error</h2>
       <p><?= h($error) ?></p>
