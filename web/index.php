@@ -1,30 +1,20 @@
 <?php
-//
 require_once "./modules/auth.php";
 require_once "./modules/functions.php";
 
-// エラーメッセージなし
-$error = "";
-// エラー検証
 try {
-	// キーワード一覧取得
 	$pdo = open_db();
 	$stmt = $pdo->query("SELECT * FROM keyword");
 	$keywords = $stmt->fetchAll();
-	// 最近の商品を取得
 	$stmt = $pdo->query("SELECT * FROM item ORDER BY added DESC LIMIT 56");
-	$items = $stmt->fetchAll();
-// エラー時
+  $items = $stmt->fetchAll();
+  $error = "";
 } catch (PDOException $e) {
 	$error = $e->getMessage();
 }
-// ページ変数
-define("PAGE_TITLE", "Home");
-define("APP_ABBREVIATION", "Nominium");
-define("APP_NAME", "Nominium");
 ?>
 <?php include "./frames/header.php"; ?>
-    <p><?= h(APP_ABBREVIATION) ?> works for you!</p>
+    <p>Nominium</p>
     <section>
       <h2>General</h2>
     </section>
@@ -52,10 +42,6 @@ define("APP_NAME", "Nominium");
         <li><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
       </ul>
-    </section>
-    <section>
-      <h2>Today Logs</h2>
-      <pre><?= h(get_today_logs()) ?></pre>
     </section>
 <?php ENDIF; ?>
 <?php include "./frames/footer.php"; ?>
