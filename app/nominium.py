@@ -108,7 +108,7 @@ with connect() as connection:
 		# 動作時間内なら続ける
 		while time.time() - start < uptime:
 			# キーワードを取り出してイテレータを更新する
-			cursor.execute("SELECT * FROM keyword")
+			cursor.execute("SELECT * FROM keyword ORDER BY importance DESC")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
 			# フェッチタスクをキューに入るだけ入れる
 			for i in range(fetch_queue.maxsize - fetch_queue.qsize()):
