@@ -63,7 +63,7 @@ fetch_iter = fetch_iterater()
 def update(extractor, cursor, nc, logger):
 	# 新規のアイテムを取り出す
 	mails = []
-	for site, keyword, notify, item in extractor.pop_all_items():
+	for site, keyword, notify, item in extractor.pop_all_items(least_one=True):
 		id, url, title, img, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
