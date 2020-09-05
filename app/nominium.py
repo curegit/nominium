@@ -70,9 +70,10 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 		if not existence:
 			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
 			if notify:
-				subject = f"{site.name}: {title}"
-				body = f"{title}\n{price}\n{url}\n\n{img}\n"
-				mails.append((subject, body))
+				subject = f"{title}"
+				plain = f"{title}\n¥{price:,} / {site.name}\n{url}\n\n{img}\n"
+				html = f"<a href=\"{url}\">{title}</a><br>¥{price:,} / {site.name}<br><img src=\"{img}\">"
+				mails.append((subject, plain, html))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
 	for site, kid in extractor.pop_fresh():
