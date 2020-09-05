@@ -1,6 +1,7 @@
 import sys
 import time
 import random
+from html import escape as h
 from queue import Queue
 from modules import config as conf
 from modules.logging import Logger
@@ -71,8 +72,8 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
 			if notify:
 				subject = f"{title}"
-				plain = f"{title}\n¥{price:,} / {site.name}\n{url}\n\n{img}\n"
-				html = f"<a href=\"{url}\">{title}</a><br>¥{price:,} / {site.name}<br><img src=\"{img}\">"
+				plain = f"{title}\n¥{price:,} – {site.name}\n\nリンク: {url}\n\nイメージ: {img}\n"
+				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><img src=\"{h(img)}\"></body></html>"
 				mails.append((subject, plain, html))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
