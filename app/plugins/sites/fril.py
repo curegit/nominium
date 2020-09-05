@@ -1,7 +1,7 @@
 import re
 import requests
 from urllib.parse import urlparse
-from urllib.parse import quote_plus
+from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 
 #
@@ -9,8 +9,9 @@ name = "Fril"
 
 #
 def get(driver, keyword):
-	quoted_keyword = quote_plus(keyword)
-	return requests.get("https://fril.jp/search/{quoted_keyword}}").text
+	query = { "query": keyword, "sort": "created_at", "order": "desc", "transaction": "selling" }
+	#quoted_keyword = quote_plus(keyword)
+	return requests.get(f"https://fril.jp/s?{urlencode(query)}").text
 
 # イテレータ
 def extract(documents):
