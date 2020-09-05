@@ -71,9 +71,9 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 		if not existence:
 			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
 			if notify:
-				subject = f"{title}"
-				plain = f"{title}\n{site.name} – ¥{price:,}\n\nリンク: {url}\n\nイメージ: {img}\n"
-				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>{h(site.name)} – ¥{price:,}</p><img src=\"{h(img)}\"></body></html>\n"
+				subject = f"{site.name} – {title}"
+				plain = f"{title}\n\n¥{price:,}\n\nリンク: {url}\n\nイメージ: {img}\n"
+				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,}</p><img src=\"{h(img)}\"></body></html>\n"
 				mails.append((subject, plain, html))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
