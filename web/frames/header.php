@@ -1,6 +1,3 @@
-<?php
-require_once __DIR__."/../modules/functions.php";
-?>
 <!DOCTYPE html>
 <html>
   <head>
