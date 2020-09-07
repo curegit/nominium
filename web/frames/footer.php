@@ -1,4 +1,5 @@
-    <hr>
-    <p>Nominium</p>
+    <footer>
+      <span>Nominium</span>
+    </footer>
   </body>
 </html>
