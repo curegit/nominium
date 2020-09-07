@@ -3,15 +3,17 @@ require_once "./modules/auth.php";
 require_once "./modules/functions.php";
 
 try {
-	$pdo = open_db();
-	$stmt = $pdo->query("SELECT * FROM keyword");
-	$keywords = $stmt->fetchAll();
-	$stmt = $pdo->query("SELECT * FROM item ORDER BY added DESC LIMIT 56");
+  $pdo = open_db();
+  $stmt = $pdo->query("SELECT * FROM keyword");
+  $keywords = $stmt->fetchAll();
+  $stmt = $pdo->query("SELECT * FROM item ORDER BY added DESC LIMIT 168");
   $items = $stmt->fetchAll();
   $error = "";
 } catch (PDOException $e) {
-	$error = $e->getMessage();
+  $error = $e->getMessage();
 }
+
+define("PAGE_TITLE", "ホーム");
 ?>
 <?php include "./frames/header.php"; ?>
     <p>Nominium</p>
