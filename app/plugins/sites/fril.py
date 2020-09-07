@@ -4,16 +4,15 @@ from urllib.parse import urlparse
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 
-#
+# サイトの識別子
 name = "Fril"
 
-#
+# フェッチャーにさせる動作
 def get(driver, keyword):
 	query = { "query": keyword, "sort": "created_at", "order": "desc", "transaction": "selling" }
-	#quoted_keyword = quote_plus(keyword)
 	return requests.get(f"https://fril.jp/s?{urlencode(query)}").text
 
-# イテレータ
+# フェッチしたデータの処理
 def extract(documents):
 	bs = BeautifulSoup(documents, "html.parser")
 	if not bs.select_one(".nohit"):
