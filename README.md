@@ -50,11 +50,14 @@
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
-## 設定項目
+## クリーニング
 
-`conf/settings.ini` の設定項目を
+## 設定項目 (`conf/settings.ini`)
 
 ### `general` セクション
+
+
+
 wait = 3
 max_rate = 8
 cut = 10
@@ -62,21 +65,20 @@ enough = 50
 parallel = 4
 max_price = 100000
 max_notify_hourly = 30
-while_stopped = 0
+`while_stopped`
 
 ### `selenium` セクション
-driver = /usr/lib/chromium-browser/chromedriver
+
+Selenium 起動のためのオプションです。
+`driver` に ChromeDriver のパスを記述してください。
 
 ### `smtp` セクション
 
-メール送信
-
+メール送信に使う情報を記入します。
 
 ### `web` セクション
 
 Web インターフェイスにログインするための情報を記入します。
 このセクションのみ、値に英数字ではないものがある場合はダブルクォートで囲む必要があります（PHP モジュールの仕様による）。
-
-## クリーニング
 
 ## ライセンス
