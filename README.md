@@ -1,16 +1,25 @@
 # Nominium
 
-メルカリとラクマの新着商品をメールで通知するクローラー
+個人間取引サイトの新着商品をメールで通知するクローラー
 
-## 動作条件
+## 動作環境
 
-### Raspbian の場合
+### 基本
 
 - Apache 2
-- PHP 7
+  - ディレクトリ毎の `.htaccess` が有効であること
+- PHP 7 以上
+  - Apache 2 で使用できること
   - SQLite (PDO)
-- Python 3
-  - Selenium (Python) + WebDriver (Chromium)
+- Python 3.6 以上
+  - Selenium + WebDriver (Chrome または Chromium)
+
+### プラグイン
+
+初期プラグインの動作には以下が必要です。
+
+- Requests (Python)
+- Beautiful Soup 4 (Python)
 
 ## インストール
 
