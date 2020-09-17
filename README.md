@@ -16,7 +16,7 @@
 
 ### プラグイン
 
-初期プラグインの動作には以下が必要です。
+初期プラグインの動作には以下が必要
 
 - Requests (Python)
 - Beautiful Soup 4 (Python)
