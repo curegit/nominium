@@ -29,12 +29,13 @@
 
 1. すべてのファイルをサーバーに配置する
 2. `conf/settings.ini` を書き換える
-3. `app/setup.py` を実行
+3. `app/setup.py` を Python インタプリタで実行
+4. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認
 
-## 
+## 使い方
 
-4. ブラウザで `web/` へ行って検索キーワードを登録
-5. `app/nominium.py` が毎日実行されるようにする
+ブラウザで `web/` へ行って検索キーワードを登録
+`app/nominium.py` が毎日実行されるようにする
 
 ### 稼働時間
 
@@ -49,12 +50,3 @@
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
-## 動作確認
-
-### Selenium
-
-`app/seletest.py` を実行
-
-### メール送信
-
-`app/mailtest.py` を実行
