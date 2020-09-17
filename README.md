@@ -21,6 +21,10 @@
 - Requests (Python)
 - Beautiful Soup 4 (Python)
 
+### その他
+
+- パスワードでログインできる SMTP サーバー（SSL 必須）
+
 ## インストール
 
 1. すべてのファイルをサーバーに配置する
