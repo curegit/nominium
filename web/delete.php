@@ -1,39 +1,25 @@
 <?php
-// 認証
-require_once "./auth.php";
-// インポート
-require_once "./modules/html.php";
-require_once "./modules/database.php";
-// エラーメッセージなし
-$error = "";
-// エラー検証
+require_once "./modules/auth.php";
+require_once "./modules/functions.php";
+
 try {
-	// DB接続
-	$pdo = open_db();
-	// 削除IDが与えられていれば処理する
-	$deletes = isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [];
-	$deletes = array_filter($deletes, "is_numeric");
-	// 削除されるものを記録
-	$deleted = [];
-	foreach ($deletes as $del) {
-		// 削除されるものを調べる
-		$stmt = $pdo->prepare("SELECT * FROM keyword WHERE id = ?");
-		$stmt->bindValue(1, $del);
-		$stmt->execute();
-		$deleted = array_merge($deleted, $stmt->fetchAll());
-		// 削除する
-		$stmt = $pdo->prepare("DELETE FROM keyword WHERE id = ?");
-		$stmt->bindValue(1, $del);
-		$stmt->execute();
-	}
-	// 一覧取得
-	$stmt = $pdo->query("SELECT * FROM keyword");
-	$keywords = $stmt->fetchAll();
-// エラー時
+  $pdo = open_db();
+  $deletes = array_filter(isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [], "is_numeric");
+  if (!empty($deletes)) {
+    $holders = implode(", ", array_fill(0, count($deletes), "?"));
+    $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders)");
+    $stmt->execute($deletes);
+    $deleted = $stmt->fetchAll();
+    $stmt = $pdo->prepare("DELETE * FROM keyword WHERE id IN ($holders)");
+    $stmt->execute($deletes);
+  }
+  $stmt = $pdo->query("SELECT * FROM keyword");
+  $keywords = $stmt->fetchAll();
+  $error = false;
 } catch (PDOException $e) {
-	$error = $e->getMessage();
+  $error = $e->getMessage();
 }
-// ページ変数
+
 define("PAGE_TITLE", "Delete");
 ?>
 <?php include "./frames/header.php"; ?>

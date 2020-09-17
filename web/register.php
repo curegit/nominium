@@ -16,8 +16,9 @@ try {
   }
   $stmt = $pdo->query("SELECT * FROM keyword");
   $keywords = $stmt->fetchAll();
+  $error = false;
 } catch (PDOException $e) {
-	$error = $e->getMessage();
+  $error = $e->getMessage();
 }
 ?>
 <?php include "./frames/header.php"; ?>
