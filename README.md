@@ -16,7 +16,7 @@
 
 ### プラグイン
 
-初期プラグインの動作には以下が必要
+初期プラグインの動作には以下が必要です。
 
 - Requests (Python)
 - Beautiful Soup 4 (Python)
@@ -50,3 +50,33 @@
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
+## 設定項目
+
+`conf/settings.ini` の設定項目を
+
+### `general` セクション
+wait = 3
+max_rate = 8
+cut = 10
+enough = 50
+parallel = 4
+max_price = 100000
+max_notify_hourly = 30
+while_stopped = 0
+
+### `selenium` セクション
+driver = /usr/lib/chromium-browser/chromedriver
+
+### `smtp` セクション
+
+メール送信
+
+
+### `web` セクション
+
+Web インターフェイスにログインするための情報を記入します。
+このセクションのみ、値に英数字ではないものがある場合はダブルクォートで囲む必要があります（PHP モジュールの仕様による）。
+
+## クリーニング
+
+## ライセンス
