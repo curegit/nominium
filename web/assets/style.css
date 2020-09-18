@@ -15,6 +15,7 @@ a {
 }
 
 h1 {
+  height: 54px;
   color: #cac6ff;
 }
 
@@ -43,13 +44,14 @@ td {
 
 header {
   background-image: url(ziraffe.png);
-  background-position: bottom left;
+  background-position: bottom left 10px;
   background-size: 80px;
   background-repeat: no-repeat;
   min-height: 90px;
-  padding-left: 100px;
+  padding-top: 10px;
+  padding-left: 110px;
   margin-bottom: 20px;
-  border-bottom: solid 1px white;
+  border-bottom: solid 2px white;
 }
 
 nav.menu {
@@ -59,11 +61,12 @@ nav.menu {
 nav.menu > ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  margin-left: 20px;
 }
 
 nav.menu > ul > li {
   display: block;
-  padding: 4px;
+  padding: 6px;
   background-color: #327d7a;
 }
 
@@ -78,7 +81,7 @@ section.items {
 }
 
 a.item {
-  margin: 0px 5px 10px 5px;
+  margin: 0px 5px 20px 5px;
 }
 
 a.item > div {
@@ -107,7 +110,9 @@ a.item > div.frame > div.price {
   right: 0;
   bottom: 0;
   z-index: 1;
-  background-color: #ffffff63;
+  padding: 2px;
+  color: black;
+  background-color: #ffffff99;
 }
 
 a.item > div.title {
