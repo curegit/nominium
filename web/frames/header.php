@@ -9,7 +9,7 @@
   <body>
     <header>
       <h1>Nominium</h1>
-      <nav>
+      <nav class="menu">
         <ul>
           <li><a href="./">Home</a></li>
           <li><a href="./register.php">Register</a></li>

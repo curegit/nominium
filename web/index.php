@@ -24,9 +24,11 @@ define("PAGE_TITLE", "ホーム");
       <section class="items">
 <?php FOREACH($items as $item): ?>
         <a class="item" href="<?= h($item["url"]) ?>">
-          <div class="image"><img src="<?= h($item["img"]) ?>"></div>
+          <div class="frame">
+            <img class="image" src="<?= h($item["img"]) ?>">
+            <div class="price">¥<?= h(number_format($item["price"])) ?></div>
+          </div>
           <div class="title"><?= h($item["title"]) ?></div>
-          <div class="price">¥<?= h(number_format($item["price"])) ?></div>
         </a>
 <?php ENDFOREACH; ?>
       </section>
