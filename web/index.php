@@ -23,10 +23,10 @@ define("PAGE_TITLE", "ホーム");
 <?php ELSE: ?>
       <section class="items">
 <?php FOREACH($items as $item): ?>
-        <a href="<?= h($item["url"]) ?>">
-          <div><img src="<?= h($item["img"]) ?>"></div>
-          <div><?= h($item["title"]) ?></div>
-          <div>¥<?= h(number_format($item["price"])) ?></div>
+        <a class="item" href="<?= h($item["url"]) ?>">
+          <div class="image"><img src="<?= h($item["img"]) ?>"></div>
+          <div class="title"><?= h($item["title"]) ?></div>
+          <div class="price">¥<?= h(number_format($item["price"])) ?></div>
         </a>
 <?php ENDFOREACH; ?>
       </section>

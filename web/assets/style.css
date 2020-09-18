@@ -4,6 +4,7 @@
 }
 
 body {
+  min-width: 320px;
   color: #FFF;
   background-color: #505050;
 }
@@ -58,4 +59,37 @@ nav > ul > li {
 section.items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+a.item {
+
+}
+
+a.item > div {
+
+}
+
+a.item > div.image {
+  position: relative;
+}
+
+a.item > div.image::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+a.item > div.image > img {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+a.item > div.title {
+
+}
+
+a.item > div.price {
+
 }
