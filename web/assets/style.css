@@ -6,8 +6,8 @@
 
 body {
   min-width: 320px;
-  color: #FFF;
   background-color: #505050;
+  color: #fff;
 }
 
 a {
@@ -27,7 +27,7 @@ table {
   background-color: #303030;
   margin: 15px;
   border-collapse: collapse;
-  border: solid 2px #FEFEFE;
+  border: solid 2px #fefefe;
 }
 
 td, th {
@@ -51,7 +51,7 @@ header {
   padding-top: 10px;
   padding-left: 110px;
   margin-bottom: 20px;
-  border-bottom: solid 2px white;
+  border-bottom: solid 2px #fefefe;
 }
 
 nav.menu {
@@ -110,9 +110,10 @@ a.item > div.frame > div.price {
   right: 0;
   bottom: 0;
   z-index: 1;
-  padding: 2px;
-  color: black;
-  background-color: #ffffff99;
+  padding: 2px 4px;
+  background-color: #ffffffcc;
+  color: #000;
+  font-weight: bolder;
 }
 
 a.item > div.title {
