@@ -24,7 +24,7 @@ define("PAGE_TITLE", "ホーム");
       <section class="items">
 <?php FOREACH($items as $item): ?>
         <a href="<?= h($item["url"]) ?>">
-          <img src="<?= h($item["img"]) ?>">
+          <div><img src="<?= h($item["img"]) ?>"></div>
           <div><?= h($item["title"]) ?></div>
           <div>¥<?= h(number_format($item["price"])) ?></div>
         </a>
