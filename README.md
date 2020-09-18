@@ -58,24 +58,14 @@
 
 |  項目  |  値の形式  | 説明 |
 | ---- | ---- | ---- |
-|  `wait`  |  自然数  |  |
-|  `max_rate`  |  自然数  |  |
-|  `cut`  |    |  |
-|  `enough`  |  自然数  |  |
-|  `parallel`  |  自然数  |  |
-|  `max_price`  |    |  |
-|  `max_notify_hourly`  |    |  |
-|  `while_stopped`  |  0 または 1  |  |
-
-
-wait = 3
-max_rate = 8
-cut = 10
-enough = 50
-parallel = 4
-max_price = 100000
-max_notify_hourly = 30
-`while_stopped`
+|  `wait`  |  自然数  | 1 つのフェッチャーが 1 回のダウンロードごとに定常的に待つ秒数 |
+|  `max_rate`  |  自然数  | 1 つのフェッチャーは 1 回のダウンロードごとに、この秒数よりは長く経過させる |
+|  `cut`  |  正整数  | 既知のアイテムがこの数連続で出現したらパースを打ち切る |
+|  `enough`  |  正整数  | ダウンロードしたページから抽出するアイテムの数 |
+|  `parallel`  |  正整数  | この数のフェッチャーを並列で起動してダウンロードする |
+|  `max_price`  |  自然数  | この価格以下なら通知する |
+|  `max_notify_hourly`  |  自然数  | 1 時間で送信する最大の通知数 |
+|  `while_stopped`  |  0 または 1  | 1 ならばプログラム停止中の新着アイテムについても通知する |
 
 ### `selenium` セクション
 
