@@ -19,7 +19,7 @@ function get_today_log() {
   $date = date("Y-m-d");
   $log_path = realpath(__DIR__."/../../logs/{$date}.log");
   if (file_exists($log_path) && filesize($log_path) > 0) {
-    return file_get_contents($path);
+    return file_get_contents($log_path);
   } else {
     return false;
   }
