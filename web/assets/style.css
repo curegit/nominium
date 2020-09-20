@@ -8,6 +8,7 @@ body {
   min-width: 320px;
   background-color: #505050;
   color: #fff;
+  font-family: sans-serif;
 }
 
 a {
@@ -60,7 +61,7 @@ nav.menu {
 
 nav.menu > ul {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   margin-left: 20px;
 }
 

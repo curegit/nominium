@@ -11,10 +11,13 @@
       <h1>Nominium</h1>
       <nav class="menu">
         <ul>
-          <li><a href="./">Home</a></li>
-          <li><a href="./register.php">Register</a></li>
-          <li><a href="./delete.php">Delete</a></li>
-          <li><a href="./logout.php">Logout</a></li>
+          <li><a href="./">ホーム</a></li>
+          <li><a href="./register.php">キーワード登録</a></li>
+          <li><a href="./delete.php">キーワード削除</a></li>
+          <li><a href="./delete.php">重要度</a></li>
+          <li><a href="./filter.php">フィルタ</a></li>
+          <li><a href="./inspect.php">監査</a></li>
+          <li><a href="./logout.php">ログアウト</a></li>
         </ul>
       </nav>
     </header>
