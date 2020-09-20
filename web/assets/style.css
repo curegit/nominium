@@ -16,15 +16,6 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  height: 54px;
-  color: #cac6ff;
-}
-
-h2 {
-  color: #fa91ff;
-}
-
 table {
   background-color: #303030;
   margin: 15px;
@@ -45,6 +36,7 @@ td {
 }
 
 pre {
+  font-family: monospace;
   white-space: pre-wrap;
 }
 
@@ -58,6 +50,15 @@ header {
   padding-left: 110px;
   margin-bottom: 20px;
   border-bottom: solid 2px #fefefe;
+}
+
+h1 {
+  height: 54px;
+  color: #aaa4ff;
+}
+
+h2 {
+  color: #fa91ff;
 }
 
 nav.menu {
@@ -124,4 +125,16 @@ a.item > div.frame > div.price {
 
 a.item > div.title {
 
+}
+
+pre.log {
+  font-size: 12px;
+  column-width: 600px;
+}
+
+footer {
+  padding: 20px 10px;
+  border-top: solid 2px #fefefe;
+  background-color: #1f9acd;
+  text-align: center;
 }

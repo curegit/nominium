@@ -2,7 +2,7 @@
 require_once "./modules/auth.php";
 require_once "./modules/functions.php";
 
-define("PAGE_TITLE", "登録");
+define("PAGE_TITLE", "キーワード登録");
 
 try {
   $pdo = open_db();
