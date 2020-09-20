@@ -13,6 +13,7 @@ body {
 
 a {
   color: #fff465;
+  text-decoration: none;
 }
 
 h1 {
@@ -43,6 +44,10 @@ td {
   text-align: left;
 }
 
+pre {
+  white-space: pre-wrap;
+}
+
 header {
   background-image: url(ziraffe.png);
   background-position: bottom left 10px;
@@ -61,7 +66,7 @@ nav.menu {
 
 nav.menu > ul {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   margin-left: 20px;
 }
 
