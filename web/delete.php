@@ -42,7 +42,7 @@ define("PAGE_TITLE", "キーワード削除");
         <h2>登録済みキーワードの削除</h2>
         <p>削除するキーワードを選択してください。</p>
         <form method="post">
-          <ul>
+          <ul class="checklist">
 <?php FOREACH($keywords as $keyword_record): ?>
             <li>
               <label>

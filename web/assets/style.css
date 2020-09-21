@@ -90,7 +90,6 @@ label {
 
 input {
   padding: revert;
-  vertical-align: middle;
 }
 
 main ul {
@@ -140,6 +139,17 @@ a.item > div.frame > div.price {
   background-color: #ffffffcc;
   color: #000;
   font-weight: bolder;
+}
+
+ul.checklist {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+ul.checklist input[type="checkbox"]{
+  margin-right: 22px;
 }
 
 pre.log {
