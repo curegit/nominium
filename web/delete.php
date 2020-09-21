@@ -45,9 +45,7 @@ define("PAGE_TITLE", "キーワード削除");
           <ul class="checklist">
 <?php FOREACH($keywords as $keyword_record): ?>
             <li>
-              <label>
-                <input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?>
-              </label>
+              <label><input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?></label>
             </li>
 <?php ENDFOREACH; ?>
           </ul>

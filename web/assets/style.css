@@ -141,6 +141,10 @@ a.item > div.frame > div.price {
   font-weight: bolder;
 }
 
+a.item > div.title {
+  padding: 3px;
+}
+
 ul.checklist {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -148,7 +152,7 @@ ul.checklist {
   list-style: none;
 }
 
-ul.checklist input[type="checkbox"]{
+ul.checklist input[type="checkbox"] {
   margin-right: 22px;
 }
 
