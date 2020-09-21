@@ -20,7 +20,7 @@ try {
   $error = $e->getMessage();
 }
 
-define("PAGE_TITLE", "Delete");
+define("PAGE_TITLE", "キーワード削除");
 ?>
 <?php include "./frames/header.php"; ?>
 <?php IF($error): ?>
@@ -31,9 +31,9 @@ define("PAGE_TITLE", "Delete");
 <?php ELSE: ?>
 <?php IF($deleted): ?>
     <section>
-      <h2>Result</h2>
+      <h2>操作の結果</h2>
 <?php FOREACH($deleted as $del): ?>
-      <p>Deleted: <?= h($del["keyword"]) ?></p>
+      <p>削除されました：<?= h($del["keyword"]) ?></p>
 <?php ENDFOREACH; ?>
     </section>
 <?php ENDIF; ?>
