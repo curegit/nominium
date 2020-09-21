@@ -26,7 +26,7 @@ define("PAGE_TITLE", "キーワード削除");
     <main>
 <?php IF($error): ?>
       <section>
-        <h2>Error</h2>
+        <h2>エラー</h2>
         <p><?= h($error) ?></p>
       </section>
 <?php ELSE: ?>
