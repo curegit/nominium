@@ -16,53 +16,25 @@ a {
   text-decoration: none;
 }
 
-table {
-  background-color: #303030;
-  margin: 15px;
-  border-collapse: collapse;
-  border: solid 2px #fefefe;
-}
-
-td, th {
-  border: solid 1px #818181;
-}
-
-th {
-  text-align: center;
-}
-
-td {
-  text-align: left;
-}
-
 pre {
   font-family: monospace;
   white-space: pre-wrap;
 }
 
 header {
+  min-height: 90px;
+  padding-top: 10px;
+  padding-left: 110px;
+  border-bottom: solid 2px #fefefe;
   background-image: url(ziraffe.png);
   background-position: bottom left 10px;
   background-size: 80px;
   background-repeat: no-repeat;
-  min-height: 90px;
-  padding-top: 10px;
-  padding-left: 110px;
-  margin-bottom: 20px;
-  border-bottom: solid 2px #fefefe;
 }
 
 h1 {
   height: 54px;
   color: #aaa4ff;
-}
-
-h2 {
-  color: #fa91ff;
-}
-
-nav.menu {
-
 }
 
 nav.menu > ul {
@@ -73,13 +45,25 @@ nav.menu > ul {
 
 nav.menu > ul > li {
   display: block;
-  padding: 6px;
   background-color: #327d7a;
 }
 
 nav.menu > ul > li > a {
   display: block;
+  padding: 6px;
   text-align: center;
+}
+
+nav.menu > ul > li > a:hover {
+  background-color: #00000024;
+}
+
+main {
+  padding: 10px 10px;
+}
+
+h2 {
+  color: #fa91ff;
 }
 
 section.items {
@@ -88,11 +72,13 @@ section.items {
 }
 
 a.item {
-  margin: 0px 5px 20px 5px;
+  display: block;
+  margin: 0px 3px 20px 3px;
+  padding: 2px 2px 0px 2px;
 }
 
-a.item > div {
-
+a.item:hover {
+  background-color: #00000048;
 }
 
 a.item > div.frame {
@@ -133,7 +119,7 @@ pre.log {
 }
 
 footer {
-  padding: 20px 10px;
+  padding: 20px 10px 15px 10px;
   border-top: solid 2px #fefefe;
   background-color: #1f9acd;
   text-align: center;

@@ -4,7 +4,7 @@ require_once "./modules/functions.php";
 
 try {
   $pdo = open_db();
-  $stmt = $pdo->query("SELECT * FROM item ORDER BY added DESC LIMIT 168");
+  $stmt = $pdo->query("SELECT * FROM item ORDER BY added DESC LIMIT 504");
   $items = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
