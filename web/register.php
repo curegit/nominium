@@ -44,6 +44,7 @@ define("PAGE_TITLE", "キーワード登録");
           <input type="submit" value="登録する">
         </form>
       </section>
+<?php IF($keywords): ?>
       <section>
         <h2>登録済みキーワード</h2>
         <ul>
@@ -52,6 +53,7 @@ define("PAGE_TITLE", "キーワード登録");
 <?php ENDFOREACH; ?>
         </ul>
       </section>
+<?php ENDIF; ?>
 <?php ENDIF; ?>
     </main>
 <?php include "./frames/footer.php"; ?>

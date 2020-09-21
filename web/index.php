@@ -23,6 +23,7 @@ define("PAGE_TITLE", "ホーム");
 <?php ELSE: ?>
       <section>
         <h2>新着アイテム</h2>
+<?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
           <a class="item" href="<?= h($item["url"]) ?>">
@@ -34,6 +35,9 @@ define("PAGE_TITLE", "ホーム");
           </a>
 <?php ENDFOREACH; ?>
         </div>
+<?php ELSE: ?>
+        <p>まだ何もインデックスされていません。</p>
+<?php ENDIF; ?>
       </section>
 <?php ENDIF; ?>
     </main>

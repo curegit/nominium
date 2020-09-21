@@ -40,6 +40,7 @@ define("PAGE_TITLE", "キーワード削除");
 <?php ENDIF; ?>
       <section>
         <h2>登録済みキーワードの削除</h2>
+<?php IF($keywords): ?>
         <p>削除するキーワードを選択してください。</p>
         <form method="post">
           <ul class="checklist">
@@ -51,6 +52,9 @@ define("PAGE_TITLE", "キーワード削除");
           </ul>
           <input type="submit" value="削除する">
         </form>
+<?php ELSE: ?>
+        <p>キーワードが登録されていません。</p>
+<?php ENDIF; ?>
       </section>
 <?php ENDIF; ?>
     </main>
