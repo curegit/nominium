@@ -54,7 +54,7 @@ nav.menu > ul > li {
 
 nav.menu > ul > li > a {
   display: block;
-  padding: 6px;
+  padding: 8px 6px 4px;
   text-align: center;
 }
 
@@ -66,6 +66,10 @@ main {
   padding: 10px 10px;
 }
 
+section {
+  margin-bottom: 16px;
+}
+
 h2 {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -73,7 +77,17 @@ h2 {
 }
 
 p {
-  margin-left: 10px;
+  margin: 4px 0px 4px 10px;
+}
+
+form {
+  margin: 4px 0px 4px 10px;
+}
+
+main ul {
+  margin: 4px 0px 4px 10px;
+  padding-left: 10px;
+  list-style-position: inside;
 }
 
 section.items {
@@ -128,7 +142,7 @@ footer {
   position: relative;
   padding: 20px 10px 15px 10px;
   border-top: solid 2px #fefefe;
-  background-color: #0e7ead;
+  background-color: #116f96;
   text-align: center;
 }
 
@@ -139,5 +153,5 @@ footer::after {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #0e7ead;
+  background-color: #116f96;
 }
