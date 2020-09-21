@@ -10,7 +10,7 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders)");
     $stmt->execute($deletes);
     $deleted = $stmt->fetchAll();
-    $stmt = $pdo->prepare("DELETE * FROM keyword WHERE id IN ($holders)");
+    $stmt = $pdo->prepare("DELETE FROM keyword WHERE id IN ($holders)");
     $stmt->execute($deletes);
   }
   $stmt = $pdo->query("SELECT * FROM keyword");
