@@ -23,35 +23,37 @@ try {
 define("PAGE_TITLE", "キーワード削除");
 ?>
 <?php include "./frames/header.php"; ?>
+    <main>
 <?php IF($error): ?>
-    <section>
-      <h2>Error</h2>
-      <p><?= h($error) ?></p>
-    </section>
+      <section>
+        <h2>Error</h2>
+        <p><?= h($error) ?></p>
+      </section>
 <?php ELSE: ?>
 <?php IF($deleted): ?>
-    <section>
-      <h2>操作の結果</h2>
+      <section>
+        <h2>操作の結果</h2>
 <?php FOREACH($deleted as $del): ?>
-      <p>削除されました：<?= h($del["keyword"]) ?></p>
+        <p>削除されました：<?= h($del["keyword"]) ?></p>
 <?php ENDFOREACH; ?>
-    </section>
+      </section>
 <?php ENDIF; ?>
-    <section>
-      <h2>登録済みキーワードの削除</h2>
-      <p>削除するキーワードを選択してください。</p>
-      <form method="post">
-        <ul>
+      <section>
+        <h2>登録済みキーワードの削除</h2>
+        <p>削除するキーワードを選択してください。</p>
+        <form method="post">
+          <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-          <li>
-            <label>
-              <input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?>
-            </label>
-          </li>
+            <li>
+              <label>
+                <input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?>
+              </label>
+            </li>
 <?php ENDFOREACH; ?>
-        </ul>
-        <input type="submit" value="削除する">
-      </form>
-    </section>
+          </ul>
+          <input type="submit" value="削除する">
+        </form>
+      </section>
 <?php ENDIF; ?>
+    </main>
 <?php include "./frames/footer.php"; ?>
