@@ -6,7 +6,7 @@ try {
   $pdo = open_db();
   $keyword = (string)filter_var($_POST["keyword"] ?? "");
   $importance = (float)filter_var($_POST["importance"] ?? 0, FILTER_VALIDATE_FLOAT);
-  if ($keyword !== "" && $importance > 0 && $importance <= 1) {
+  if ($keyword !== "") {
     $stmt = $pdo->prepare("INSERT INTO keyword(keyword, importance) VALUES(?, ?)");
     $stmt->bindValue(1, $keyword);
     $stmt->bindValue(2, $importance);

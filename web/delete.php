@@ -52,7 +52,7 @@ define("PAGE_TITLE", "キーワード削除");
           </ul>
           <input type="submit" value="削除する">
         </form>
-<?php ELSE: ?>
+<?php ELSEIF(!$deleted): ?>
         <p>キーワードが登録されていません。</p>
 <?php ENDIF; ?>
       </section>
