@@ -21,16 +21,19 @@ define("PAGE_TITLE", "ホーム");
         <p><?= h($error) ?></p>
       </section>
 <?php ELSE: ?>
-      <section class="items">
+      <section>
+        <h2>新着アイテム</h2>
+        <div class="items">
 <?php FOREACH($items as $item): ?>
-        <a class="item" href="<?= h($item["url"]) ?>">
-          <div class="frame">
-            <img class="image" src="<?= h($item["img"]) ?>">
-            <div class="price">¥<?= h(number_format($item["price"])) ?></div>
-          </div>
-          <div class="title"><?= h($item["title"]) ?></div>
-        </a>
+          <a class="item" href="<?= h($item["url"]) ?>">
+            <div class="frame">
+              <img class="image" src="<?= h($item["img"]) ?>">
+              <div class="price">¥<?= h(number_format($item["price"])) ?></div>
+            </div>
+            <div class="title"><?= h($item["title"]) ?></div>
+          </a>
 <?php ENDFOREACH; ?>
+        </div>
       </section>
 <?php ENDIF; ?>
     </main>
