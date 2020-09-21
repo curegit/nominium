@@ -15,7 +15,7 @@ mkdirp(data_dir)
 # データベース作成
 with connect() as connection:
 	cursor = connection.cursor()
-	cursor.execute("CREATE TABLE IF NOT EXISTS keyword(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, keyword TEXT NOT NULL UNIQUE, importance REAL NOT NULL CHECK(importance > 0.0 AND importance <= 1.0))")
+	cursor.execute("CREATE TABLE IF NOT EXISTS keyword(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, keyword TEXT NOT NULL UNIQUE, importance REAL NOT NULL, CHECK(importance > 0.0 AND importance <= 1.0))")
 	cursor.execute("CREATE TABLE IF NOT EXISTS filter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, pattern TEXT NOT NULL UNIQUE)")
 	cursor.execute("CREATE TABLE IF NOT EXISTS history(site TEXT NOT NULL, keyword INTEGER NOT NULL, UNIQUE(site, keyword))")
 	cursor.execute("CREATE TABLE IF NOT EXISTS item(site TEXT NOT NULL, id TEXT NOT NULL, url TEXT NOT NULL, title TEXT NOT NULL, img TEXT NOT NULL, price INTEGER NOT NULL, added TIMESTAMP DEFAULT (DATETIME('now', 'localtime')), UNIQUE(site, id))")
