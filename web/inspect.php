@@ -4,17 +4,16 @@ require_once "./modules/functions.php";
 
 $log = get_today_log();
 
-define("PAGE_TITLE", "ログ");
+define("PAGE_TITLE", "監査");
 ?>
 <?php include "./frames/header.php"; ?>
     <main>
       <section>
-        <h2>ログ</h2>
+        <h2>今日のログ</h2>
 <?php IF($log === false): ?>
-        <p>今日のログがありません。</p>
+        <p>今日のログはありません。</p>
 <?php ELSE: ?>
-        <p></p>
-        <pre><?= h($log) ?></pre>
+        <pre class="log"><?= h($log) ?></pre>
 <?php ENDIF; ?>
       </section>
     </main>
