@@ -36,8 +36,8 @@ define("PAGE_TITLE", "キーワード登録");
       </section>
 <?php ENDIF; ?>
       <section>
-        <h2>キーワード登録</h2>
-        <p>Register a new keyword</p>
+        <h2>新規キーワード登録</h2>
+        <p>検索キーワードと重要度を入力してください。</p>
         <form method="post">
           <label>Keyword: <input type="text" name="keyword"></label>
           <label>Importance: <input type="number" name="importance" min=0.01 max=1.0 step=0.01 value=0.8></label>
@@ -48,7 +48,7 @@ define("PAGE_TITLE", "キーワード登録");
         <h2>登録済みキーワード</h2>
         <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-         <li><?= h($keyword_record["keyword"]) ?> [<?= h($keyword_record["importance"]) ?>]</li>
+         <li><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
         </ul>
       </section>
