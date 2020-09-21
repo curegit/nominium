@@ -41,7 +41,7 @@ define("PAGE_TITLE", "キーワード登録");
         <form method="post">
           <label>キーワード：<input type="text" name="keyword"></label>
           <label>重要度：<input type="number" name="importance" min=0.01 max=1.0 step=0.01 value=0.8></label>
-          <input type="submit" value="登録">
+          <input type="submit" value="登録する">
         </form>
       </section>
       <section>

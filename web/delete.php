@@ -38,24 +38,19 @@ define("PAGE_TITLE", "キーワード削除");
     </section>
 <?php ENDIF; ?>
     <section>
-      <h2>Delete</h2>
-      <p>Delete keywords</p>
+      <h2>登録済みキーワードの削除</h2>
+      <p>削除するキーワードを選択してください。</p>
       <form method="post">
-        <table>
-          <tr>
-            <th>Delete</th>
-            <th>Keyword</th>
-            <th>Importance</th>
-          </tr>
+        <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-          <tr>
-            <td style="text-align: center"><input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"></td>
-            <td><?= h($keyword_record["keyword"]) ?></td>
-            <td style="text-align: right"><?= h($keyword_record["importance"])?></td>
-          </tr>
+          <li>
+            <label>
+              <input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?>
+            </label>
+          </li>
 <?php ENDFOREACH; ?>
-        </table>
-        <input type="submit" value="Delete">
+        </ul>
+        <input type="submit" value="削除する">
       </form>
     </section>
 <?php ENDIF; ?>
