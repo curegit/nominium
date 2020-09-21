@@ -15,11 +15,11 @@ function open_db() {
 }
 
 // 今日のログファイルの内容を返す
-function get_today_log() {
+function get_today_log($tail) {
   $date = date("Y-m-d");
   $log_path = realpath(__DIR__."/../../logs/{$date}.log");
   if (file_exists($log_path) && filesize($log_path) > 0) {
-    return file_get_contents($log_path);
+    return `tail -n $tail $log_path`;
   } else {
     return false;
   }
