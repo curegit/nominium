@@ -1,7 +1,7 @@
 <?php
 // HTMLメタ文字のエスケープ
-function h($html) {
-  return htmlspecialchars($html, ENT_QUOTES, "UTF-8");
+function h($str) {
+  return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
 }
 
 // データベースへの接続を開いて返す
