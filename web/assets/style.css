@@ -84,13 +84,17 @@ form {
   margin: 4px 0px 4px 10px;
 }
 
+input {
+  padding: revert;
+}
+
 main ul {
   margin: 4px 0px 4px 10px;
   padding-left: 10px;
   list-style-position: inside;
 }
 
-section.items {
+div.items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
