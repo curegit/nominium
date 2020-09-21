@@ -6,11 +6,14 @@
 
 ### 基本
 
+- Unix システム
+  - `tail` コマンド
 - Apache 2
   - ディレクトリ毎の `.htaccess` が有効であること
-- PHP 7 以上
+- PHP 7.0 以上
   - Apache 2 で使用できること
   - SQLite (PDO)
+  - `shell_exec` のサポート
 - Python 3.6 以上
   - Selenium + WebDriver (Chrome または Chromium)
 
