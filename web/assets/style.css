@@ -54,7 +54,7 @@ nav.menu > ul > li {
 
 nav.menu > ul > li > a {
   display: block;
-  padding: 8px 6px 4px;
+  padding: 8px 6px 6px;
   text-align: center;
 }
 
@@ -63,7 +63,7 @@ nav.menu > ul > li > a:hover {
 }
 
 main {
-  padding: 10px 10px;
+  padding: 15px 10px 10px;
 }
 
 section {
