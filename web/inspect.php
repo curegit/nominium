@@ -2,7 +2,7 @@
 require_once "./modules/auth.php";
 require_once "./modules/functions.php";
 
-$n = 10000;
+$n = 2000;
 $log = get_today_log($n);
 
 define("PAGE_TITLE", "監査");
