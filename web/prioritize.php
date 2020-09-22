@@ -40,13 +40,13 @@ define("PAGE_TITLE", "重要度の変更");
       <section>
         <h2>重要度の変更</h2>
 <?php IF($keywords): ?>
-        <p></p>
+        <p>表中に変更後の値を入力してください。</p>
         <form method="post">
           <table>
             <tr>
               <th>キーワード</th>
-              <th>現在の重要度</th>
-              <th>変更後の重要度</th>
+              <th class="numeric">現在</th>
+              <th class="numeric">変更後</th>
             </tr>
 <?php FOREACH($keywords as $keyword_record): ?>
             <tr>

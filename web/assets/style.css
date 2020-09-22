@@ -102,6 +102,37 @@ main ul {
   list-style-position: inside;
 }
 
+table {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 1px 20px 1px 20px;
+  border-bottom: solid 1px #fff;
+  text-align: center;
+  font-weight: bolder;
+}
+
+th.numeric {
+  padding: 1px 24px 1px 4px;
+  text-align: left;
+}
+
+th.numeric:last-child {
+  padding: 1px 4px 1px 4px;
+  text-align: left;
+}
+
+td {
+  padding: 1px 24px 1px 4px;
+}
+
+td:last-child {
+  padding: 1px 4px 1px 4px;
+}
+
 div.items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
