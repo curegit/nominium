@@ -29,7 +29,7 @@ define("PAGE_TITLE", "キーワード登録");
         <p><?= h($error) ?></p>
       </section>
 <?php ELSE: ?>
-<?php IF($keyword): ?>
+<?php IF($keyword !== ""): ?>
       <section>
         <h2>操作の結果</h2>
         <p>登録されました：<?= h($keyword) ?></p>

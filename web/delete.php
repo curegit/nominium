@@ -5,13 +5,15 @@ require_once "./modules/functions.php";
 try {
   $pdo = open_db();
   $deletes = array_filter(isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [], "is_numeric");
-  if (!empty($deletes)) {
+  if ($deletes) {
     $holders = implode(", ", array_fill(0, count($deletes), "?"));
     $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders)");
     $stmt->execute($deletes);
     $deleted = $stmt->fetchAll();
     $stmt = $pdo->prepare("DELETE FROM keyword WHERE id IN ($holders)");
     $stmt->execute($deletes);
+  } else {
+    $deleted = [];
   }
   $stmt = $pdo->query("SELECT * FROM keyword");
   $keywords = $stmt->fetchAll();
