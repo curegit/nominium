@@ -5,7 +5,7 @@
 }
 
 body {
-  min-width: 320px;
+  min-width: 640px;
   background-color: #505050;
   color: #fff;
   font-family: sans-serif;
@@ -90,6 +90,10 @@ label {
 
 input {
   padding: revert;
+}
+
+input[type="text"] {
+  min-width: 220px;
 }
 
 main ul {
