@@ -18,8 +18,7 @@ try {
   $pattern = (string)filter_var($_POST["pattern"] ?? "");
   if ($pattern !== "") {
     $stmt = $pdo->prepare("INSERT INTO filter(pattern) VALUES(?)");
-    $stmt->bindValue(1, $keyword);
-    $stmt->bindValue(2, $importance);
+    $stmt->bindValue(1, $pattern);
     $stmt->execute();
   }
   $stmt = $pdo->query("SELECT * FROM filter");
