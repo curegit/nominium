@@ -65,7 +65,7 @@ define("PAGE_TITLE", "フィルタ");
           <ul class="checklist">
 <?php FOREACH($filters as $filter_record): ?>
             <li>
-              <label><input type="checkbox" name="deletes[]" value="<?= h($filter_record["id"]) ?>"><?= h($filter_record["filter"]) ?></label>
+              <label><input type="checkbox" name="deletes[]" value="<?= h($filter_record["id"]) ?>"><?= h($filter_record["pattern"]) ?></label>
             </li>
 <?php ENDFOREACH; ?>
           </ul>
