@@ -107,7 +107,7 @@ input[type="text"] {
   min-width: 220px;
 }
 
-main ul {
+main ul, main ol {
   margin: 4px 0px 4px 10px;
   padding-left: 10px;
   padding-right: 10px;
@@ -205,12 +205,11 @@ ul.checklist input[type="checkbox"] {
   margin-right: 22px;
 }
 
-ul.reorderable {
+ol.reorderable {
   margin: 15px 10px 15px 0px;
-  list-style-type: square;
 }
 
-ul.reorderable > li {
+ol.reorderable > li {
   max-width: 600px;
   padding: 2px 10px 2px 10px;
 }

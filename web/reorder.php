@@ -41,11 +41,11 @@ define("PAGE_TITLE", "並べ替え");
 <?php IF($keywords): ?>
         <p>キーワードをクロールしたい順番に並べ替えできます。</p>
         <form method="post">
-          <ul class="reorderable">
+          <ol class="reorderable">
 <?php FOREACH($keywords as $keyword_record): ?>
             <li draggable="true"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>"><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
-          </ul>
+          </ol>
           <input type="submit" value="並べ替える">
         </form>
 <?php ELSE: ?>
