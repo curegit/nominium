@@ -11,7 +11,7 @@ try {
   $error = $e->getMessage();
 }
 
-define("PAGE_TITLE", "キーワード");
+define("PAGE_TITLE", "キーワード表示");
 ?>
 <?php include "./frames/header.php"; ?>
     <main>

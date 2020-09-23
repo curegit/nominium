@@ -110,13 +110,17 @@ input[type="text"] {
 main ul {
   margin: 4px 0px 4px 10px;
   padding-left: 10px;
+  padding-right: 10px;
   list-style-position: inside;
 }
 
 table {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 4px 0px 4px 10px;
   border-collapse: collapse;
+}
+
+form table {
+  margin: 15px 0px 15px 0px;
 }
 
 th {
@@ -199,6 +203,15 @@ ul.checklist {
 
 ul.checklist input[type="checkbox"] {
   margin-right: 22px;
+}
+
+ul.reorderable {
+  margin: 15px 10px 15px 0px;
+  list-style-type: square;
+}
+
+ul.reorderable > li {
+  padding-left: 10px;
 }
 
 pre.log {
