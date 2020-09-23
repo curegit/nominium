@@ -85,6 +85,7 @@ h2 {
   margin-top: 4px;
   margin-bottom: 4px;
   color: #fa91ff;
+  font-size: 24px;
 }
 
 p {
@@ -192,6 +193,8 @@ article.item div.frame > div.price {
 
 article.item h3.title {
   padding: 3px;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 ul.checklist {
