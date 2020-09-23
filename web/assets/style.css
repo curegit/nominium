@@ -152,34 +152,34 @@ div.items {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-a.item {
+article.item > a {
   display: block;
   margin: 0px 2px 20px 2px;
   padding: 3px 3px 0px 3px;
 }
 
-a.item:hover {
+article.item > a:hover {
   background-color: #00000050;
 }
 
-a.item > div.frame {
+article.item div.frame {
   position: relative;
 }
 
-a.item > div.frame::after {
+article.item div.frame::after {
   content: "";
   display: block;
   padding-bottom: 100%;
 }
 
-a.item > div.frame > img.image {
+article.item div.frame > img.image {
   display: block;
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-a.item > div.frame > div.price {
+article.item div.frame > div.price {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -190,7 +190,7 @@ a.item > div.frame > div.price {
   font-weight: bolder;
 }
 
-a.item > div.title {
+article.item h3.title {
   padding: 3px;
 }
 

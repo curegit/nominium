@@ -26,13 +26,15 @@ define("PAGE_TITLE", "ホーム");
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
-          <a class="item" href="<?= h($item["url"]) ?>">
-            <div class="frame">
-              <img class="image" src="<?= h($item["img"]) ?>">
-              <div class="price">¥<?= h(number_format($item["price"])) ?></div>
-            </div>
-            <div class="title"><?= h($item["title"]) ?></div>
-          </a>
+          <article class="item">
+            <a href="<?= h($item["url"]) ?>">
+              <div class="frame">
+                <img class="image" src="<?= h($item["img"]) ?>">
+                <div class="price">¥<?= h(number_format($item["price"])) ?></div>
+              </div>
+              <h3 class="title"><?= h($item["title"]) ?></h3>
+            </a>
+          </article>
 <?php ENDFOREACH; ?>
         </div>
 <?php ELSE: ?>
