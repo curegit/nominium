@@ -7,7 +7,7 @@ try {
   $deletes = array_filter(isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [], "is_numeric");
   if ($deletes) {
     $holders = implode(", ", array_fill(0, count($deletes), "?"));
-    $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders) ORDER BY turn");
+    $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders)");
     $stmt->execute($deletes);
     $deleted = $stmt->fetchAll();
     $stmt = $pdo->prepare("DELETE FROM keyword WHERE id IN ($holders)");
@@ -15,7 +15,7 @@ try {
   } else {
     $deleted = [];
   }
-  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY turn");
+  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY priority DESC");
   $keywords = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {

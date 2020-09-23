@@ -12,7 +12,7 @@ try {
     $stmt->bindValue(2, $importance);
     $stmt->execute();
   }
-  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY turn");
+  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY priority DESC");
   $keywords = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
