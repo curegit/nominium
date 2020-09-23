@@ -12,6 +12,7 @@
       <nav class="menu">
         <ul>
           <li><a href="./">ホーム</a></li>
+          <li><a href="./keyword.php">キーワード</a></li>
           <li><a href="./register.php">登録</a></li>
           <li><a href="./delete.php">削除</a></li>
           <li><a href="./prioritize.php">重要度</a></li>
