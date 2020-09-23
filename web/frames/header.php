@@ -16,6 +16,7 @@
           <li><a href="./register.php">登録</a></li>
           <li><a href="./delete.php">削除</a></li>
           <li><a href="./prioritize.php">重要度</a></li>
+          <li><a href="./reorder.php">並べ替え</a></li>
           <li><a href="./filter.php">フィルタ</a></li>
           <li><a href="./inspect.php">監査</a></li>
           <li><a href="./logout.php">ログアウト</a></li>
