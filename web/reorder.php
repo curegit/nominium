@@ -39,7 +39,7 @@ define("PAGE_TITLE", "並べ替え");
       <section>
         <h2>キーワードの並べ替え</h2>
 <?php IF($keywords): ?>
-        <p>キーワードをクロールしたい順番に並べ替えできます。</p>
+        <p>クロールしたい順番にキーワードを並べ替えできます。</p>
         <form method="post">
           <ol class="reorderable">
 <?php FOREACH($keywords as $keyword_record): ?>
