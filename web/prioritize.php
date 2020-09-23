@@ -14,7 +14,7 @@ try {
     $stmt->execute();
     $updated = true;
   }
-  $stmt = $pdo->query("SELECT * FROM keyword");
+  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY turn");
   $keywords = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
