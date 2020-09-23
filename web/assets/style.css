@@ -203,6 +203,7 @@ ul.checklist {
 
 ul.checklist input[type="checkbox"] {
   margin-right: 22px;
+  vertical-align: middle;
 }
 
 ol.reorderable {
