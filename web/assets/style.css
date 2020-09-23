@@ -211,7 +211,9 @@ ol.reorderable {
 
 ol.reorderable > li {
   max-width: 600px;
+  margin-left: 20px;
   padding: 2px 10px 2px 10px;
+  list-style-position: outside;
 }
 
 pre.log {
