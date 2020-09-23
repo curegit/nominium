@@ -21,9 +21,7 @@ define("PAGE_TITLE", "監査");
         <p>今日のログはありません。</p>
 <?php ELSE: ?>
         <p>最大で末尾から <?= h($n) ?> 行を表示します。</p>
-        <pre class="log">
-<?= h($log) ?>
-        </pre>
+        <pre class="log"><?= h($log) ?></pre>
 <?php ENDIF; ?>
       </section>
 <?php ENDIF; ?>
