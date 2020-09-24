@@ -52,7 +52,7 @@ define("PAGE_TITLE", "フィルタ");
       <section>
         <h2>新規フィルタ登録</h2>
         <p>タイトルに一致する部分を含んだ場合に、通知をしないようにする正規表現パターンを入力してください。</p>
-        <form method="post">
+        <form class="register" method="post">
           <label>パターン：<input type="text" name="pattern"></label>
           <input type="submit" value="登録する">
         </form>

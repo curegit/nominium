@@ -97,7 +97,7 @@ form {
 }
 
 label {
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 input {
@@ -195,6 +195,15 @@ article.item h3.title {
   padding: 3px;
   font-size: inherit;
   font-weight: inherit;
+}
+
+form.register {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form.register > label, form.register > input {
+  margin-bottom: 4px;
 }
 
 ul.checklist {
