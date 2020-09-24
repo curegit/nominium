@@ -7,7 +7,7 @@ switch (true) {
   case !isset($_SERVER["PHP_AUTH_USER"], $_SERVER["PHP_AUTH_PW"]):
   case $_SERVER["PHP_AUTH_USER"] !== $user:
   case $_SERVER["PHP_AUTH_PW"] !== $password:
-    header("WWW-Authenticate: Basic realm=\"Nominium Web へのアクセス\"");
+    header("WWW-Authenticate: Basic realm=\"Nominium Web Interface\"");
     header("Content-Type: text/plain; charset=utf-8");
     die("ログインしてください。".PHP_EOL);
 }
