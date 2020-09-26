@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
-    <link href="./assets/style.css" rel="stylesheet">
     <link href="./assets/ziraffe.png" rel="icon">
+    <link href="./assets/style.css" rel="stylesheet">
+    <script src="./assets/reorder.js"></script>
   </head>
   <body>
     <header>

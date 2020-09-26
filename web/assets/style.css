@@ -226,7 +226,17 @@ ol.reorderable > li {
   max-width: 600px;
   margin-left: 20px;
   padding: 1px 10px 1px 10px;
+  border-top: solid 1px #f5deb3bd;
+  border-bottom: solid 1px #f5deb3bd;
   list-style-position: outside;
+}
+
+ol.reorderable > li.over.above {
+  border-bottom-color: #fa91ff;
+}
+
+ol.reorderable > li.over.below {
+  border-bottom-color: #fa91ff;
 }
 
 pre.log {
