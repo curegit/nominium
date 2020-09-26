@@ -232,11 +232,11 @@ ol.reorderable > li {
 }
 
 ol.reorderable > li.above {
-  border-top-color: #f5deb3bd;
+  border-top-color: #ffedcb6b;
 }
 
 ol.reorderable > li.below {
-  border-bottom-color: #f5deb3bd;
+  border-bottom-color: #ffedcb6b;
 }
 
 ol.reorderable > li.over.above {

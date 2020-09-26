@@ -44,7 +44,6 @@ function drop(event) {
   const target = event.currentTarget;
   const parent = target.parentElement;
   const children = [...parent.children];
-  target.classList.remove("over");
   for (let i = 0; i < children.length; i++) {
     if (children[i] === target) {
       if (children[i].classList.contains("above")) {
@@ -56,10 +55,11 @@ function drop(event) {
       } else {
         parent.appendChild(children[i]);
       }
-    } else {
-      if (children[i] !== dragsource) {
-        parent.appendChild(children[i]);
-      }
+    } else if (children[i] !== dragsource) {
+      parent.appendChild(children[i]);
     }
+  }
+  for (let i = 0; i < children.length; i++) {
+    children[i].classList.remove("over", "above", "below");
   }
 }
