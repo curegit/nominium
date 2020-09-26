@@ -1,22 +1,20 @@
 var dragsource = null;
 
 function dragstart(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  event.dataTransfer.effectAllowed = "move";
   dragsource = event.currentTarget;
+  event.dataTransfer.effectAllowed = "move";
   const children = dragsource.parentElement.children;
   for (let i = 0, above = true; i < children.length; i++) {
     if (children[i] === dragsource) {
       above = false;
-      dragsource.classList.remove("above", "below");
+      children[i].classList.remove("above", "below");
     } else {
       if (above) {
-        dragsource.classList.add("above");
-        dragsource.classList.remove("below");
+        children[i].classList.add("above");
+        children[i].classList.remove("below");
       } else {
-        dragsource.classList.add("below");
-        dragsource.classList.remove("above");
+        children[i].classList.add("below");
+        children[i].classList.remove("above");
       }
     }
   }
