@@ -29,9 +29,12 @@ function dragend(event) {
 
 function dragover(event) {
   event.preventDefault();
-  event.stopPropagation();
-  event.dataTransfer.dropEffect = "move";
-  event.currentTarget.classList.add("over");
+  if (event.currentTarget !== dragsource) {
+    event.dataTransfer.dropEffect = "move";
+    event.currentTarget.classList.add("over");
+  } else {
+    event.dataTransfer.dropEffect = "none";
+  }
 }
 
 function dragleave(event) {
