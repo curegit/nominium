@@ -23,7 +23,7 @@ function dragstart(event) {
 function dragend(event) {
   const children = event.currentTarget.parentElement.children;
   for (let i = 0; i < children.length; i++) {
-    children[i].classList.remove("over");
+    children[i].classList.remove("over", "above", "below");
   }
 }
 
@@ -46,16 +46,18 @@ function drop(event) {
   const children = [...parent.children];
   target.classList.remove("over");
   for (let i = 0; i < children.length; i++) {
-    if (children[i] !== dragsource) {
-      if (children[i] === target) {
-        if (children[i].classList.contains("above")) {
-          parent.appendChild(dragsource);
-          parent.appendChild(children[i]);
-        } else if (children[i].classList.contains("below")) {
-          parent.appendChild(children[i]);
-          parent.appendChild(dragsource);
-        }
+    if (children[i] === target) {
+      if (children[i].classList.contains("above")) {
+        parent.appendChild(dragsource);
+        parent.appendChild(children[i]);
+      } else if (children[i].classList.contains("below")) {
+        parent.appendChild(children[i]);
+        parent.appendChild(dragsource);
       } else {
+        parent.appendChild(children[i]);
+      }
+    } else {
+      if (children[i] !== dragsource) {
         parent.appendChild(children[i]);
       }
     }
