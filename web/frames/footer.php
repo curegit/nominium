@@ -1,5 +1,5 @@
     <footer>
-      <span>Nominium</span>
+      <span>Nominium Web Interface on PHP <?= h(phpversion()) ?></span>
     </footer>
   </body>
 </html>
