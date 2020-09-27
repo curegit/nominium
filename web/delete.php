@@ -1,76 +1,63 @@
 <?php
-// 認証
-require_once "./auth.php";
-// インポート
-require_once "./modules/html.php";
-require_once "./modules/database.php";
-// エラーメッセージなし
-$error = "";
-// エラー検証
+require_once "./modules/auth.php";
+require_once "./modules/functions.php";
+
 try {
-	// DB接続
-	$pdo = open_db();
-	// 削除IDが与えられていれば処理する
-	$deletes = isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [];
-	$deletes = array_filter($deletes, "is_numeric");
-	// 削除されるものを記録
-	$deleted = [];
-	foreach ($deletes as $del) {
-		// 削除されるものを調べる
-		$stmt = $pdo->prepare("SELECT * FROM keyword WHERE id = ?");
-		$stmt->bindValue(1, $del);
-		$stmt->execute();
-		$deleted = array_merge($deleted, $stmt->fetchAll());
-		// 削除する
-		$stmt = $pdo->prepare("DELETE FROM keyword WHERE id = ?");
-		$stmt->bindValue(1, $del);
-		$stmt->execute();
-	}
-	// 一覧取得
-	$stmt = $pdo->query("SELECT * FROM keyword");
-	$keywords = $stmt->fetchAll();
-// エラー時
+  $pdo = open_db();
+  $deletes = array_filter(isset($_POST["deletes"]) ? (array)$_POST["deletes"] : [], "is_numeric");
+  if ($deletes) {
+    $holders = implode(", ", array_fill(0, count($deletes), "?"));
+    $stmt = $pdo->prepare("SELECT * FROM keyword WHERE id IN ($holders)");
+    $stmt->execute($deletes);
+    $deleted = $stmt->fetchAll();
+    $stmt = $pdo->prepare("DELETE FROM keyword WHERE id IN ($holders)");
+    $stmt->execute($deletes);
+  } else {
+    $deleted = [];
+  }
+  $stmt = $pdo->query("SELECT * FROM keyword ORDER BY priority DESC");
+  $keywords = $stmt->fetchAll();
+  $error = false;
 } catch (PDOException $e) {
-	$error = $e->getMessage();
+  $error = $e->getMessage();
 }
-// ページ変数
-define("PAGE_TITLE", "Delete");
+
+define("PAGE_TITLE", "キーワード削除");
 ?>
 <?php include "./frames/header.php"; ?>
+    <main>
 <?php IF($error): ?>
-    <section>
-      <h2>Error</h2>
-      <p><?= h($error) ?></p>
-    </section>
+      <section>
+        <h2>エラー</h2>
+        <p><?= h($error) ?></p>
+      </section>
 <?php ELSE: ?>
 <?php IF($deleted): ?>
-    <section>
-      <h2>Result</h2>
+      <section>
+        <h2>操作の結果</h2>
 <?php FOREACH($deleted as $del): ?>
-      <p>Deleted: <?= h($del["keyword"]) ?></p>
+        <p>削除されました：<?= h($del["keyword"]) ?></p>
 <?php ENDFOREACH; ?>
-    </section>
+      </section>
 <?php ENDIF; ?>
-    <section>
-      <h2>Delete</h2>
-      <p>Delete keywords</p>
-      <form method="post">
-        <table>
-          <tr>
-            <th>Delete</th>
-            <th>Keyword</th>
-            <th>Importance</th>
-          </tr>
+      <section>
+        <h2>登録済みキーワードの削除</h2>
+<?php IF($keywords): ?>
+        <p>削除するキーワードを選択してください。</p>
+        <form method="post">
+          <ul class="checklist">
 <?php FOREACH($keywords as $keyword_record): ?>
-          <tr>
-            <td style="text-align: center"><input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"></td>
-            <td><?= h($keyword_record["keyword"]) ?></td>
-            <td style="text-align: right"><?= h($keyword_record["importance"])?></td>
-          </tr>
+            <li>
+              <label><input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?></label>
+            </li>
 <?php ENDFOREACH; ?>
-        </table>
-        <input type="submit" value="Delete">
-      </form>
-    </section>
+          </ul>
+          <input type="submit" value="削除する">
+        </form>
+<?php ELSE: ?>
+        <p>キーワードが登録されていません。</p>
 <?php ENDIF; ?>
+      </section>
+<?php ENDIF; ?>
+    </main>
 <?php include "./frames/footer.php"; ?>

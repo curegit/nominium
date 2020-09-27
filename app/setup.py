@@ -1,24 +1,25 @@
 import os
-import sqlite3
+from shutil import rmtree
+from modules.logging import log_dir
+from modules.database import data_dir, db_path, connect
+from modules.utilities import mkdirp
 
-# カレントディレクトリ変更
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# データのクリーンアップ
+rmtree(log_dir, ignore_errors=True)
+rmtree(data_dir, ignore_errors=True)
 
-# ログディレクトリをつくる
-logdir = "logs"
-if not os.path.exists(logdir):
-	os.mkdir(logdir)
+# 各種ディレクトリをつくる
+mkdirp(log_dir)
+mkdirp(data_dir)
 
-# DB作成
-dbname = "ziraffem.db"
-connection = sqlite3.connect(dbname, isolation_level=None)
-cursor = connection.cursor()
-sql = "CREATE TABLE IF NOT EXISTS item(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, url TEXT NOT NULL UNIQUE, name TEXT, img_url TEXT, added TIMESTAMP DEFAULT (DATETIME('now', 'localtime')))"
-cursor.execute(sql)
-sql = "CREATE TABLE IF NOT EXISTS keyword(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, keyword TEXT NOT NULL UNIQUE, importance REAL NOT NULL, count INTEGER NOT NULL DEFAULT 0)"
-cursor.execute(sql)
-connection.close()
+# データベース作成
+with connect() as connection:
+	cursor = connection.cursor()
+	cursor.execute("CREATE TABLE IF NOT EXISTS keyword(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, keyword TEXT NOT NULL UNIQUE, importance REAL NOT NULL, priority INTEGER NOT NULL DEFAULT 0, CHECK(importance > 0.0 AND importance <= 1.0))")
+	cursor.execute("CREATE TABLE IF NOT EXISTS filter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, pattern TEXT NOT NULL UNIQUE)")
+	cursor.execute("CREATE TABLE IF NOT EXISTS history(site TEXT NOT NULL, keyword INTEGER NOT NULL, UNIQUE(site, keyword))")
+	cursor.execute("CREATE TABLE IF NOT EXISTS item(site TEXT NOT NULL, id TEXT NOT NULL, url TEXT NOT NULL, title TEXT NOT NULL, img TEXT NOT NULL, price INTEGER NOT NULL, added TIMESTAMP DEFAULT (DATETIME('now', 'localtime')), UNIQUE(site, id))")
 
-# PHPから操作できるようにディレクトリとDBのパーミッションを変える
-os.chmod(".", 0o777)
-os.chmod(dbname, 0o777)
+# データベースをPHPから操作できるようにパーミッションを変える
+os.chmod(data_dir, 0o777)
+os.chmod(db_path, 0o777)
