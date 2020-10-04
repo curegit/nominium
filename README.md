@@ -1,22 +1,44 @@
-# Ziraffe Roams Markets
+# Nominium
 
-メルカリとラクマの新着商品をメールで通知するクローラー
+個人間取引サイトの新着商品をメールで通知するクローラー
 
-## 動作条件
+## 動作環境
 
-### Raspbian の場合
+### 基本
 
-- PHP 7 + SQLite (PDO)
-- Python 3 + Selenium (Python) + WebDriver (Chromium)
+- Unix システム
+  - `tail` コマンド
+- Apache 2
+  - ディレクトリ毎の `.htaccess` が有効であること
+- PHP 7.0 以上
+  - Apache 2 で使用できること
+  - SQLite (PDO)
+  - `shell_exec` のサポート
+- Python 3.6 以上
+  - Selenium + WebDriver (Chrome または Chromium)
+
+### プラグイン
+
+初期プラグインの動作には以下が必要です。
+
+- Requests (Python)
+- Beautiful Soup 4 (Python)
+
+### その他
+
+- パスワードでログインできる SMTP サーバー（SSL 必須）
 
 ## インストール
 
 1. すべてのファイルをサーバーに配置する
-2. `app/settings.ini` を書き換える
-3. `app/setup.py` を実行
-4. `web/settings/password.php` を書き換える
-5. ブラウザで `/web/` へ行って検索キーワードを登録
-6. `app/ziraffem.py` が毎日実行されるようにする
+2. 設定ファイル `conf/settings.ini` を書き換える
+3. `app/setup.py` を Python インタプリタで実行
+4. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認
+
+## 使い方
+
+ブラウザで `web/` へ行って検索キーワードを登録
+`app/nominium.py` が毎日実行されるようにする
 
 ### 稼働時間
 
@@ -31,12 +53,40 @@
 0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
 ```
 
-## 動作確認
+## クリーニング
 
-### Selenium
+## 設定ファイル
 
-`app/seletest.py` を実行
+### `general` セクション
 
-### メール送信
+| 項目                | 値の形式   | 説明                                                          |
+|---------------------|------------|---------------------------------------------------------------|
+| `wait`              | 自然数     | 1 つのフェッチャーが 1 回のダウンロードごとに定常的に待つ秒数 |
+| `max_rate`          | 自然数     | 1 つのフェッチャーが 1 回のダウンロードにかける最低秒数       |
+| `cut`               | 正整数     | 既知のアイテムがこの数連続で出現したら抽出を打ち切る          |
+| `enough`            | 正整数     | ダウンロードしたページから抽出する十分なアイテムの数          |
+| `parallel`          | 正整数     | この数のフェッチャーを並列で起動してダウンロードする          |
+| `max_price`         | 自然数     | この価格以下なら通知する                                      |
+| `max_notify_hourly` | 自然数     | 1 時間で送信する最大の通知数                                  |
+| `while_stopped`     | 0 または 1 | 1 ならばプログラム停止中の新着アイテムについても通知する      |
 
-`app/mailtest.py` を実行
+### `selenium` セクション
+
+Selenium 起動のためのオプション群です。
+`driver` に ChromeDriver のパスを記述してください。
+
+### `smtp` セクション
+
+メール送信に使用する情報を記入します。
+
+### `web` セクション
+
+Web インターフェイスにログインするための情報を記入します。
+このセクションのみ、値に英数字ではないものがある場合はダブルクォートで囲む必要があります（PHP モジュールの仕様による）。
+
+## 注意事項
+
+- SSL 証明書を検証しないなどの望ましくない振る舞いを含んでいます。
+- 設定ファイルはパスワードを平文で保持するので扱いに注意してください。
+
+## ライセンス
