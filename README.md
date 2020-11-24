@@ -4,7 +4,7 @@
 
 ## 動作環境
 
-### 基本
+### 本体
 
 - Unix システム
   - `tail` コマンド
@@ -12,7 +12,7 @@
   - ディレクトリ毎の `.htaccess` が有効であること
 - PHP 7.0 以上
   - Apache 2 で使用できること
-  - SQLite (PDO)
+  - SQLite (PDO) のサポート
   - `shell_exec` のサポート
 - Python 3.6 以上
   - Selenium + WebDriver (Chrome または Chromium)
@@ -26,32 +26,21 @@
 
 ### その他
 
-- パスワードでログインできる SMTP サーバー（SSL 必須）
+- パスワードでログインできる SMTP サーバー（要 SSL）
 
-## インストール
+## インストール手順
 
 1. すべてのファイルをサーバーに配置する
 2. 設定ファイル `conf/settings.ini` を書き換える
-3. `app/setup.py` を Python インタプリタで実行
-4. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認
+3. `app/setup.py` を Python インタプリタで実行する
+4. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認する
 
 ## 使い方
 
-ブラウザで `web/` へ行って検索キーワードを登録
-`app/nominium.py` が毎日実行されるようにする
-
-### 稼働時間
-
-`app/ziraffem.py` の稼働時間は `settings.ini` の `time` で制御する。
-例えば、64800 に設定して午前7時に起動すると、午前1時に終了する。
-
-### Crontab の例
-
-毎朝7時に起動する例
-
-```
-0 7 * * * python3 /home/username/public_html/ziraffem/app/ziraffem.py
-```
+ブラウザで `web/` を訪問し（初期パスワードは設定ファイルを参照）、検索キーワードを登録する。
+Python インタプリタで `app/nominium.py <稼働時間 (sec)>` を実行すると、実行されている間の新着商品がメールで通知される。
+通知が　なんらかの方法でこのスクリプトが恒常的に実行されるようにする。
+クロールするサイトとその手続きはプラグインの形で定義する。
 
 ## クリーニング
 
