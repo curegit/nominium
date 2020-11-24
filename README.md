@@ -2,6 +2,8 @@
 
 個人間取引サイトの新着商品をメールで通知するクローラー
 
+<img src="web/assets/ziraffe.png" width="80px" height="80px">
+
 ## 動作要件
 
 ### 本体
