@@ -13,7 +13,8 @@ name = "Mercari"
 def get(driver, keyword):
 	query = { "keyword": keyword, "sort": "created_time", "order": "desc", "status": "on_sale" }
 	driver.get(f"https://jp.mercari.com/search?{urlencode(query)}")
-	container = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "search-result")))
+	WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#search-result a")))
+	container = driver.find_element_by_id("search-result")
 	return container.get_attribute("innerHTML")
 
 # フェッチしたデータの処理
