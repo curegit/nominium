@@ -12,7 +12,7 @@ def init_driver():
 	options.add_argument("--no-sandbox")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")
-	options.add_argument("--start-maximized")
+	options.add_argument("--window-size=1920,1080")
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-desktop-notifications")
 	options.add_argument("--blink-settings=imagesEnabled=false")
