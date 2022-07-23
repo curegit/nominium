@@ -1,5 +1,4 @@
 import re
-from urllib.parse import urlparse
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
@@ -26,7 +25,6 @@ def extract(documents):
 		url = "https://item.mercari.com/jp/" + id
 		thum = b.select_one("mer-item-thumbnail")
 		title = thum["item-name"]
-		img_url = urlparse(thum["src"])
-		img = img_url.scheme + "://" + img_url.netloc + img_url.path
+		img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
 		price = int(thum["price"])
 		yield (id, url, title, img, price)
