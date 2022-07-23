@@ -23,7 +23,7 @@ def extract(documents):
 	for b in bs.select("li"):
 		path = b.select_one("a")["href"]
 		id = re.search("/(m[0-9]+)", path).group(1)
-		url = "https://jp.mercari.com" + path
+		url = "https://item.mercari.com/jp/" + id
 		thum = b.select_one("mer-item-thumbnail")
 		title = thum["item-name"]
 		img_url = urlparse(thum["src"])
