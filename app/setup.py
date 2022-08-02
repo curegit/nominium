@@ -23,6 +23,7 @@ with connect() as connection:
 	cursor.execute("CREATE TABLE IF NOT EXISTS filter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, pattern TEXT NOT NULL UNIQUE)")
 	cursor.execute("CREATE TABLE IF NOT EXISTS history(site TEXT NOT NULL, keyword INTEGER NOT NULL, UNIQUE(site, keyword))")
 	cursor.execute("CREATE TABLE IF NOT EXISTS item(site TEXT NOT NULL, id TEXT NOT NULL, url TEXT NOT NULL, title TEXT NOT NULL, img TEXT NOT NULL, price INTEGER NOT NULL, added TIMESTAMP DEFAULT (DATETIME('now', 'localtime')), UNIQUE(site, id))")
+	cursor.execute("VACUUM")
 
 # データベースをPHPから操作できるようにパーミッションを変える
 os.chmod(data_dir, 0o777)
