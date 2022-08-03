@@ -27,4 +27,4 @@ with connect() as connection:
 
 # データベースをPHPから操作できるようにパーミッションを変える
 os.chmod(data_dir, 0o777)
-os.chmod(db_path, 0o777)
+os.chmod(db_path, 0o666)
