@@ -5,7 +5,6 @@
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/style.css" rel="stylesheet">
-    <script defer src="./assets/reorder.js"></script>
   </head>
   <body>
     <header>

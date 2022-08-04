@@ -40,6 +40,7 @@ define("PAGE_TITLE", "並べ替え");
         <h2>キーワードの並べ替え</h2>
 <?php IF($keywords): ?>
         <p>クロールしたい順番にキーワードを並べ替えできます。</p>
+        <script defer src="./assets/reorder.js"></script>
         <form method="post">
           <ol class="reorderable">
 <?php FOREACH($keywords as $keyword_record): ?>
