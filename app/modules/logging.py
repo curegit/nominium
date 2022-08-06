@@ -16,19 +16,23 @@ def time_string(dtime):
 	return dtime.strftime("[%Y-%m-%d %H:%M:%S]")
 
 # ログの行フォーマットを施した文字列を返す
-def log_line_format(dtime, message):
-	return f"{time_string(dtime)} {message}\n"
+def log_line_format(dtime, message, eol=True):
+	return f"{time_string(dtime)} {message}" + ("\n" if eol else "")
 
 # 複数スレッドから集約的に書き込むためのロガー
 class Logger():
 
 	# コンストラクタ
-	def __init__(self):
+	def __init__(self, tee=True):
 		self.queue = Queue()
+		self.tee = tee
 
 	# ログキューに1行追記する
 	def log_line(self, message):
-		self.queue.put((datetime.datetime.now(), message))
+		dtime = datetime.datetime.now()
+		if self.tee:
+			print(log_line_format(dtime, message, eol=False))
+		self.queue.put((dtime, message))
 
 	# ログキューに発生した例外情報を追記する
 	def log_exception(self, exception, message=None):
