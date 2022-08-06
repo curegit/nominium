@@ -23,6 +23,7 @@ while_stopped = bool(int(config.get("general", "while_stopped")))
 driver_path = config.get("selenium", "driver")
 
 # SMTP関係の設定
+mail_enabled = bool(int(config.get("smtp", "enabled")))
 mail_to = config.get("smtp", "to")
 mail_from = config.get("smtp", "from")
 smtp_host = config.get("smtp", "host")

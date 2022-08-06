@@ -7,4 +7,5 @@ driver.get("http://example.com/")
 driver.quit()
 
 # メール送信のテスト
-send([("テストメール", "Nominium テストメールです。", "<html><head><title>テストメール</title></head><body><p>Nominium テストメールです。</p></body></html>")])
+if mail_enabled:
+	send([("テストメール", "Nominium テストメールです。", "<html><head><title>テストメール</title></head><body><p>Nominium テストメールです。</p></body></html>")])

@@ -106,7 +106,7 @@ with connect() as connection:
 			for hr in cursor.fetchall():
 				extractor.history.add((hr["site"], int(hr["keyword"])))
 		# 通知コントローラを用意する
-		nc = NotificationController(conf.max_notify_hourly)
+		nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 		# 動作時間内なら続ける
 		while time.time() - start < uptime:
 			# キーワードを取り出してイテレータを更新する
