@@ -3,7 +3,7 @@ from modules.notification import send
 
 # WebDriverのテスト
 driver = init_driver()
-driver.get("http://example.com/")
+driver.get("https://example.com/")
 driver.quit()
 
 # メール送信のテスト
