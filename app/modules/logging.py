@@ -1,3 +1,4 @@
+import sys
 import datetime
 import traceback
 from queue import Queue
@@ -28,10 +29,10 @@ class Logger():
 		self.tee = tee
 
 	# ログキューに1行追記する
-	def log_line(self, message):
+	def log_line(self, message, stderr=False):
 		dtime = datetime.datetime.now()
 		if self.tee:
-			print(log_line_format(dtime, message, eol=False))
+			print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout))
 		self.queue.put((dtime, message))
 
 	# ログキューに発生した例外情報を追記する

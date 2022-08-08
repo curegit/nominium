@@ -1,3 +1,4 @@
+from sys import stderr
 from time import sleep
 from modules.config import mail_enabled
 from modules.crawling import init_driver
@@ -10,8 +11,8 @@ try:
 	driver.get("https://example.com/")
 	sleep(5)
 except:
-	print("example.com の取得に失敗しました")
-	print("WebDriver の設定または環境に問題があります")
+	print("example.com の取得に失敗しました", file=stderr)
+	print("WebDriver の設定または環境に問題があります", file=stderr)
 	print("テストを中断します")
 	raise
 else:
@@ -26,8 +27,8 @@ if mail_enabled:
 	try:
 		send([("テストメール", "Nominium テストメールです。", "<html><head><title>テストメール</title></head><body><p>Nominium テストメールです。</p></body></html>")])
 	except:
-		print("メールを送信できませんでした")
-		print("SMTP の構成または環境に問題があります")
+		print("メールを送信できませんでした", file=stderr)
+		print("SMTP の構成または環境に問題があります", file=stderr)
 		print("テストを中断します")
 		raise
 	else:
