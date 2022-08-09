@@ -3,12 +3,13 @@ from time import time, sleep
 from threading import Thread
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
-from modules.config import driver_path
+from modules.config import driver_path, headless
 
 # WebDriverを起動する
 def init_driver():
 	options = Options()
-	options.add_argument("--headless")
+	if headless:
+		options.add_argument("--headless")
 	options.add_argument("--no-sandbox")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")

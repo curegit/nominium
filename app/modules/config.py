@@ -21,6 +21,7 @@ while_stopped = bool(int(config.get("general", "while_stopped")))
 
 # Seleniumの設定
 driver_path = config.get("selenium", "driver")
+headless = bool(int(config.get("selenium", "headless")))
 
 # SMTP関係の設定
 mail_enabled = bool(int(config.get("smtp", "enabled")))
