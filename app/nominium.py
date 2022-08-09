@@ -8,7 +8,7 @@ from modules.logging import Logger
 from modules.database import connect
 from modules.crawling import init_driver, Fetcher, Extractor
 from modules.notification import NotificationController
-from plugins.enabled import sites
+from plugins.enabled import sites, hooks
 
 # 目標動作時間を受け取る
 uptime = int(sys.argv[1])
@@ -64,6 +64,7 @@ fetch_iter = fetch_iterater()
 def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
+	hook_arg = []
 	for site, keyword, notify, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
 		id, url, title, img, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
@@ -75,6 +76,7 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
 				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><img src=\"{h(img)}\"></body></html>\n"
 				mails.append((subject, plain, html))
+				hook_arg.append((site.name, id, keyword, title, url, img, price))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
 	for site, kid in extractor.pop_fresh():
@@ -89,6 +91,12 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 			logger.log_line(f"通知を {count} 件送信しました。")
 		except Exception as e:
 			logger.log_exception(e, f"通知の送信に失敗しました。")
+	# 通知フックを実行する
+	for hook in hooks:
+		try:
+			hook(hook_arg)
+		except Exception as e:
+			logger.log_exception(e, f"フックの実行中にエラーが発生しました。")
 
 # データベースに繋いで作業する
 with connect() as connection:
