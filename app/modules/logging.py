@@ -2,6 +2,7 @@ import sys
 import datetime
 import traceback
 from queue import Queue
+from threading import Lock
 from modules.utilities import file_path, rel_path
 
 # ログを保存するディレクトリ
@@ -23,6 +24,9 @@ def log_line_format(dtime, message, eol=True):
 # 複数スレッドから集約的に書き込むためのロガー
 class Logger():
 
+	# 標準出力への排他書き込み用プリミティブ
+	lock = Lock()
+
 	# コンストラクタ
 	def __init__(self, tee=True):
 		self.queue = Queue()
@@ -32,7 +36,9 @@ class Logger():
 	def log_line(self, message, stderr=False):
 		dtime = datetime.datetime.now()
 		if self.tee:
-			print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout))
+			Logger.lock.acquire()
+			print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout), flush=True)
+			Logger.lock.release()
 		self.queue.put((dtime, message))
 
 	# ログキューに発生した例外情報を追記する
