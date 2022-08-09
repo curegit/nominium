@@ -1,6 +1,7 @@
 import sys
 import time
 import random
+import signal
 from html import escape as h
 from queue import Queue
 from modules import config as conf
@@ -98,6 +99,17 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 		except Exception as e:
 			logger.log_exception(e, f"フックの実行中にエラーが発生しました。")
 
+# 割り込みシグナルハンドラ
+def interrupt(signum, frame):
+	global interrupted
+	first_interruption = not interrupted
+	interrupted= True
+	if first_interruption:
+		logger.log_line("割り込みによる中断を受け取りました。")
+		logger.log_line("中断を試みます。")
+	else:
+		logger.log_line("中断しています。")
+
 # データベースに繋いで作業する
 with connect() as connection:
 	cursor = connection.cursor()
@@ -115,8 +127,13 @@ with connect() as connection:
 				extractor.history.add((hr["site"], int(hr["keyword"])))
 		# 通知コントローラを用意する
 		nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
+		# 割り込みによる中断を設定
+		interrupted = False
+		signal.signal(signal.SIGINT, interrupt)
+		logger.log_line("ループを開始します。")
+		logger.commit()
 		# 動作時間内なら続ける
-		while time.time() - start < uptime:
+		while not interrupted and time.time() - start < uptime:
 			# キーワードを取り出してイテレータを更新する
 			cursor.execute("SELECT * FROM keyword ORDER BY priority DESC")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
