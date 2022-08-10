@@ -18,7 +18,11 @@ def init_driver():
 	if browser == "firefox":
 		return init_gecko_driver()
 	if browser == "chrome":
-		return init_chrome_driver()
+		return init_chrome_driver(chromium=False)
+	if browser == "chromium":
+		return init_chrome_driver(chromium=True)
+	else:
+		raise ValueError(f"ブラウザ {browser} は不正です")
 
 # Firefoxを起動する
 def init_gecko_driver():
@@ -43,12 +47,17 @@ def init_gecko_driver():
 	return Firefox(service=service, options=options)
 
 # Chromeを起動する
-def init_chrome_driver():
+def init_chrome_driver(chromium=False):
+	log_path = file_path(log_dir, "chromedrive", "log")
 	if use_wdm:
 		from webdriver_manager.chrome import ChromeDriverManager
-		service = ChromeService(ChromeDriverManager(path=wdm_dir).install())
+		from webdriver_manager.core.utils import ChromeType
+		if chromium:
+			service = ChromeService(ChromeDriverManager(path=wdm_dir, chrome_type=ChromeType.CHROMIUM).install(), log_path=log_path)
+		else:
+			service = ChromeService(ChromeDriverManager(path=wdm_dir).install(), log_path=log_path)
 	else:
-		service = ChromeService(executable_path=driver_path)
+		service = ChromeService(executable_path=driver_path, log_path=log_path)
 	options = ChromeOptions()
 	if headless:
 		options.add_argument("--headless")
@@ -56,6 +65,7 @@ def init_chrome_driver():
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")
 	options.add_argument("--window-size=1920,1080")
+	options.add_argument("--disable-dev-shm-usage")
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-desktop-notifications")
 	options.add_argument("--blink-settings=imagesEnabled=false")
