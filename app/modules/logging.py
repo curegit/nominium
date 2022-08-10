@@ -36,9 +36,8 @@ class Logger():
 	def log_line(self, message, stderr=False):
 		dtime = datetime.datetime.now()
 		if self.tee:
-			Logger.lock.acquire()
-			print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout), flush=True)
-			Logger.lock.release()
+			with Logger.lock:
+				print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout), flush=True)
 		self.queue.put((dtime, message))
 
 	# ログキューに発生した例外情報を追記する
