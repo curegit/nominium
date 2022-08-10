@@ -4,11 +4,19 @@ from threading import Thread
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from modules.config import driver_path, headless
+from modules.config import use_wdm, driver_path, headless
+from modules.utilities import rel_path
+
+# WDMのキャッシュ保存先
+wdm_dir = rel_path("../../app/caches")
 
 # WebDriverを起動する
 def init_driver():
-	service = ChromeService(executable_path=driver_path)
+	if use_wdm:
+		from webdriver_manager.chrome import ChromeDriverManager
+		service = ChromeService(ChromeDriverManager(path=wdm_dir).install())
+	else:
+		service = ChromeService(executable_path=driver_path)
 	options = ChromeOptions()
 	if headless:
 		options.add_argument("--headless")
