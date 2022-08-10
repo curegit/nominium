@@ -5,9 +5,15 @@ from modules.crawling import init_driver
 from modules.notification import send
 
 # WebDriverのテスト
+print("WebDriver をテストします")
 try:
-	print("WebDriver をテストします")
 	driver = init_driver()
+except:
+	print("ブラウザの起動に失敗しました", file=stderr)
+	print("WebDriver の設定または環境に問題があります", file=stderr)
+	print("テストを中断します")
+	raise
+try:
 	driver.get("https://example.com/")
 	sleep(5)
 except:
