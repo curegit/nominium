@@ -1,17 +1,49 @@
 from re import search
 from time import time, sleep
 from threading import Thread
-from selenium.webdriver import Chrome
+from selenium.webdriver import Firefox, Chrome
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from modules.config import use_wdm, driver_path, headless
-from modules.utilities import rel_path
+from modules.config import browser, use_wdm, driver_path, headless
+from modules.logging import log_dir
+from modules.utilities import file_path, rel_path
 
 # WDMのキャッシュ保存先
 wdm_dir = rel_path("../../app/caches")
 
 # WebDriverを起動する
 def init_driver():
+	if browser == "firefox":
+		return init_gecko_driver()
+	if browser == "chrome":
+		return init_chrome_driver()
+
+# Firefoxを起動する
+def init_gecko_driver():
+	log_path = file_path(log_dir, "geckodriver", "log")
+	if use_wdm:
+		from webdriver_manager.firefox import GeckoDriverManager
+		service = FirefoxService(GeckoDriverManager(path=wdm_dir).install(), log_path=log_path)
+	else:
+		service = FirefoxService(executable_path=driver_path, log_path=log_path)
+	options = FirefoxOptions()
+	if headless:
+		options.add_argument("-headless")
+	options.add_argument("-safe-mode")
+	options.add_argument("-private")
+	options.add_argument("-width=1920")
+	options.add_argument("-height=1080")
+	options.set_preference("permissions.default.image", 2)
+	options.set_preference("browser.cache.disk.enable", False)
+	options.set_preference("browser.cache.memory.enable", False)
+	options.set_preference("browser.cache.offline.enable", False)
+	options.set_preference("network.http.use-cache", False)
+	return Firefox(service=service, options=options)
+
+# Chromeを起動する
+def init_chrome_driver():
 	if use_wdm:
 		from webdriver_manager.chrome import ChromeDriverManager
 		service = ChromeService(ChromeDriverManager(path=wdm_dir).install())

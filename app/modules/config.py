@@ -20,6 +20,7 @@ max_notify_hourly = int(config.get("general", "max_notify_hourly"))
 while_stopped = bool(int(config.get("general", "while_stopped")))
 
 # Seleniumの設定
+browser = config.get("selenium", "browser").lower()
 use_wdm = bool(int(config.get("selenium", "wdm")))
 driver_path = config.get("selenium", "driver")
 headless = bool(int(config.get("selenium", "headless")))
