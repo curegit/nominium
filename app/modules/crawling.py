@@ -2,12 +2,14 @@ from re import search
 from time import time, sleep
 from threading import Thread
 from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from modules.config import driver_path, headless
 
 # WebDriverを起動する
 def init_driver():
-	options = Options()
+	service = ChromeService(executable_path=driver_path)
+	options = ChromeOptions()
 	if headless:
 		options.add_argument("--headless")
 	options.add_argument("--no-sandbox")
@@ -21,7 +23,7 @@ def init_driver():
 	options.add_argument("--allow-running-insecure-content")
 	options.add_argument("--disable-web-security")
 	options.add_argument("--lang=ja")
-	return Chrome(executable_path=driver_path, options=options)
+	return Chrome(service=service, options=options)
 
 # フェッチャースレッド
 class Fetcher(Thread):
