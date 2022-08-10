@@ -26,6 +26,9 @@ logger = Logger()
 logger.log_line("プロセスを開始しました。")
 logger.commit()
 
+# 子プロセスが割り込みで終了しないようにする
+signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 # フェッチャーを起動する
 drivers = []
 try:
