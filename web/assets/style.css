@@ -148,6 +148,29 @@ td:last-child {
   padding: 1px 4px 1px 4px;
 }
 
+div.control {
+  display: flex;
+  float: right;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+div.control > div.group {
+  display: flex;
+  margin-left: 14px;
+  margin-right: 4px;
+  align-items: center;
+}
+
+div.control > div.group label {
+  margin-right: 6px;
+}
+
+div.control input[type="checkbox"] {
+  margin-right: 6px;
+  vertical-align: baseline;
+}
+
 div.items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
