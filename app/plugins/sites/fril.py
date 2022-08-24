@@ -10,7 +10,11 @@ name = "Fril"
 # フェッチャーにさせる動作
 def get(driver, keyword):
 	query = { "query": keyword, "sort": "created_at", "order": "desc", "transaction": "selling" }
-	return requests.get(f"https://fril.jp/s?{urlencode(query)}").text
+	response = requests.get(f"https://fril.jp/s?{urlencode(query)}")
+	# Frilは検索結果が空のときに404が返る実装になっている
+	if response.status_code != 404:
+		response.raise_for_status()
+	return response.text
 
 # フェッチしたデータの処理
 def extract(documents):
