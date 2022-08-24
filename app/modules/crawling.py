@@ -44,6 +44,8 @@ def init_gecko_driver():
 	options.add_argument(f"-width={width}")
 	options.add_argument(f"-height={height}")
 	options.set_preference("permissions.default.image", 2)
+	options.set_preference("permissions.default.desktop-notification", 2)
+	options.set_preference("dom.webnotifications.enabled", False)
 	options.set_preference("browser.cache.disk.enable", False)
 	options.set_preference("browser.cache.memory.enable", False)
 	options.set_preference("browser.cache.offline.enable", False)
