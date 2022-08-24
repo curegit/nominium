@@ -1,21 +1,84 @@
 from re import search
 from time import time, sleep
 from threading import Thread
-from selenium.webdriver import Chrome
+from selenium.webdriver import Firefox, Chrome
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from modules.config import driver_path, headless
+from modules.config import browser, use_wdm, driver_path, headless
+from modules.logging import log_dir
+from modules.utilities import file_path, rel_path
+
+# WDMのキャッシュ保存先
+wdm_dir = rel_path("../../app/caches")
+
+# ブラウザのウィンドウサイズ
+width = 1600
+height = 900
 
 # WebDriverを起動する
 def init_driver():
-	service = ChromeService(executable_path=driver_path)
+	if browser == "firefox":
+		driver = init_gecko_driver()
+	elif browser == "chrome":
+		driver = init_chrome_driver(chromium=False)
+	elif browser == "chromium":
+		driver = init_chrome_driver(chromium=True)
+	else:
+		raise ValueError(f"ブラウザ {browser} は不正です")
+	return setup_driver(driver)
+
+# ブラウザ共通の初期設定処理
+def setup_driver(driver):
+	driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
+	return driver
+
+# Firefoxを起動する
+def init_gecko_driver():
+	log_path = file_path(log_dir, "geckodriver", "log")
+	if use_wdm:
+		from webdriver_manager.firefox import GeckoDriverManager
+		service = FirefoxService(GeckoDriverManager(path=wdm_dir).install(), log_path=log_path)
+	else:
+		service = FirefoxService(executable_path=driver_path, log_path=log_path)
+	options = FirefoxOptions()
+	if headless:
+		options.add_argument("-headless")
+	options.add_argument("-safe-mode")
+	options.add_argument("-private")
+	options.add_argument(f"-width={width}")
+	options.add_argument(f"-height={height}")
+	options.set_preference("permissions.default.image", 2)
+	options.set_preference("permissions.default.desktop-notification", 2)
+	options.set_preference("dom.webnotifications.enabled", False)
+	options.set_preference("browser.cache.disk.enable", False)
+	options.set_preference("browser.cache.memory.enable", False)
+	options.set_preference("browser.cache.offline.enable", False)
+	options.set_preference("network.http.use-cache", False)
+	return Firefox(service=service, options=options)
+
+# Chromeを起動する
+def init_chrome_driver(chromium=False):
+	log_path = file_path(log_dir, "chromedrive", "log")
+	if use_wdm:
+		from webdriver_manager.chrome import ChromeDriverManager
+		from webdriver_manager.core.utils import ChromeType
+		if chromium:
+			service = ChromeService(ChromeDriverManager(path=wdm_dir, chrome_type=ChromeType.CHROMIUM).install(), log_path=log_path)
+		else:
+			service = ChromeService(ChromeDriverManager(path=wdm_dir).install(), log_path=log_path)
+	else:
+		service = ChromeService(executable_path=driver_path, log_path=log_path)
 	options = ChromeOptions()
 	if headless:
 		options.add_argument("--headless")
 	options.add_argument("--no-sandbox")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")
-	options.add_argument("--window-size=1920,1080")
+	options.add_argument("--disk-cache-size=0")
+	options.add_argument(f"--window-size={width},{height}")
+	options.add_argument("--disable-dev-shm-usage")
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-desktop-notifications")
 	options.add_argument("--blink-settings=imagesEnabled=false")
