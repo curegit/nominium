@@ -46,7 +46,7 @@ except Exception as e:
 		except:
 			pass
 	raise
-fetchers = [Fetcher(i, d, logger, fetch_queue, documents_queue, conf.wait, conf.max_rate) for i, d in enumerate(drivers, 1)]
+fetchers = [Fetcher(i, d, logger, fetch_queue, documents_queue, conf.wait, conf.max_rate, conf.patience, conf.backoff) for i, d in enumerate(drivers, 1)]
 for fetcher in fetchers:
 	fetcher.start()
 

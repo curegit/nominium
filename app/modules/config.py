@@ -12,6 +12,8 @@ config.read(conf_path)
 # 全般的な設定
 wait = int(config.get("general", "wait"))
 max_rate = int(config.get("general", "max_rate"))
+patience = int(config.get("general", "patience"))
+backoff = int(config.get("general", "backoff"))
 cut = int(config.get("general", "cut"))
 enough = int(config.get("general", "enough"))
 parallel = int(config.get("general", "parallel"))

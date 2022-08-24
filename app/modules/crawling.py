@@ -92,7 +92,7 @@ def init_chrome_driver(chromium=False):
 class Fetcher(Thread):
 
 	# コンストラクタ
-	def __init__(self, id, driver, logger, in_queue, out_queue, wait=1, max_rate=5):
+	def __init__(self, id, driver, logger, in_queue, out_queue, wait=1, max_rate=5, patience=3, backoff=3600):
 		super().__init__(daemon=True)
 		self.id = id
 		self.driver = driver
@@ -101,7 +101,10 @@ class Fetcher(Thread):
 		self.out_queue = out_queue
 		self.wait = wait
 		self.max_rate = max_rate
+		self.patience = patience
+		self.backoff = backoff
 		self.complete = False
+		self.failures = dict()
 
 	# フェッチャースレッドの動作
 	def run(self):
@@ -114,19 +117,47 @@ class Fetcher(Thread):
 			if maybe_task is None:
 				break
 			site, kid, keyword = maybe_task
+			if self.should_backoff(site, kid):
+				self.logger.log_line(f"フェッチャー {self.id} は {site.name} での「{keyword}」のロードをスキップします。")
+				continue
 			self.logger.log_line(f"フェッチャー {self.id} が {site.name} で「{keyword}」をロードします。")
 			try:
 				documents = site.get(self.driver, keyword)
 			except Exception as e:
 				self.logger.log_exception(e, f"フェッチャー {self.id} が {site.name} でフェッチに失敗しました。")
+				self.record_failure(site, kid)
 			else:
 				self.logger.log_line(f"フェッチャー {self.id} がフェッチを完了しました。")
 				self.out_queue.put((site, kid, keyword, documents))
+				self.mark_as_successful(site, kid)
 			sleep(self.wait)
 			elapsed = time() - start
 			if elapsed < self.max_rate:
 				sleep(self.max_rate - elapsed)
 		self.logger.log_line(f"フェッチャー {self.id} が終了しました。")
+
+	# フェッチ失敗記録を消す
+	def mark_as_successful(self, site, kid):
+		self.failures.pop((site.name, kid), None)
+
+	# フェッチ失敗を記録
+	def record_failure(self, site, kid):
+		if (site.name, kid) in self.failures:
+			n, t = self.failures[(site.name, kid)]
+			if time() - t < self.backoff:
+				self.failures[(site.name, kid)] = n + 1, time()
+			else:
+				self.failures[(site.name, kid)] = 1, time()
+		else:
+			self.failures[(site.name, kid)] = 1, time()
+
+	# 様子見するか判断する
+	def should_backoff(self, site, kid):
+		if (site.name, kid) in self.failures:
+			n, t = self.failures[(site.name, kid)]
+			if n >= self.patience and time() - t < self.backoff:
+				return True
+		return False
 
 # 必要な情報の抽出器
 class Extractor():
