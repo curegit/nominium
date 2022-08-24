@@ -13,6 +13,10 @@ from modules.utilities import file_path, rel_path
 # WDMのキャッシュ保存先
 wdm_dir = rel_path("../../app/caches")
 
+# ブラウザのウィンドウサイズ
+width = 1600
+height = 900
+
 # WebDriverを起動する
 def init_driver():
 	if browser == "firefox":
@@ -37,8 +41,8 @@ def init_gecko_driver():
 		options.add_argument("-headless")
 	options.add_argument("-safe-mode")
 	options.add_argument("-private")
-	options.add_argument("-width=1920")
-	options.add_argument("-height=1080")
+	options.add_argument(f"-width={width}")
+	options.add_argument(f"-height={height}")
 	options.set_preference("permissions.default.image", 2)
 	options.set_preference("browser.cache.disk.enable", False)
 	options.set_preference("browser.cache.memory.enable", False)
@@ -64,7 +68,7 @@ def init_chrome_driver(chromium=False):
 	options.add_argument("--no-sandbox")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")
-	options.add_argument("--window-size=1920,1080")
+	options.add_argument(f"--window-size={width},{height}")
 	options.add_argument("--disable-dev-shm-usage")
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-desktop-notifications")
