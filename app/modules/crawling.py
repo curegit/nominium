@@ -20,13 +20,19 @@ height = 900
 # WebDriverを起動する
 def init_driver():
 	if browser == "firefox":
-		return init_gecko_driver()
-	if browser == "chrome":
-		return init_chrome_driver(chromium=False)
-	if browser == "chromium":
-		return init_chrome_driver(chromium=True)
+		driver = init_gecko_driver()
+	elif browser == "chrome":
+		driver = init_chrome_driver(chromium=False)
+	elif browser == "chromium":
+		driver = init_chrome_driver(chromium=True)
 	else:
 		raise ValueError(f"ブラウザ {browser} は不正です")
+	return setup_driver(driver)
+
+# ブラウザ共通の初期設定処理
+def setup_driver(driver):
+	driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
+	return driver
 
 # Firefoxを起動する
 def init_gecko_driver():
