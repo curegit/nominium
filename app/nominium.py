@@ -148,7 +148,7 @@ with connect() as connection:
 				fetch_queue.put(maybe_fetch)
 			# フィルタを更新する
 			cursor.execute("SELECT * FROM filter")
-			extractor.filter_patterns = [fr["pattern"] for fr in cursor.fetchall()]
+			extractor.set_filter_patterns([fr["pattern"] for fr in cursor.fetchall()])
 			# 新規のアイテムについて通知する
 			update(extractor, cursor, nc, logger, least_one=True)
 			# ログに書き込む

@@ -1,4 +1,4 @@
-from re import search
+from re import compile
 from time import time, sleep
 from threading import Thread
 from selenium.webdriver import Firefox, Chrome
@@ -172,7 +172,7 @@ class Extractor():
 		self.cache = set()
 		self.history = set()
 		self.fresh = set()
-		self.filter_patterns = []
+		self.filter_regexs = []
 
 	# 新規のフェッチをすべて取り出す
 	def pop_fresh(self):
@@ -209,8 +209,8 @@ class Extractor():
 						if price > self.max_price:
 							notify = False
 						if notify:
-							for pattern in self.filter_patterns:
-								if search(pattern, title) is not None:
+							for regex in self.filter_regexs:
+								if regex.search(title) is not None:
 									notify = False
 						put_count += 1
 						yield (site, keyword, notify, item)
@@ -226,3 +226,12 @@ class Extractor():
 			else:
 				if put_count > 0:
 					self.logger.log_line(f"{site.name} から「{keyword}」について {count} 件抽出した内 {put_count} 件を送出しました。")
+
+	# フィルタの正規表現パターンを設定する
+	def set_filter_patterns(self, patterns):
+		self.filter_regexs = []
+		for pattern in patterns:
+			try:
+				self.filter_regexs.append(compile(pattern))
+			except Exception as e:
+				self.logger.log_exception(e, f"パターン「{pattern}」は正規表現として不正です。")
