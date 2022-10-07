@@ -1,6 +1,6 @@
 # Nominium
 
-個人間取引サイトの新着商品をメールで通知するクローラー
+個人間取引サイトの新着商品をメールなどで通知するクローラー
 
 <img src="web/assets/ziraffe.png" width="80px" height="80px">
 
@@ -8,16 +8,20 @@
 
 ### 本体
 
-- Unix システム
+- Linux システム
   - `tail` コマンド
 - Apache 2
+  - `mod_rewrite` モジュール
   - ディレクトリ毎の `.htaccess` が有効であること
+  - Nginx で代替可（ただし、ディレクトリ毎 `.htaccess` のコンバートが必要）
 - PHP 7.0 以上
-  - Apache 2 で使用できること
   - SQLite (PDO) のサポート
-  - `shell_exec` のサポート
+  - `shell_exec` 関数のサポート
 - Python 3.6 以上
-  - Selenium + WebDriver (Chrome または Chromium)
+  - Selenium 4
+  - WebDriver (Firefox または Chrome または Chromium)
+  - Webdriver Manager（オプション）
+  - WebDriver はバイナリを手動指定するほか、Webdriver Manager による自動取得も利用可能
 - パスワードでログインできる SMTP サーバー（要 SSL）
 
 ### プラグイン
@@ -40,6 +44,12 @@
 その後、Python インタプリタで `app/nominium.py <稼働時間（秒）>` を実行すると、指定された稼働時間だけプログラムが走り続け、実行されている間の新着商品がメールで通知されます。
 通知を永続的に受け取るには、なんらかの方法（例えば、cron などのジョブスケジューラーを使う）でこのプログラムが恒常的に実行されるようにしてください。
 クロールするサイトとその手続きはプラグインの形で定義されます。
+
+## プラグイン
+
+### サイト
+
+### 通知
 
 ## クリーニング
 
