@@ -14,6 +14,11 @@ function open_db() {
   return $pdo;
 }
 
+// PDO例外が整合性制約違反なら真 (ANSI SQL-92)
+function is_integrity_constraint_violation($error) {
+  return $error->getCode() === "23000";
+}
+
 // 今日のログファイルの内容を返す
 function get_today_log($tail) {
   $date = date("Y-m-d");
