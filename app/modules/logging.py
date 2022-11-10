@@ -47,7 +47,7 @@ class Logger():
 	def log_exception(self, exception, message=None):
 		trace = "".join(traceback.TracebackException.from_exception(exception).format())
 		message = message or (str(exception)).rstrip()
-		self.log_line(f"{message}\n{trace.rstrip()}")
+		self.log_line(f"{message}\n{trace.rstrip()}", stderr=True)
 
 	# キューにあるログをファイルに書き込む（非スレッドセーフ）
 	def commit(self):
