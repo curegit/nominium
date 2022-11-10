@@ -10,7 +10,7 @@ log_dir = rel_path("../../logs")
 
 # 日付に応じてログファイルのパスを返す
 def log_file_path(dtime, error=False):
-	log_name = dtime.strftime("%Y-%m-%d") + ("-error" if error else "")
+	log_name = dtime.strftime("%Y-%m-error" if error else "%Y-%m-%d")
 	return file_path(log_dir, log_name, "log")
 
 # ログに書く時刻情報の文字列を返す
