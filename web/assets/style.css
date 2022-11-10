@@ -187,6 +187,7 @@ article.item div.frame > div.price {
   z-index: 1;
   padding: 2px 4px;
   background-color: #ffffffcc;
+  backdrop-filter: blur(4px);
   color: #000;
   font-weight: bolder;
 }
