@@ -1,8 +1,8 @@
 var t = document.getElementById("auto-update");
 var s = document.getElementById("auto-update-interval");
 var intid = null;
-t.checked = true;
-s.selectedIndex = 0;
+//t.checked = true;
+//s.selectedIndex = 0;
 
 function refresh() {
   const xhr = new XMLHttpRequest();
@@ -44,7 +44,7 @@ function refresh() {
 }
 
 function sc(n) {
-  up();
+  refresh();
   setTimeout(sc, n * 1000, n);
 }
 
