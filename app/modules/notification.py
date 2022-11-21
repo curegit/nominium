@@ -19,18 +19,19 @@ def create_message(frm, to, subject, plain, html):
 	return msg
 
 # SMTPサーバーを通してメールを送る関数
-def smtp_send(host, port, user, password, mailfrom, mailto, messages):
+def smtp_send(host, port, user, password, mailfrom, mailtos, messages):
 	if len(messages) == 0:
 		return
 	with SMTP_SSL(host, port) as smtp:
 		smtp.login(user, password)
 		for message in messages:
-			smtp.sendmail(mailfrom, mailto, message.as_string())
+			smtp.sendmail(mailfrom, mailtos, message.as_string())
 
 # 複数のメールを設定に基づいて送信する
 def send(mails):
+	mail_tos = [t.strip() for t in mail_to.split(",") if t.strip()]
 	messages = [create_message(mail_from, mail_to, subject, plain, html) for subject, plain, html in mails]
-	smtp_send(smtp_host, smtp_port, smtp_user, smtp_passwd, mail_from, mail_to, messages)
+	smtp_send(smtp_host, smtp_port, smtp_user, smtp_passwd, mail_from, mail_tos, messages)
 
 # 通知配信を制限に則って行うクラス
 class NotificationController():
