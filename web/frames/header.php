@@ -1,3 +1,4 @@
+<?php header("Cache-Control: no-store"); ?>
 <!DOCTYPE html>
 <html>
   <head>

@@ -53,7 +53,7 @@ define("PAGE_TITLE", "キーワード登録");
         <h2>登録済みキーワード</h2>
         <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-         <li><?= h($keyword_record["keyword"]) ?></li>
+          <li><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
         </ul>
       </section>

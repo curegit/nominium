@@ -97,6 +97,10 @@ p {
   margin: 4px 0px 4px 10px;
 }
 
+p.warning {
+  color: #ffde2a;
+}
+
 form {
   margin: 4px 0px 4px 10px;
 }
@@ -129,6 +133,10 @@ form table {
   margin-left: 0;
 }
 
+tr:nth-child(2) td {
+  padding-top: 2px;
+}
+
 th {
   padding: 1px 10px 1px 10px;
   border-bottom: solid 1px #fff;
@@ -151,6 +159,29 @@ td {
 
 td:last-child {
   padding: 1px 4px 1px 4px;
+}
+
+div.control {
+  display: flex;
+  float: right;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+div.control > div.group {
+  display: flex;
+  margin-left: 14px;
+  margin-right: 4px;
+  align-items: center;
+}
+
+div.control > div.group label {
+  margin-right: 6px;
+}
+
+div.control input[type="checkbox"] {
+  margin-right: 6px;
+  vertical-align: baseline;
 }
 
 div.items {

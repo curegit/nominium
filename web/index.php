@@ -22,7 +22,20 @@ define("PAGE_TITLE", "ホーム");
       </section>
 <?php ELSE: ?>
       <section>
+        <div class="control">
+          <div class="group">
+            <label><input type="checkbox">自動更新</label>
+            <select name="auto-update">
+              <option value="15">15 秒</option>
+              <option value="30">30 秒</option>
+              <option value="60" selected>1 分</option>
+              <option value="180">3 分</option>
+              <option value="300">5 分</option>
+            </select>
+          </div>
+        </div>
         <h2>新着アイテム</h2>
+        <script defer src="./assets/refresh.js"></script>
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
@@ -38,7 +51,7 @@ define("PAGE_TITLE", "ホーム");
 <?php ENDFOREACH; ?>
         </div>
 <?php ELSE: ?>
-        <p>まだ何もインデックスされていません。</p>
+        <p class="nothing">まだ何もインデックスされていません。</p>
 <?php ENDIF; ?>
       </section>
 <?php ENDIF; ?>

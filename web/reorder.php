@@ -47,7 +47,7 @@ define("PAGE_TITLE", "並べ替え");
             <li draggable="true" ondragstart="dragstart(event)" ondragend="dragend(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>"><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
           </ol>
-          <input type="submit" value="並べ替える">
+          <input type="submit" value="確定する">
         </form>
 <?php ELSE: ?>
         <p>キーワードが登録されていません。</p>
