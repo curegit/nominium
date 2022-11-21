@@ -35,6 +35,7 @@ define("PAGE_TITLE", "ホーム");
           </div>
         </div>
         <h2>新着アイテム</h2>
+        <script defer src="./assets/refresh.js"></script>
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
@@ -50,7 +51,7 @@ define("PAGE_TITLE", "ホーム");
 <?php ENDFOREACH; ?>
         </div>
 <?php ELSE: ?>
-        <p>まだ何もインデックスされていません。</p>
+        <p class="nothing">まだ何もインデックスされていません。</p>
 <?php ENDIF; ?>
       </section>
 <?php ENDIF; ?>
