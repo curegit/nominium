@@ -1,3 +1,4 @@
 *.db
 *.log
+app/caches
 __pycache__/

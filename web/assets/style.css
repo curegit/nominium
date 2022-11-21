@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overscroll-behavior-y: none;
+}
+
 body {
   min-width: 640px;
   background-color: #505050;
@@ -11,6 +15,7 @@ body {
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  overscroll-behavior-y: none;
 }
 
 a {
@@ -187,6 +192,7 @@ article.item div.frame > div.price {
   z-index: 1;
   padding: 2px 4px;
   background-color: #ffffffcc;
+  backdrop-filter: blur(4px);
   color: #000;
   font-weight: bolder;
 }

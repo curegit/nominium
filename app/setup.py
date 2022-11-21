@@ -2,11 +2,13 @@ import os
 from shutil import rmtree
 from modules.logging import log_dir
 from modules.database import data_dir, db_path, connect
+from modules.crawling import wdm_dir
 from modules.utilities import mkdirp
 
 # データのクリーンアップ
 rmtree(log_dir, ignore_errors=True)
 rmtree(data_dir, ignore_errors=True)
+rmtree(wdm_dir, ignore_errors=True)
 
 # 各種ディレクトリをつくる
 mkdirp(log_dir)

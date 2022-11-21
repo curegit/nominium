@@ -36,10 +36,11 @@ def send(mails):
 class NotificationController():
 
 	# コンストラクタ
-	def __init__(self, max_per_hour):
+	def __init__(self, max_per_hour, dry=False):
 		self.count = 0
 		self.hour = datetime.datetime.now().strftime("%Y-%m-%d %H")
 		self.max_per_hour = max_per_hour
+		self.dry = dry
 
 	# 複数のメールを設定に基づいて時間あたりの最大件数を超えないように送信する
 	def send(self, mails):
@@ -49,5 +50,6 @@ class NotificationController():
 			self.count = 0
 		num = min(len(mails), self.max_per_hour - self.count)
 		self.count += num
-		send(mails[0:num])
+		if not self.dry:
+			send(mails[0:num])
 		return num

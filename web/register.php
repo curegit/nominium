@@ -16,7 +16,11 @@ try {
   $keywords = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
-  $error = $e->getMessage();
+  if (is_integrity_constraint_violation($e)) {
+    $error = "登録が重複しているか、無効な値です。";
+  } else {
+    $error = $e->getMessage();
+  }
 }
 
 define("PAGE_TITLE", "キーワード登録");
