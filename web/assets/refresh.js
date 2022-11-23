@@ -16,8 +16,8 @@ function refresh() {
       const div2 = d[0];
       const ndiv = document.getElementsByClassName("nothing");
       if (ndiv.length >= 1) {
-        ndiv.insertAdjacentElement("beforebegin", div2);
-        ndiv.remove();
+        ndiv[0].insertAdjacentElement("beforebegin", div2);
+        ndiv[0].remove();
       }
       let div1 = document.getElementsByClassName("items")[0];
 
