@@ -21,6 +21,7 @@ define("PAGE_TITLE", "ホーム");
         <p><?= h($error) ?></p>
       </section>
 <?php ELSE: ?>
+      <script defer src="./assets/refresh.js"></script>
       <section>
         <div class="control">
           <div class="group">
@@ -35,7 +36,6 @@ define("PAGE_TITLE", "ホーム");
           </div>
         </div>
         <h2>新着アイテム</h2>
-        <script defer src="./assets/refresh.js"></script>
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>

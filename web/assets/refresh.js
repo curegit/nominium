@@ -45,20 +45,20 @@ function update(callback, timeout = 10000) {
   xhr.send();
 }
 
-function reschedule(enabled, delay) {
+function reschedule(enabled, delaysec) {
   if (updatetimer !== null) {
     clearTimeout(updatetimer);
     updatetimer = null;
   }
   if (enabled) {
-    updatetimer = setTimeout(update, delay, setschedule);
+    updatetimer = setTimeout(update, delaysec * 1000, setschedule);
   }
 }
 
 function setschedule() {
   const enabled = document.getElementById("auto-update-enabled").checked;
-  const delay = +document.getElementById("auto-update-interval").value;
-  reschedule(enabled, delay);
+  const delaysec = +document.getElementById("auto-update-interval").value;
+  reschedule(enabled, delaysec);
 }
 
 function initschedule() {
