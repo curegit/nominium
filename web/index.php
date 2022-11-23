@@ -24,8 +24,8 @@ define("PAGE_TITLE", "ホーム");
       <section>
         <div class="control">
           <div class="group">
-            <label><input type="checkbox">自動更新</label>
-            <select name="auto-update">
+            <label><input type="checkbox" id="auto-update-enabled" onchange="setschedule()">自動更新</label>
+            <select name="auto-update" id="auto-update-interval" onchange="setschedule()">
               <option value="15">15 秒</option>
               <option value="30">30 秒</option>
               <option value="60" selected>1 分</option>
