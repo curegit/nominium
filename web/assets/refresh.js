@@ -62,6 +62,8 @@ function setschedule() {
 }
 
 function initschedule() {
+  document.getElementById("auto-update-enabled").checked = true;
+  document.getElementById("auto-update-interval").value = "30";
   setschedule();
 }
 
