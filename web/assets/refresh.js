@@ -59,11 +59,27 @@ function setschedule() {
   const enabled = document.getElementById("auto-update-enabled").checked;
   const delaysec = +document.getElementById("auto-update-interval").value;
   reschedule(enabled, delaysec);
+  try {
+    localStorage.setItem("auto-update-enabled", enabled ? 1 : 0);
+    localStorage.setItem("auto-update-interval", delaysec);
+  } catch {
+
+  }
 }
 
 function initschedule() {
-  document.getElementById("auto-update-enabled").checked = true;
-  document.getElementById("auto-update-interval").value = "30";
+  try {
+    const autoupdate = localStorage.getItem("auto-update-enabled");
+    if (autoupdate !== null) {
+      document.getElementById("auto-update-enabled").checked = +autoupdate ? true : false;
+    }
+    const updateinterval = localStorage.getItem("item");
+    if (updateinterval !== null) {
+      document.getElementById("auto-update-interval").value = +updateinterval;
+    }
+  } catch {
+
+  }
   setschedule();
 }
 
