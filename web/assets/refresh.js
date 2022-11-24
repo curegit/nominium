@@ -73,7 +73,7 @@ function initschedule() {
     if (autoupdate !== null) {
       document.getElementById("auto-update-enabled").checked = +autoupdate ? true : false;
     }
-    const updateinterval = localStorage.getItem("item");
+    const updateinterval = localStorage.getItem("auto-update-interval");
     if (updateinterval !== null) {
       document.getElementById("auto-update-interval").value = +updateinterval;
     }
