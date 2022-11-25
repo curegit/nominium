@@ -21,11 +21,12 @@ define("PAGE_TITLE", "ホーム");
         <p><?= h($error) ?></p>
       </section>
 <?php ELSE: ?>
+      <script defer src="./assets/refresh.js"></script>
       <section>
         <div class="control">
           <div class="group">
-            <label><input type="checkbox">自動更新</label>
-            <select name="auto-update">
+            <label><input type="checkbox" id="auto-update-enabled" onchange="setschedule()">自動更新</label>
+            <select name="auto-update" id="auto-update-interval" onchange="setschedule()">
               <option value="15">15 秒</option>
               <option value="30">30 秒</option>
               <option value="60" selected>1 分</option>
@@ -35,7 +36,6 @@ define("PAGE_TITLE", "ホーム");
           </div>
         </div>
         <h2>新着アイテム</h2>
-        <script defer src="./assets/refresh.js"></script>
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>

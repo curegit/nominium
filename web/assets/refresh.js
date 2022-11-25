@@ -1,52 +1,86 @@
-var t = document.getElementById("auto-update");
-var s = document.getElementById("auto-update-interval");
-var intid = null;
-t.checked = true;
-s.selectedIndex = 0;
+var updatetimer = null;
 
-function refresh() {
+function appenditems(newdocument) {
+  const newdivs = newdocument.getElementsByClassName("items");
+  if (!newdivs.length) return;
+  const newdiv = newdivs[0];
+  const divs = document.getElementsByClassName("nothing");
+  if (divs.length) {
+    const div = divs[0];
+    div.insertAdjacentElement("beforebegin", newdiv);
+    div.remove();
+  } else {
+    const divs = document.getElementsByClassName("items");
+    if (!divs.length) return;
+    const div = divs[0];
+    const incomings = [];
+    const hrefs = [...div.children].map(e => e.getElementsByTagName("a")[0].href);
+    for (let i = 0; i < newdiv.children.length; i++) {
+      const href = newdiv.children[i].getElementsByTagName("a")[0].href;
+      if (!hrefs.includes(href)) {
+        incomings.push(newdiv.children[i]);
+      }
+    }
+    div.prepend(...incomings);
+  }
+}
+
+function update(callback, timeout = 10000) {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", "./");
   xhr.responseType = "document";
-  xhr.timeout = 10000;
+  xhr.timeout = timeout;
   xhr.onload = event => {
     if (xhr.status === 200) {
-      const d = xhr.response.getElementsByClassName("items");
-      if (d.length < 1) { return; }
-      const div2 = d[0];
-      const ndiv = document.getElementsByClassName("nothing");
-      if (ndiv.length >= 1) {
-        ndiv.insertAdjacentElement("beforebegin", div2);
-        ndiv.remove();
-      }
-      let div1 = document.getElementsByClassName("items")[0];
-
-      let hrefs = [...div1.children].map(e => e.getElementsByTagName("a")[0].href);
-      let news = [];
-      for (let i = 0; i < div2.children.length; i++) {
-        let href = div2.children[i].getElementsByTagName("a")[0].href;
-        if (!hrefs.includes(href)) {
-          news.push(div2.children[i]);
-        }
-      }
-      div1.prepend(...news);
-    } else {
-
+      appenditems(xhr.response);
     }
+    callback();
   };
   xhr.onerror = event => {
-
+    callback();
   };
   xhr.ontimeout = event => {
-
+    callback();
   };
   xhr.send();
 }
 
-function sc(n) {
-  up();
-  setTimeout(sc, n * 1000, n);
+function reschedule(enabled, delaysec) {
+  if (updatetimer !== null) {
+    clearTimeout(updatetimer);
+    updatetimer = null;
+  }
+  if (enabled) {
+    updatetimer = setTimeout(update, delaysec * 1000, setschedule);
+  }
 }
 
-n = 30;
-setTimeout(sc, n * 1000, n);
+function setschedule() {
+  const enabled = document.getElementById("auto-update-enabled").checked;
+  const delaysec = +document.getElementById("auto-update-interval").value;
+  reschedule(enabled, delaysec);
+  try {
+    localStorage.setItem("auto-update-enabled", enabled ? 1 : 0);
+    localStorage.setItem("auto-update-interval", delaysec);
+  } catch {
+
+  }
+}
+
+function initschedule() {
+  try {
+    const autoupdate = localStorage.getItem("auto-update-enabled");
+    if (autoupdate !== null) {
+      document.getElementById("auto-update-enabled").checked = +autoupdate ? true : false;
+    }
+    const updateinterval = localStorage.getItem("auto-update-interval");
+    if (updateinterval !== null) {
+      document.getElementById("auto-update-interval").value = +updateinterval;
+    }
+  } catch {
+
+  }
+  setschedule();
+}
+
+initschedule();
