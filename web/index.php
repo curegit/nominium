@@ -36,13 +36,14 @@ define("PAGE_TITLE", "ホーム");
             </select>
           </div>
           <div class="group">
-            <label>フィルタ</label>
+            <label>絞り込み</label>
             <select name="filter" id="filter-select" onchange="changefilter(event)">
-              <option value="-1">すべてを表示</option>
-              <option value="0" selected>通知対象のみ</option>
-              <option value="1">稼働時間外による非通知対象</option>
-              <option value="2">値段上限による非通知対象</option>
-              <option value="3">フィルタによる非通知対象</option>
+              <option value="-1">すべて表示</option>
+              <option value="0" selected>通知対象アイテム</option>
+              <option value="9">非通知アイテム</option>
+              <option value="1">├─ 稼働時間外</option>
+              <option value="2">├─ 価格上限越え</option>
+              <option value="3">└─ フィルタ</option>
             </select>
           </div>
         </div>
