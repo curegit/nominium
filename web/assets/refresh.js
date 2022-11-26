@@ -30,41 +30,41 @@ function update(callback, timeout = 10000) {
   xhr.open("GET", "./");
   xhr.responseType = "document";
   xhr.timeout = timeout;
-  xhr.onload = event => {
+  xhr.onload = () => {
     if (xhr.status === 200) {
       appenditems(xhr.response);
     }
     callback();
   };
-  xhr.onerror = event => {
+  xhr.onerror = () => {
     callback();
   };
-  xhr.ontimeout = event => {
+  xhr.ontimeout = () => {
     callback();
   };
   xhr.send();
 }
 
-function reschedule(enabled, delaysec) {
+function reschedule() {
+  const enabled = document.getElementById("auto-update-enabled").checked;
+  const delaysec = +document.getElementById("auto-update-interval").value;
   if (updatetimer !== null) {
     clearTimeout(updatetimer);
     updatetimer = null;
   }
   if (enabled) {
-    updatetimer = setTimeout(update, delaysec * 1000, setschedule);
+    updatetimer = setTimeout(update, delaysec * 1000, reschedule);
   }
 }
 
-function setschedule() {
-  const enabled = document.getElementById("auto-update-enabled").checked;
-  const delaysec = +document.getElementById("auto-update-interval").value;
-  reschedule(enabled, delaysec);
+function changeschedule() {
+  reschedule();
   try {
+    const enabled = document.getElementById("auto-update-enabled").checked;
+    const delaysec = +document.getElementById("auto-update-interval").value;
     localStorage.setItem("auto-update-enabled", enabled ? 1 : 0);
     localStorage.setItem("auto-update-interval", delaysec);
-  } catch {
-
-  }
+  } catch { }
 }
 
 function initschedule() {
@@ -77,10 +77,8 @@ function initschedule() {
     if (updateinterval !== null) {
       document.getElementById("auto-update-interval").value = +updateinterval;
     }
-  } catch {
-
-  }
-  setschedule();
+  } catch { }
+  reschedule();
 }
 
 initschedule();
