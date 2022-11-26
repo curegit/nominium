@@ -78,7 +78,7 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 			if notify:
 				subject = title
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
-				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{f(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
+				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{h(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
 				mails.append((subject, plain, html))
 				hook_arg.append((site.name, id, keyword, title, url, img, price))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
