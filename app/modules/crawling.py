@@ -1,4 +1,4 @@
-from re import compile
+from re import compile, IGNORECASE
 from time import time, sleep
 from threading import Thread
 from selenium.webdriver import Firefox, Chrome
@@ -235,6 +235,6 @@ class Extractor():
 		self.filter_regexs = []
 		for pattern in patterns:
 			try:
-				self.filter_regexs.append(compile(pattern))
+				self.filter_regexs.append(compile(pattern, flags=IGNORECASE))
 			except Exception as e:
 				self.logger.log_exception(e, f"パターン「{pattern}」は正規表現として不正です。")
