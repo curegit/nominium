@@ -53,7 +53,7 @@ define("PAGE_TITLE", "ホーム");
           <article class="item notify<?= h($item["notify"]) ?>">
             <a href="<?= h($item["url"]) ?>">
               <div class="frame">
-                <img class="image" src="<?= h($item["img"]) ?>">
+                <img class="image" src="<?= h($item["thumbnail"]) ?>">
                 <div class="price">¥<?= h(number_format($item["price"])) ?></div>
               </div>
               <h3 class="title"><?= h($item["title"]) ?></h3>

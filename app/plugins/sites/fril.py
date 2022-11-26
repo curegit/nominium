@@ -24,7 +24,8 @@ def extract(documents):
 			id = re.search("fril.jp/([0-9a-z]+)", url).group(1)
 			title = item.select_one(".item-box__item-name").get_text(strip=True)
 			img_url = urlparse(item.select_one("meta")["content"])
-			img = img_url.scheme + "://" + img_url.netloc + img_url.path
+			thumbnail = img_url.scheme + "://" + img_url.netloc + img_url.path
+			img = thumbnail.replace("/m/", "/l/")
 			price_str = item.select_one(".item-box__item-price").get_text(strip=True)
 			price = int("".join([c for c in price_str if c in [str(i) for i in range(10)]]))
-			yield (id, url, title, img, price)
+			yield id, url, title, img, thumbnail, price

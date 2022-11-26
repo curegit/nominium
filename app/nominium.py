@@ -70,15 +70,15 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 	mails = []
 	hook_arg = []
 	for site, keyword, notify, notify_code, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
-		id, url, title, img, price = item
+		id, url, title, img, thumbnail, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
-			cursor.execute("INSERT INTO item(site, id, url, title, img, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price, notify_code))
+			cursor.execute("INSERT INTO item(site, id, url, title, img, thumbnail, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, thumbnail, price, notify_code))
 			if notify:
 				subject = title
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
-				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><img src=\"{h(img)}\"></body></html>\n"
+				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{f(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
 				mails.append((subject, plain, html))
 				hook_arg.append((site.name, id, keyword, title, url, img, price))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")

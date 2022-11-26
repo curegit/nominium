@@ -26,5 +26,6 @@ def extract(documents):
 		thum = b.select_one("mer-item-thumbnail")
 		title = thum["item-name"]
 		img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
+		thumbnail = "https://static.mercdn.net/c!/w=240/thumb/photos/" + id + "_1.jpg"
 		price = int(thum["price"])
-		yield (id, url, title, img, price)
+		yield id, url, title, img, thumbnail, price
