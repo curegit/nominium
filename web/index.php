@@ -37,7 +37,7 @@ define("PAGE_TITLE", "ホーム");
           </div>
           <div class="group">
             <label>フィルタ</label>
-            <select name="filter" id="filter-select" onchange="setfilter()">
+            <select name="filter" id="filter-select" onchange="changefilter(event)">
               <option value="-1">すべてを表示</option>
               <option value="0" selected>通知対象のみ</option>
               <option value="1">稼働時間外による非通知対象</option>
