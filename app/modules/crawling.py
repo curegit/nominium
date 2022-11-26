@@ -206,14 +206,17 @@ class Extractor():
 						cut_count = 0
 						self.cache.add(id_pair)
 						notify = not fresh
+						notify_code = 0 if notify else 1
 						if price > self.max_price:
 							notify = False
+							notify_code = 2
 						if notify:
 							for regex in self.filter_regexs:
 								if regex.search(title) is not None:
 									notify = False
+									notify_code = 3
 						put_count += 1
-						yield (site, keyword, notify, item)
+						yield site, keyword, notify, notify_code, item
 					if count >= self.enough:
 						break
 					if cut_count >= self.cut:

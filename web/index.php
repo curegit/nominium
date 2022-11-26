@@ -22,6 +22,7 @@ define("PAGE_TITLE", "ホーム");
       </section>
 <?php ELSE: ?>
       <script defer src="./assets/refresh.js"></script>
+      <script defer src="./assets/filter.js"></script>
       <section>
         <div class="control">
           <div class="group">
@@ -34,12 +35,22 @@ define("PAGE_TITLE", "ホーム");
               <option value="300">5 分</option>
             </select>
           </div>
+          <div class="group">
+            <label>フィルタ</label>
+            <select name="filter" id="filter-select" onchange="changefilter(event)">
+              <option value="-1">すべてを表示</option>
+              <option value="0" selected>通知対象のみ</option>
+              <option value="1">稼働時間外による非通知対象</option>
+              <option value="2">値段上限による非通知対象</option>
+              <option value="3">フィルタによる非通知対象</option>
+            </select>
+          </div>
         </div>
         <h2>新着アイテム</h2>
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
-          <article class="item">
+          <article class="item notify<?= h($item["notify"]) ?>">
             <a href="<?= h($item["url"]) ?>">
               <div class="frame">
                 <img class="image" src="<?= h($item["img"]) ?>">
