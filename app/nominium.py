@@ -69,12 +69,12 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
 	hook_arg = []
-	for site, keyword, notify, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
+	for site, keyword, notify, notify_code, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
 		id, url, title, img, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
-			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
+			cursor.execute("INSERT INTO item(site, id, url, title, img, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price, notify_code))
 			if notify:
 				subject = title
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
