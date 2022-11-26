@@ -14,8 +14,8 @@ from modules.utilities import file_path, rel_path
 wdm_dir = rel_path("../../app/caches")
 
 # ブラウザのウィンドウサイズ
-width = 1600
-height = 900
+width = 1280
+height = 1024
 
 # WebDriverを起動する
 def init_driver():
