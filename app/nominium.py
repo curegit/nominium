@@ -74,7 +74,7 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
-			cursor.execute("INSERT INTO item(site, id, url, title, img, thumbnail, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, thumbnail, price, notify_code))
+			cursor.execute("INSERT INTO item(site, id, url, title, img, thumbnail, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, thumbnail, price, notify_code))
 			if notify:
 				subject = title
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
