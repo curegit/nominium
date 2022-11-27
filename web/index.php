@@ -37,7 +37,7 @@ define("PAGE_TITLE", "ホーム");
           </div>
           <div class="group">
             <label>絞り込み</label>
-            <select name="filter" id="filter-select" onchange="changefilter(event)">
+            <select name="filter" id="filter-select">
               <option value="-1">すべて表示</option>
               <option value="0" selected>通知対象アイテム</option>
               <option value="9">非通知アイテム</option>
