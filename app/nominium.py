@@ -106,7 +106,7 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 def interrupt(signum, frame):
 	global interrupted
 	first_interruption = not interrupted
-	interrupted= True
+	interrupted = True
 	if first_interruption:
 		logger.log_line("割り込みによる中断を受け取りました。")
 		logger.log_line("中断を試みます。")
