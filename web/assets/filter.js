@@ -23,4 +23,5 @@
   }
 
   select.addEventListener("change", changefilter);
+  changefilter();
 })();
