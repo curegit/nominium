@@ -67,14 +67,11 @@
       const delaysec = +select.value;
       localStorage.setItem("auto-update-enabled", enabled ? 1 : 0);
       localStorage.setItem("auto-update-interval", delaysec);
-    } catch {
-
-    }
+    } catch { }
   }
 
   checkbox.addEventListener("change", changeschedule);
   select.addEventListener("change", changeschedule);
-
   try {
     const autoupdate = localStorage.getItem("auto-update-enabled");
     if (autoupdate !== null) {
@@ -84,8 +81,6 @@
     if (updateinterval !== null) {
       select.value = +updateinterval;
     }
-  } catch {
-
-  }
+  } catch { }
   reschedule();
 })();
