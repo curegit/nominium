@@ -51,7 +51,7 @@ define("PAGE_TITLE", "ホーム");
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
-          <article class="item <?= $item["notify"] === 0 ? "notified" : "ignored" ?> <?= h("notify".$item["notify"]) ?>">
+          <article class="item <?= $item["notify"] == 0 ? "notified" : "ignored" ?> <?= h("notify".$item["notify"]) ?>">
             <a href="<?= h($item["url"]) ?>">
               <div class="frame">
                 <img class="image" src="<?= h($item["thumbnail"]) ?>">
