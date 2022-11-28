@@ -23,7 +23,7 @@ define("PAGE_TITLE", "ホーム");
 <?php ELSE: ?>
       <script defer src="./assets/refresh.js"></script>
       <script defer src="./assets/filter.js"></script>
-      <section>
+      <section class="filtered">
         <div class="control">
           <div class="group">
             <label><input type="checkbox" id="auto-update-enabled">自動更新</label>
@@ -51,7 +51,7 @@ define("PAGE_TITLE", "ホーム");
 <?php IF($items): ?>
         <div class="items">
 <?php FOREACH($items as $item): ?>
-          <article class="item notify<?= h($item["notify"]) ?>">
+          <article class="item <?= $item["notify"] === 0 ? "notified" : "ignored" ?> <?= h("notify".$item["notify"]) ?>">
             <a href="<?= h($item["url"]) ?>">
               <div class="frame">
                 <img class="image" src="<?= h($item["thumbnail"]) ?>">

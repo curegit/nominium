@@ -6,6 +6,7 @@
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/style.css" rel="stylesheet">
+    <link href="./assets/filter.css" rel="stylesheet">
   </head>
   <body>
     <header>

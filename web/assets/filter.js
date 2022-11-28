@@ -2,16 +2,23 @@
   const select = document.getElementById("filter-select");
 
   function setfilter(code) {
-    const items = document.getElementsByClassName("item");
-    for (let i = 0; i < items.length; i++) {
-      const classes = items[i].classList;
+    const areas = document.getElementsByClassName("filtered");
+    for (let i = 0; i < areas.length; i++) {
+      const classes = areas[i].classList;
       if (code === -1) {
-        classes.remove("filtered");
+        classes.remove("positive");
+        classes.remove("negative");
+      } else if (code === 0) {
+        classes.add("positive");
+        classes.remove("negative");
       } else {
-        if (classes.contains("notify" + code)) {
-          classes.remove("filtered");
-        } else {
-          classes.add("filtered");
+        classes.remove("positive");
+        classes.add("negative");
+        if (code <= 3) {
+          classes.remove("code1");
+          classes.remove("code2");
+          classes.remove("code3");
+          classes.add("code" + code);
         }
       }
     }

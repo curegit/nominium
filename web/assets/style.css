@@ -234,10 +234,6 @@ article.item h3.title {
   font-weight: inherit;
 }
 
-article.filtered {
-  display: none;
-}
-
 form.register {
   display: flex;
   flex-wrap: wrap;
