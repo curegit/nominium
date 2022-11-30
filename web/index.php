@@ -38,8 +38,8 @@ define("PAGE_TITLE", "ホーム");
           <div class="group">
             <label>絞り込み</label>
             <select name="filter" id="filter-select">
-              <option value="-1">すべて表示</option>
-              <option value="0" selected>通知対象アイテム</option>
+              <option value="-1" selected>すべて表示</option>
+              <option value="0">通知対象アイテム</option>
               <option value="9">非通知アイテム</option>
               <option value="1">├─ 稼働時間外</option>
               <option value="2">├─ 価格上限越え</option>
