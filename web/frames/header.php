@@ -1,3 +1,4 @@
+<?php header("Cache-Control: no-store"); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,7 +6,7 @@
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/style.css" rel="stylesheet">
-    <script src="./assets/reorder.js"></script>
+    <link href="./assets/filter.css" rel="stylesheet">
   </head>
   <body>
     <header>

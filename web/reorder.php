@@ -40,13 +40,14 @@ define("PAGE_TITLE", "並べ替え");
         <h2>キーワードの並べ替え</h2>
 <?php IF($keywords): ?>
         <p>クロールしたい順番にキーワードを並べ替えできます。</p>
+        <script defer src="./assets/reorder.js"></script>
         <form method="post">
           <ol class="reorderable">
 <?php FOREACH($keywords as $keyword_record): ?>
-            <li draggable="true" ondragstart="dragstart(event)" ondragend="dragend(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>"><?= h($keyword_record["keyword"]) ?></li>
+            <li draggable="true"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>"><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
           </ol>
-          <input type="submit" value="並べ替える">
+          <input type="submit" value="確定する">
         </form>
 <?php ELSE: ?>
         <p>キーワードが登録されていません。</p>

@@ -1,0 +1,19 @@
+.filtered.positive .item.ignored {
+  display: none;
+}
+
+.filtered.negative .item.notified {
+  display: none;
+}
+
+.filtered.negative.code1 .item.ignored:not(.notify1) {
+  display: none;
+}
+
+.filtered.negative.code2 .item.ignored:not(.notify2) {
+  display: none;
+}
+
+.filtered.negative.code3 .item.ignored:not(.notify3) {
+  display: none;
+}

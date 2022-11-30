@@ -25,7 +25,11 @@ try {
   $filters = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
-  $error = $e->getMessage();
+  if (is_integrity_constraint_violation($e)) {
+    $error = "登録が重複しているか、無効な値です。";
+  } else {
+    $error = $e->getMessage();
+  }
 }
 
 define("PAGE_TITLE", "フィルタ");
@@ -51,7 +55,8 @@ define("PAGE_TITLE", "フィルタ");
 <?php ENDIF; ?>
       <section>
         <h2>新規フィルタ登録</h2>
-        <p>タイトルに一致する部分を含んだ場合に、通知をしないようにする正規表現パターンを入力してください。</p>
+        <p>タイトルに一致する部分を含んだ場合に、通知をしないようにする正規表現パターンを入力してください。<br>大文字と小文字を区別しません。</p>
+        <p class="warning">構文エラーを検査しないのでご注意ください。</p>
         <form class="register" method="post">
           <label>パターン：<input type="text" name="pattern"></label>
           <input type="submit" value="登録する">

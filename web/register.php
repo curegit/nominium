@@ -16,7 +16,11 @@ try {
   $keywords = $stmt->fetchAll();
   $error = false;
 } catch (PDOException $e) {
-  $error = $e->getMessage();
+  if (is_integrity_constraint_violation($e)) {
+    $error = "登録が重複しているか、無効な値です。";
+  } else {
+    $error = $e->getMessage();
+  }
 }
 
 define("PAGE_TITLE", "キーワード登録");
@@ -49,7 +53,7 @@ define("PAGE_TITLE", "キーワード登録");
         <h2>登録済みキーワード</h2>
         <ul>
 <?php FOREACH($keywords as $keyword_record): ?>
-         <li><?= h($keyword_record["keyword"]) ?></li>
+          <li><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
         </ul>
       </section>

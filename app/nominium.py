@@ -1,6 +1,7 @@
 import sys
 import time
 import random
+import signal
 from html import escape as h
 from queue import Queue
 from modules import config as conf
@@ -8,7 +9,7 @@ from modules.logging import Logger
 from modules.database import connect
 from modules.crawling import init_driver, Fetcher, Extractor
 from modules.notification import NotificationController
-from plugins.enabled import sites
+from plugins.enabled import sites, hooks
 
 # 目標動作時間を受け取る
 uptime = int(sys.argv[1])
@@ -24,6 +25,9 @@ documents_queue = Queue()
 logger = Logger()
 logger.log_line("プロセスを開始しました。")
 logger.commit()
+
+# 子プロセスが割り込みで終了しないようにする
+signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 # フェッチャーを起動する
 drivers = []
@@ -42,7 +46,7 @@ except Exception as e:
 		except:
 			pass
 	raise
-fetchers = [Fetcher(i, d, logger, fetch_queue, documents_queue, conf.wait, conf.max_rate) for i, d in enumerate(drivers, 1)]
+fetchers = [Fetcher(i, d, logger, fetch_queue, documents_queue, conf.wait, conf.max_rate, conf.patience, conf.backoff) for i, d in enumerate(drivers, 1)]
 for fetcher in fetchers:
 	fetcher.start()
 
@@ -64,17 +68,19 @@ fetch_iter = fetch_iterater()
 def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
-	for site, keyword, notify, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
-		id, url, title, img, price = item
+	hook_arg = []
+	for site, keyword, notify, notify_code, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
+		id, url, title, img, thumbnail, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
-			cursor.execute("INSERT INTO item(site, id, url, title, img, price) VALUES(?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, price))
+			cursor.execute("INSERT INTO item(site, id, url, title, img, thumbnail, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, thumbnail, price, notify_code))
 			if notify:
 				subject = title
 				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
-				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><img src=\"{h(img)}\"></body></html>\n"
+				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{h(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
 				mails.append((subject, plain, html))
+				hook_arg.append((site.name, id, keyword, title, url, img, thumbnail, price))
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
 	for site, kid in extractor.pop_fresh():
@@ -89,6 +95,23 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 			logger.log_line(f"通知を {count} 件送信しました。")
 		except Exception as e:
 			logger.log_exception(e, f"通知の送信に失敗しました。")
+	# 通知フックを実行する
+	for hook in hooks:
+		try:
+			hook(hook_arg)
+		except Exception as e:
+			logger.log_exception(e, f"フックの実行中にエラーが発生しました。")
+
+# 割り込みシグナルハンドラ
+def interrupt(signum, frame):
+	global interrupted
+	first_interruption = not interrupted
+	interrupted = True
+	if first_interruption:
+		logger.log_line("割り込みによる中断を受け取りました。")
+		logger.log_line("中断を試みます。")
+	else:
+		logger.log_line("中断しています。")
 
 # データベースに繋いで作業する
 with connect() as connection:
@@ -106,9 +129,14 @@ with connect() as connection:
 			for hr in cursor.fetchall():
 				extractor.history.add((hr["site"], int(hr["keyword"])))
 		# 通知コントローラを用意する
-		nc = NotificationController(conf.max_notify_hourly)
+		nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
+		# 割り込みによる中断を設定
+		interrupted = False
+		signal.signal(signal.SIGINT, interrupt)
+		logger.log_line("ループを開始します。")
+		logger.commit()
 		# 動作時間内なら続ける
-		while time.time() - start < uptime:
+		while not interrupted and time.time() - start < uptime:
 			# キーワードを取り出してイテレータを更新する
 			cursor.execute("SELECT * FROM keyword ORDER BY priority DESC")
 			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
@@ -120,7 +148,7 @@ with connect() as connection:
 				fetch_queue.put(maybe_fetch)
 			# フィルタを更新する
 			cursor.execute("SELECT * FROM filter")
-			extractor.filter_patterns = [fr["pattern"] for fr in cursor.fetchall()]
+			extractor.set_filter_patterns([fr["pattern"] for fr in cursor.fetchall()])
 			# 新規のアイテムについて通知する
 			update(extractor, cursor, nc, logger, least_one=True)
 			# ログに書き込む
