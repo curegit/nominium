@@ -21,11 +21,22 @@ def extract(documents):
 	bs = BeautifulSoup(documents, "html.parser")
 	for b in bs.select("li"):
 		path = b.select_one("a")["href"]
-		id = re.search("/(m[0-9]+)", path).group(1)
-		url = "https://jp.mercari.com/item/" + id
-		thum = b.select_one("mer-item-thumbnail")
-		title = thum["item-name"]
-		img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
-		thumbnail = "https://static.mercdn.net/c!/w=240/thumb/photos/" + id + "_1.jpg"
-		price = int(thum["price"])
+		match = re.search("/(m[0-9]+)", path)
+		if match is None:
+			match = re.search("/products/([A-Za-z0-9]+)", path)
+			id = match.group(1)
+			url = "https://mercari-shops.com/products/" + id
+			thum = b.select_one("mer-item-thumbnail")
+			title = thum["item-name"]
+			thumbnail = thum["src"]
+			img = thumbnail.replace("/small/", "/large/")
+			price = int(thum["price"])
+		else:
+			id = match.group(1)
+			url = "https://item.mercari.com/jp/" + id
+			thum = b.select_one("mer-item-thumbnail")
+			title = thum["item-name"]
+			img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
+			thumbnail = "https://static.mercdn.net/c!/w=240/thumb/photos/" + id + "_1.jpg"
+			price = int(thum["price"])
 		yield id, url, title, img, thumbnail, price
