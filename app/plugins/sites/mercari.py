@@ -12,7 +12,7 @@ name = "Mercari"
 def get(driver, keyword):
 	query = {"keyword": keyword, "sort": "created_time", "order": "desc", "status": "on_sale"}
 	driver.get(f"https://jp.mercari.com/search?{urlencode(query)}")
-	WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#search-result a, #search-result mer-empty-state")))
+	WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#search-result mer-item-thumbnail, #search-result mer-empty-state")))
 	container = driver.find_element(By.ID, "search-result")
 	return container.get_attribute("innerHTML")
 
