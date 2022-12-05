@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from sys import stderr
 from time import sleep
 from modules.config import mail_enabled

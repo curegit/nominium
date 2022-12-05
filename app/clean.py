@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from shutil import rmtree
 from modules.logging import log_dir
 from modules.database import connect

@@ -31,6 +31,7 @@ def init_driver():
 
 # ブラウザ共通の初期設定処理
 def setup_driver(driver):
+	driver.get("http://example.com/")
 	driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
 	return driver
 
@@ -78,6 +79,7 @@ def init_chrome_driver(chromium=False):
 	options.add_argument("--incognito")
 	options.add_argument("--disk-cache-size=0")
 	options.add_argument(f"--window-size={width},{height}")
+	options.add_argument("--disable-blink-features=AutomationControlled")
 	options.add_argument("--disable-dev-shm-usage")
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-desktop-notifications")
