@@ -11,18 +11,18 @@
 - Linux システム
   - `tail` コマンド
 - Apache 2
-  - `mod_rewrite` モジュール
   - ディレクトリ毎の `.htaccess` が有効であること
-  - Nginx で代替可（ただし、ディレクトリ毎 `.htaccess` のコンバートが必要）
+    - 使用できない場合は同等の設定を手動で行う
+  - Nginx でも動作可（ただし、ディレクトリ毎 `.htaccess` のコンバートが必要）
 - PHP 7.0 以上
-  - SQLite (PDO) のサポート
+  - SQLite3 (PDO) のサポート
   - `shell_exec` 関数のサポート
 - Python 3.6 以上
   - Selenium 4
   - WebDriver (Firefox または Chrome または Chromium)
   - Webdriver Manager（オプション）
   - WebDriver はバイナリを手動指定するほか、Webdriver Manager による自動取得も利用可能
-- パスワードでログインできる SMTP サーバー（要 SSL）
+- パスワードでログインできる SMTP サーバー（標準の通知方法、要 SSL）
 
 ### プラグイン
 
@@ -54,12 +54,19 @@
 クロールするサイトとその方法を定義します。
 モジュールには以下 3 つの値を定義する必要があります。
 
-- name: サイト名、他サイトとの区別に使用
-- get(driver, keyword): クロール結果を返します
-- extract(documents): get の戻り値からアイテム情報を抽出します
+- `name`: サイト名文字列、他サイトとの区別に使用
+- `get(driver, keyword)`: 検索文字列 `keyword` のクロール結果を返す関数、`driver` は se
+- `extract(documents)`: `get` の戻り値からアイテム情報（複数）を抽出する関数
 
-extract の戻り値は以下のタプルである必要があります。
-id, url, title, img, thumbnail, price
+`extract` の戻り値はタプル `(id, url, title, img, thumbnail, price)` のイテレーターである必要があります。
+`price` のみ `int` 型です。
+
+- `id`: そのサイトでの固有アイテム ID
+- `url`: そのアイテムの URL
+- `title`: アイテムの名前
+- `img`: アイテムの画像リソース URL
+- `thumbnail`: アイテムの画像（小さいサイズ）リソース URL
+- `price`: 価格（円）
 
 ### 通知
 
