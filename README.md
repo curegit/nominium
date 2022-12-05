@@ -55,7 +55,7 @@
 モジュールには以下 3 つの値を定義する必要があります。
 
 - `name`: サイト名文字列、他サイトとの区別に使用
-- `get(driver, keyword)`: 検索文字列 `keyword` のクロール結果を返す関数、`driver` は se
+- `get(driver, keyword)`: 文字列 `keyword` のクロール結果を返す関数、`driver` は任意で利用できる Selenium WebDriver インスタンス
 - `extract(documents)`: `get` の戻り値からアイテム情報（複数）を抽出する関数
 
 `extract` の戻り値はタプル `(id, url, title, img, thumbnail, price)` のイテレーターである必要があります。
@@ -81,6 +81,7 @@
 ## データの初期化
 
 `app/setup.py` を Python インタプリタで再実行すると、ログファイルとデータベース中の全データが削除されます。
+登録しているキーワードなども削除されます。
 設定ファイルは変更されません。
 
 ## 設定ファイル
