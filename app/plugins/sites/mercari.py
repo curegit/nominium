@@ -33,7 +33,7 @@ def extract(documents):
 			price = int(thum["price"])
 		else:
 			id = match.group(1)
-			url = "https://item.mercari.com/jp/" + id
+			url = "https://jp.mercari.com/item/" + id
 			thum = b.select_one("mer-item-thumbnail")
 			title = thum["item-name"]
 			img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
