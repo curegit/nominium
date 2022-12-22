@@ -6,7 +6,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from modules.config import browser, use_wdm, driver_path, headless
+from modules.config import browser, use_wdm, driver_path, headless, timeout
 from modules.logging import log_dir
 from modules.utilities import file_path, rel_path
 
@@ -31,6 +31,7 @@ def init_driver():
 
 # ブラウザ共通の初期設定処理
 def setup_driver(driver):
+	driver.set_page_load_timeout(timeout)
 	driver.get("http://example.com/")
 	driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
 	return driver

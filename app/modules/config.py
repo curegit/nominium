@@ -26,6 +26,7 @@ browser = config.get("selenium", "browser").lower()
 use_wdm = bool(int(config.get("selenium", "wdm")))
 driver_path = config.get("selenium", "driver")
 headless = bool(int(config.get("selenium", "headless")))
+timeout = int(config.get("selenium", "timeout"))
 
 # SMTP関係の設定
 mail_enabled = bool(int(config.get("smtp", "enabled")))
