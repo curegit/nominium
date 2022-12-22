@@ -115,6 +115,8 @@ Firefox, Chrome, Chromium のいずれかです。
 `headless` が 0 だと通常の GUI モード、1 だと headless モードで起動します。
 CUI 環境では 1 にセットする必要があります。
 
+`timeout` で Webdriver がページロードを待つ最大秒を設定できます。
+
 ### `smtp` セクション
 
 メール送信に使用する情報を記入します。
