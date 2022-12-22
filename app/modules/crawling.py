@@ -88,6 +88,8 @@ def init_chrome_driver(chromium=False):
 	options.add_argument("--allow-running-insecure-content")
 	options.add_argument("--disable-web-security")
 	options.add_argument("--lang=ja")
+	# 一部環境用
+	# options.add_argument("--remote-debugging-port=9222")
 	return Chrome(service=service, options=options)
 
 # フェッチャースレッド
