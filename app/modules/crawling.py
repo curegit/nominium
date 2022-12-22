@@ -107,10 +107,11 @@ class Fetcher(Thread):
 		self.backoff = backoff
 		self.complete = False
 		self.failures = dict()
+		self.logger.log_line(f"フェッチャー {self.id} が起動しました。")
 
 	# フェッチャースレッドの動作
 	def run(self):
-		self.logger.log_line(f"フェッチャー {self.id} が起動しました。")
+		self.logger.log_line(f"フェッチャー {self.id} が開始しました。")
 		while True:
 			if self.complete:
 				break
