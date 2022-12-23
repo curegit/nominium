@@ -52,7 +52,7 @@ define("PAGE_TITLE", "ホーム");
         <div class="items">
 <?php FOREACH($items as $item): ?>
           <article class="item <?= $item["notify"] == 0 ? "notified" : "ignored" ?> <?= h("notify".$item["notify"]) ?>">
-            <a href="<?= h($item["url"]) ?>">
+            <a href="<?= h($item["url"]) ?>" rel="noreferrer">
               <div class="frame">
                 <img class="image" src="<?= h($item["thumbnail"]) ?>">
                 <div class="price">¥<?= h(number_format($item["price"])) ?></div>
