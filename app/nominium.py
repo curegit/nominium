@@ -23,6 +23,10 @@ start = time.time()
 fetch_queue = Queue(conf.parallel * 2)
 documents_queue = Queue()
 
+# 通知コントローラを用意する
+nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
+hook_ncs = [NotificationController(conf.max_notify_hourly) for h in hooks]
+
 # ロギングを開始する
 logger = Logger()
 logger.log_line("プロセスを開始しました。")
@@ -67,7 +71,7 @@ def fetch_iterater():
 fetch_iter = fetch_iterater()
 
 # フェッチ結果から新規のアイテムについて通知する
-def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
+def update(extractor, cursor, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
 	hook_arg = []
@@ -90,17 +94,18 @@ def update(extractor, cursor, nc, logger, least_one=False, timeout=15):
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
 			cursor.execute("INSERT INTO history(site, keyword) VALUES(?, ?)", (site, kid))
-	# 通知を送信する
+	# メール通知を送信する
 	if mails:
 		try:
 			count = nc.send(mails)
-			logger.log_line(f"通知を {count} 件送信しました。")
+			logger.log_line(f"メール通知を {count} 件送信しました。")
 		except Exception as e:
-			logger.log_exception(e, f"通知の送信に失敗しました。")
+			logger.log_exception(e, f"メール通知の送信に失敗しました。")
 	# 通知フックを実行する
-	for hook in hooks:
+	for hook, hnc in zip(hooks, hook_ncs):
 		try:
-			hook(hook_arg)
+			count = hnc.run_hook(hook, hook_arg)
+			logger.log_line(f"{count} 件について通知フックを実行しました。")
 		except Exception as e:
 			logger.log_exception(e, f"フックの実行中にエラーが発生しました。")
 
@@ -130,8 +135,6 @@ with connect() as connection:
 			cursor.execute("SELECT * FROM history")
 			for hr in cursor.fetchall():
 				extractor.history.add((hr["site"], int(hr["keyword"])))
-		# 通知コントローラを用意する
-		nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 		# 割り込みによる中断を設定
 		interrupted = False
 		signal.signal(signal.SIGINT, interrupt)
@@ -152,7 +155,7 @@ with connect() as connection:
 			cursor.execute("SELECT * FROM filter")
 			extractor.set_filter_patterns([fr["pattern"] for fr in cursor.fetchall()])
 			# 新規のアイテムについて通知する
-			update(extractor, cursor, nc, logger, least_one=True)
+			update(extractor, cursor, logger, least_one=True)
 			# ログに書き込む
 			logger.commit()
 		# フェッチャーを終了させる
@@ -165,7 +168,7 @@ with connect() as connection:
 		for fetcher in fetchers:
 			fetcher.join(timeout=60)
 		# バッファに残っているアイテムについて処理する
-		update(extractor, cursor, nc, logger)
+		update(extractor, cursor, logger)
 	# 重いエラーが起きた場合
 	except Exception as e:
 		try:

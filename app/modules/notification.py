@@ -43,14 +43,26 @@ class NotificationController():
 		self.max_per_hour = max_per_hour
 		self.dry = dry
 
-	# 複数のメールを設定に基づいて時間あたりの最大件数を超えないように送信する
-	def send(self, mails):
+	# 時間あたりの最大件数を超えない数にリストをスライスして状態を更新
+	def filter(self, items):
 		hour = datetime.datetime.now().strftime("%Y-%m-%d %H")
 		if self.hour != hour:
 			self.hour = hour
 			self.count = 0
-		num = min(len(mails), self.max_per_hour - self.count)
+		num = min(len(items), self.max_per_hour - self.count)
 		self.count += num
+		return items[0:num]
+
+	# 複数のメールを設定に基づいて時間あたりの最大件数を超えないように送信する
+	def send(self, mails):
+		mails = self.filter(mails)
 		if not self.dry:
-			send(mails[0:num])
-		return num
+			send(mails)
+		return len(mails)
+
+	# 設定に基づいて時間あたりの最大件数を超えない数のアイテムでフックを実行する
+	def run_hook(self, hook, items):
+		items = self.filter(items)
+		if not self.dry:
+			hook(items)
+		return len(items)
