@@ -5,4 +5,4 @@ sites = [mercari, fril]
 
 from plugins.hooks import skeleton
 
-hooks = [skeleton.hook]
+hooks = [skeleton.sample_hook]
