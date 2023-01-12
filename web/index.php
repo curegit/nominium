@@ -12,6 +12,7 @@ try {
 }
 
 define("PAGE_TITLE", "ホーム");
+define("IS_HOME", true);
 ?>
 <?php include "./frames/header.php"; ?>
     <main>

@@ -3,7 +3,11 @@
 <html>
   <head>
     <meta charset="utf-8">
+<?php IF(defined("IS_HOME") && IS_HOME): ?>
+    <title>Nominium</title>
+<?php ELSE: ?>
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
+<?php ENDIF; ?>
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
     <link href="./assets/style.css" rel="stylesheet">
