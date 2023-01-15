@@ -267,6 +267,10 @@ ol.reorderable > li {
   cursor: grab;
 }
 
+ol.reorderable > li:hover {
+  color: #36db8e;
+}
+
 ol.reorderable > li.above {
   border-top-color: #ffedcb6b;
 }
