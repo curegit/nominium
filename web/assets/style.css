@@ -124,6 +124,7 @@ main ul, main ol {
 table {
   margin: 15px 0px 15px 10px;
   border-collapse: collapse;
+  word-break: break-all;
 }
 
 form table {
@@ -152,6 +153,7 @@ th.numeric:last-child {
 
 td {
   padding: 1px 30px 1px 4px;
+  vertical-align: top;
 }
 
 td:last-child {
