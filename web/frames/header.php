@@ -8,10 +8,11 @@
 <?php ELSE: ?>
     <title><?= h(PAGE_TITLE) ?> | Nominium</title>
 <?php ENDIF; ?>
-    <link href="./assets/ziraffe.png" rel="icon">
-    <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
     <link href="./assets/style.css" rel="stylesheet">
     <link href="./assets/filter.css" rel="stylesheet">
+    <link href="./assets/ziraffe.png" rel="icon">
+    <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
+    <meta name="viewport" content="width=device-width">
   </head>
   <body>
     <header>
