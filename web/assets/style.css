@@ -140,6 +140,7 @@ th {
   border-bottom: solid 1px #fff;
   text-align: center;
   font-weight: bolder;
+  vertical-align: bottom;
 }
 
 th.numeric {
