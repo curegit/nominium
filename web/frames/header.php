@@ -27,7 +27,9 @@
           <li><a href="./reorder.php">並べ替え</a></li>
           <li><a href="./filter.php">フィルタ</a></li>
           <li><a href="./inspect.php">監査</a></li>
+<?php IF(defined("AUTH") && AUTH): ?>
           <li><a href="./logout.php">ログアウト</a></li>
+<?php ENDIF; ?>
         </ul>
       </nav>
     </header>
