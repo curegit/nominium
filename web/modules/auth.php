@@ -2,7 +2,6 @@
 $ini_path = realpath(__DIR__."/../../conf/settings.ini");
 $ini_array = parse_ini_file($ini_path, true, INI_SCANNER_RAW);
 $auth = filter_var($ini_array["web"]["auth"], FILTER_VALIDATE_BOOLEAN);
-define("AUTH", $auth);
 if ($auth) {
   $user = $ini_array["web"]["user"];
   $password = $ini_array["web"]["password"];
