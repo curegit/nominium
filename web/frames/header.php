@@ -4,6 +4,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="referrer" content="same-origin">
+    <meta name="viewport" content="width=device-width">
+    <meta name="application-name" content="Nominium">
 <?php IF(defined("IS_HOME") && IS_HOME): ?>
     <title>Nominium</title>
 <?php ELSE: ?>
@@ -13,7 +15,6 @@
     <link href="./assets/filter.css" rel="stylesheet">
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
-    <meta name="viewport" content="width=device-width">
   </head>
   <body>
     <header>
