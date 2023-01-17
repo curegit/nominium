@@ -43,21 +43,25 @@ define("PAGE_TITLE", "重要度の変更");
         <p>表中に変更後の値を入力してください。</p>
         <form method="post">
           <table>
-            <tr>
-              <th>キーワード</th>
-              <th class="numeric">現在</th>
-              <th class="numeric">変更後</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>キーワード</th>
+                <th class="numeric">現在</th>
+                <th class="numeric">変更後</th>
+              </tr>
+            </thead>
+            <tbody>
 <?php FOREACH($keywords as $keyword_record): ?>
-            <tr>
-              <td><?= h($keyword_record["keyword"]) ?></td>
-              <td><?= h($keyword_record["importance"])?></td>
-              <td>
-                <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
-                <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
-              </td>
-            </tr>
+              <tr>
+                <td><?= h($keyword_record["keyword"]) ?></td>
+                <td><?= h($keyword_record["importance"])?></td>
+                <td>
+                  <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
+                  <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
+                </td>
+              </tr>
 <?php ENDFOREACH; ?>
+            </tbody>
           </table>
           <input type="submit" value="変更する">
         </form>

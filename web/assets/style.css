@@ -131,7 +131,7 @@ form table {
   margin-left: 0;
 }
 
-tr:nth-child(2) td {
+tr:first-child td {
   padding-top: 2px;
 }
 

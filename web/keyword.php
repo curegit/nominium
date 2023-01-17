@@ -26,16 +26,20 @@ define("PAGE_TITLE", "キーワード表示");
 <?php IF($keywords): ?>
         <p>クロールされる順番で表示しています。</p>
         <table>
-          <tr>
-            <th>キーワード</th>
-            <th class="numeric">重要度</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>キーワード</th>
+              <th class="numeric">重要度</th>
+            </tr>
+          </thead>
+          <tbody>
 <?php FOREACH($keywords as $keyword_record): ?>
-          <tr>
-            <td><?= h($keyword_record["keyword"]) ?></td>
-            <td><?= h($keyword_record["importance"])?></td>
-          </tr>
+            <tr>
+              <td><?= h($keyword_record["keyword"]) ?></td>
+              <td><?= h($keyword_record["importance"])?></td>
+            </tr>
 <?php ENDFOREACH; ?>
+          </tbody>
         </table>
 <?php ELSE: ?>
         <p>キーワードが登録されていません。</p>
