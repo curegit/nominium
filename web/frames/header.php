@@ -12,7 +12,7 @@
     <link href="./assets/filter.css" rel="stylesheet">
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
   </head>
   <body>
     <header>
