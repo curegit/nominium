@@ -44,7 +44,7 @@ define("PAGE_TITLE", "キーワード登録");
         <p>検索キーワードと重要度を入力してください。</p>
         <form class="register" method="post">
           <label>キーワード：<input type="text" name="keyword"></label>
-          <label>重要度：<input type="number" name="importance" min=0.01 max=1.0 step=0.01 value=0.8></label>
+          <label>重要度：<input type="number" name="importance" size=12 min=0.01 max=1.0 step=0.01 value=0.8></label>
           <input type="submit" value="登録する">
         </form>
       </section>

@@ -54,7 +54,7 @@ define("PAGE_TITLE", "重要度の変更");
               <td><?= h($keyword_record["importance"])?></td>
               <td>
                 <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
-                <input type="number" name="importances[]" min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
+                <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
               </td>
             </tr>
 <?php ENDFOREACH; ?>
