@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="referrer" content="same-origin">
 <?php IF(defined("IS_HOME") && IS_HOME): ?>
     <title>Nominium</title>
 <?php ELSE: ?>
