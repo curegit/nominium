@@ -6,13 +6,12 @@
 
 body {
   min-width: 640px;
-  background-color: #505050;
+  background-color: #6f476e;
   color: #fff;
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.6;
   overflow-wrap: break-word;
-  overscroll-behavior-y: none;
 }
 
 a {
@@ -77,6 +76,7 @@ nav.menu > ul > li > a:hover {
 
 main {
   padding: 15px 12px 10px;
+  background-color: #505050;
 }
 
 section {
