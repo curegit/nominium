@@ -9,7 +9,7 @@ name = "Fril"
 # フェッチャーにさせる動作
 def get(driver, keyword):
 	query = {"query": keyword, "sort": "created_at", "order": "desc", "transaction": "selling"}
-	response = requests.get("https://fril.jp/s", params=query)
+	response = requests.get("https://fril.jp/s", params=query, timeout=20)
 	# Frilは検索結果が空のときに404が返る実装になっている
 	if response.status_code != 404:
 		response.raise_for_status()
