@@ -1,4 +1,5 @@
 *.db
 *.log
-app/caches
+/app/caches
+/conf/settings.ini
 __pycache__/

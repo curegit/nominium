@@ -33,9 +33,10 @@
 ## インストール手順
 
 1. すべてのファイルをサーバーに配置する
-2. 設定ファイル `conf/settings.ini` を書き換える
-3. `app/setup.py` を Python インタプリタで実行する
-4. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認する
+2. 設定テンプレート `conf/settings.sample.ini` から、設定ファイル `conf/settings.ini` を作成
+3. 設定ファイル `conf/settings.ini` を書き換える
+4. `app/setup.py` を Python インタプリタで実行する
+5. `app/test.py` を Python インタプリタで実行し、Selenium とメール送信の動作を確認する
 
 ## 使い方
 
