@@ -192,3 +192,7 @@ with connect() as connection:
 # 終了を報告する
 logger.log_line("プロセスを終了しました。")
 logger.commit()
+
+# 割り込み終了なら終了コードを特殊化
+if interrupted:
+	sys.exit(130)
