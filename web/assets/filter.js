@@ -1,7 +1,7 @@
 (function () {
   const select = document.getElementById("filter-select");
 
-  function setfilter(code) {
+  function applyfilter(code) {
     const areas = document.getElementsByClassName("filtered");
     for (let i = 0; i < areas.length; i++) {
       const classes = areas[i].classList;
@@ -26,9 +26,20 @@
 
   function changefilter() {
     const code = +select.value;
-    setfilter(code);
+    const url = new URL(location);
+    if (code === -1) {
+      url.searchParams.delete("filter");
+    } else {
+      url.searchParams.set("filter", code);
+    }
+    history.pushState({}, "", url);
+    applyfilter(code);
   }
 
+  const url = new URL(location);
+  const filter = url.searchParams.get("filter");
+  const code = filter === null ? -1 : +filter;
+  select.value = code;
   select.addEventListener("change", changefilter);
-  changefilter();
+  applyfilter(code);
 })();
