@@ -1,17 +1,51 @@
+:root {
+  --no-items: "絞り込み条件に合うアイテムはありません。";
+}
+
+.filtered.positive:not(:has(.item.notified))::before
+{
+  display: block;
+  content: var(--no-items);
+}
+
 .filtered.positive .item.ignored {
   display: none;
+}
+
+.filtered.negative:not(:has(.item.ignored))::before
+{
+  display: block;
+  content: var(--no-items);
 }
 
 .filtered.negative .item.notified {
   display: none;
 }
 
+.filtered.negative.code1:not(:has(.item.ignored.notify1))::before
+{
+  display: block;
+  content: var(--no-items);
+}
+
 .filtered.negative.code1 .item.ignored:not(.notify1) {
   display: none;
 }
 
+.filtered.negative.code2:not(:has(.item.ignored.notify2))::before
+{
+  display: block;
+  content: var(--no-items);
+}
+
 .filtered.negative.code2 .item.ignored:not(.notify2) {
   display: none;
+}
+
+.filtered.negative.code3:not(:has(.item.ignored.notify3))::before
+{
+  display: block;
+  content: var(--no-items);
 }
 
 .filtered.negative.code3 .item.ignored:not(.notify3) {
