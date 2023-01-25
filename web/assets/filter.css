@@ -2,7 +2,7 @@
   --no-items: "絞り込み条件に合うアイテムはありません。";
 }
 
-.filtered.positive:not(:has(.item.notified))::before
+.filtered:has(.item).positive:not(:has(.item.notified))::after
 {
   display: block;
   content: var(--no-items);
@@ -12,7 +12,7 @@
   display: none;
 }
 
-.filtered.negative:not(:has(.item.ignored))::before
+.filtered:has(.item).negative:not(:has(.item.ignored))::after
 {
   display: block;
   content: var(--no-items);
@@ -22,7 +22,7 @@
   display: none;
 }
 
-.filtered.negative.code1:not(:has(.item.ignored.notify1))::before
+.filtered:has(.item).negative.code1:not(:has(.item.ignored.notify1))::after
 {
   display: block;
   content: var(--no-items);
@@ -32,7 +32,7 @@
   display: none;
 }
 
-.filtered.negative.code2:not(:has(.item.ignored.notify2))::before
+.filtered:has(.item).negative.code2:not(:has(.item.ignored.notify2))::after
 {
   display: block;
   content: var(--no-items);
@@ -42,7 +42,7 @@
   display: none;
 }
 
-.filtered.negative.code3:not(:has(.item.ignored.notify3))::before
+.filtered:has(.item).negative.code3:not(:has(.item.ignored.notify3))::after
 {
   display: block;
   content: var(--no-items);
