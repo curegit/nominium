@@ -6,18 +6,14 @@
     for (let i = 0; i < areas.length; i++) {
       const classes = areas[i].classList;
       if (code === -1) {
-        classes.remove("positive");
-        classes.remove("negative");
+        classes.remove("positive", "negative");
       } else if (code === 0) {
-        classes.add("positive");
         classes.remove("negative");
+        classes.add("positive");
       } else {
-        classes.remove("positive");
+        classes.remove("positive", "code1", "code2", "code3");
         classes.add("negative");
-        if (code <= 3) {
-          classes.remove("code1");
-          classes.remove("code2");
-          classes.remove("code3");
+        if (1 <= code && code <= 3) {
           classes.add("code" + code);
         }
       }
@@ -32,14 +28,19 @@
     } else {
       url.searchParams.set("filter", code);
     }
-    history.pushState({}, "", url);
+    history.pushState({filter: code}, "", url);
     applyfilter(code);
   }
 
-  const url = new URL(location);
-  const filter = url.searchParams.get("filter");
-  const code = filter === null ? -1 : +filter;
-  select.value = code;
+  function initfilter() {
+    const url = new URL(location);
+    const filter = url.searchParams.get("filter");
+    const code = filter === null ? -1 : +filter;
+    select.value = code;
+    applyfilter(code);
+  }
+
   select.addEventListener("change", changefilter);
-  applyfilter(code);
+  window.addEventListener("popstate", initfilter);
+  initfilter();
 })();
