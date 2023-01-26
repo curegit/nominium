@@ -1,5 +1,8 @@
+<?php
+$version = rtrim(file_get_contents(__DIR__."/../../VERSION"));
+?>
     <footer>
-      <span>Nominium Web Interface on PHP <?= h(phpversion()) ?></span>
+      <span>Nominium <?= h($version) ?> Web Interface on PHP <?= h(phpversion()) ?></span>
     </footer>
   </body>
 </html>
