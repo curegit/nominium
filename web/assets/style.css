@@ -114,6 +114,10 @@ input[type="text"] {
   min-width: 220px;
 }
 
+select {
+  padding: 0 2px;
+}
+
 main ul, main ol {
   margin: 4px 0px 4px 10px;
   padding-left: 10px;
