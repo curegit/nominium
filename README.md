@@ -1,8 +1,10 @@
 # Nominium
 
-個人間取引サイトの新着商品をメールなどで通知するクローラー
-
 <img src="web/assets/ziraffe.png" width="80px" height="80px">
+
+個人間取引サイトの新着商品をメールなどで通知するクローラーシステム
+
+
 
 ## 動作要件
 
