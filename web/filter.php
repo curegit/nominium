@@ -67,7 +67,7 @@ define("PAGE_TITLE", "フィルタ");
         <h2>登録済みフィルタの削除</h2>
         <p>削除するフィルタを選択してください。</p>
         <form method="post">
-          <ul class="checklist">
+          <ul class="checklist delete">
 <?php FOREACH($filters as $filter_record): ?>
             <li>
               <label><input type="checkbox" name="deletes[]" value="<?= h($filter_record["id"]) ?>"><?= h($filter_record["pattern"]) ?></label>

@@ -125,6 +125,10 @@ main ul, main ol {
   list-style-position: inside;
 }
 
+form ul, form ol {
+  line-height: 1.7;
+}
+
 table {
   margin: 15px 0px 15px 10px;
   border-collapse: collapse;
@@ -252,6 +256,10 @@ ul.checklist {
   margin-bottom: 15px;
   padding: 0;
   list-style: none;
+}
+
+ul.checklist.delete label:hover {
+  color: #e34747;
 }
 
 ul.checklist input[type="checkbox"] {

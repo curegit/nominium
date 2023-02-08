@@ -45,7 +45,7 @@ define("PAGE_TITLE", "キーワード削除");
 <?php IF($keywords): ?>
         <p>削除するキーワードを選択してください。</p>
         <form method="post">
-          <ul class="checklist">
+          <ul class="checklist delete">
 <?php FOREACH($keywords as $keyword_record): ?>
             <li>
               <label><input type="checkbox" name="deletes[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?></label>
