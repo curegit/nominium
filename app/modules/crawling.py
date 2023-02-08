@@ -164,7 +164,7 @@ class Fetcher(Thread):
 		return False
 
 # 必要な情報の抽出器
-class Extractor():
+class Extractor:
 
 	# コンストラクタ
 	def __init__(self, logger, queue, max_price, cut=10, enough=100):

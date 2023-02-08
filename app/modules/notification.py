@@ -34,7 +34,7 @@ def send(mails):
 	smtp_send(smtp_host, smtp_port, smtp_user, smtp_passwd, mail_from, mail_tos, messages)
 
 # 通知配信を制限に則って行うクラス
-class NotificationController():
+class NotificationController:
 
 	# コンストラクタ
 	def __init__(self, max_per_hour, dry=False):

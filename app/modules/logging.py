@@ -22,7 +22,7 @@ def log_line_format(dtime, message, eol=True):
 	return f"{time_string(dtime)} {message}" + ("\n" if eol else "")
 
 # 複数スレッドから集約的に書き込むためのロガー
-class Logger():
+class Logger:
 
 	# 標準出力への排他書き込み用プリミティブ
 	lock = Lock()
