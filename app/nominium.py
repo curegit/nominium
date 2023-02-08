@@ -13,11 +13,21 @@ from modules.crawling import init_driver, Fetcher, Extractor
 from modules.notification import NotificationController
 from plugins.enabled import sites, hooks
 
-# 目標動作時間を受け取る
-uptime = int(sys.argv[1])
-
 # 開始時刻を記録する
 start = time.time()
+
+# ロギングを開始する
+logger = Logger()
+logger.log_line("プロセスを開始しました。")
+logger.commit()
+
+# 目標動作時間を受け取る
+try:
+	uptime = int(sys.argv[1])
+except Exception as e:
+	logger.log_exception(e, "動作時間を整数秒で与えてください。")
+	logger.commit()
+	raise
 
 # タスクキューを作成する
 fetch_queue = Queue(conf.parallel * 2)
@@ -26,11 +36,6 @@ documents_queue = Queue()
 # 通知コントローラを用意する
 nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 hook_ncs = [NotificationController(conf.max_notify_hourly) for h in hooks]
-
-# ロギングを開始する
-logger = Logger()
-logger.log_line("プロセスを開始しました。")
-logger.commit()
 
 # 子プロセスが割り込みで終了しないようにする
 signal.signal(signal.SIGINT, signal.SIG_IGN)
