@@ -8,6 +8,6 @@ header("HTTP/1.1 401 Unauthorized");
     <title>ログアウト</title>
   </head>
   <body>
-    <p>ログアウトしました。</p>
+    <p>ログアウトを要求しました。</p>
   </body>
 </html>
