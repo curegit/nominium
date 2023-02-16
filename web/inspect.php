@@ -1,5 +1,6 @@
 <?php
 require_once "./modules/auth.php";
+require_once "./modules/csrf.php";
 require_once "./modules/functions.php";
 
 $n = 2000;
