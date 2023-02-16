@@ -8,12 +8,12 @@ if ($auth) {
   switch (true) {
     case !isset($_SERVER["PHP_AUTH_USER"], $_SERVER["PHP_AUTH_PW"]):
       http_response_code(401);
+      header("WWW-Authenticate: Basic realm=\"Nominium Web Interface\"");
       header("Content-Type: text/plain; charset=utf-8");
       die("ログインしてください。".PHP_EOL);
     case $_SERVER["PHP_AUTH_USER"] !== $user:
     case $_SERVER["PHP_AUTH_PW"] !== $password:
       http_response_code(401);
-      header("WWW-Authenticate: Basic realm=\"Nominium Web Interface\"");
       header("Content-Type: text/plain; charset=utf-8");
       die("認証に失敗しました。".PHP_EOL);
   }
