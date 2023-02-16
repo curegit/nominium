@@ -1,6 +1,6 @@
 <?php header("Cache-Control: no-store"); ?>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="referrer" content="same-origin">
