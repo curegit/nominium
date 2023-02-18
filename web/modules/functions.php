@@ -16,7 +16,8 @@ function open_db() {
 
 // PDO例外が整合性制約違反なら真 (ANSI SQL-92)
 function is_integrity_constraint_violation($error) {
-  return $error->getCode() === "23000";
+  $code = (int)($error->getCode());
+  return 23000 <= $code && $code < 24000;
 }
 
 // ログファイルの内容を返す
