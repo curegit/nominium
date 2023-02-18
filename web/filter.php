@@ -27,8 +27,10 @@ try {
   $error = false;
 } catch (PDOException $e) {
   if (is_integrity_constraint_violation($e)) {
+    http_response_code(422);
     $error = "登録が重複しているか、無効な値です。";
   } else {
+    http_response_code(500);
     $error = $e->getMessage();
   }
 }
