@@ -7,6 +7,9 @@ $n = 2000;
 $err_n = 1000;
 $log = get_recent_log($n);
 $err_log = get_recent_log($n, true);
+if ($err_log === null || $log === null) {
+  http_response_code(500);
+}
 
 define("PAGE_TITLE", "監査");
 ?>
