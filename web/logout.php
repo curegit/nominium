@@ -1,7 +1,6 @@
 <?php
 require_once "./modules/auth.php";
 require_once "./modules/csrf.php";
-require_once "./modules/functions.php";
 
 $logout = $_SERVER["REQUEST_METHOD"] === "POST";
 ?>
