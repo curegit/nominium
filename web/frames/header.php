@@ -1,3 +1,4 @@
+<?php header("Content-Security-Policy: frame-ancestors 'none'"); ?>
 <?php header("Cache-Control: no-store"); ?>
 <!DOCTYPE html>
 <html lang="ja">
