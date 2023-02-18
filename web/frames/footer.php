@@ -1,4 +1,6 @@
 <?php
+require_once "./modules/functions.php";
+
 $version = rtrim(file_get_contents(__DIR__."/../../VERSION"));
 ?>
     <footer>

@@ -1,3 +1,6 @@
+<?php
+require_once "./modules/functions.php";
+?>
 <?php header("Content-Security-Policy: frame-ancestors 'none'"); ?>
 <?php header("Cache-Control: no-store"); ?>
 <!DOCTYPE html>
