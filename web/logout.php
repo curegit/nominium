@@ -21,7 +21,8 @@ $logout = $_SERVER["REQUEST_METHOD"] === "POST";
 <?php include "./frames/header.php"; ?>
     <main>
       <section>
-        <h2>ログアウト要求</h2>
+        <h2>ログアウト操作</h2>
+        <p>ログアウト要求を発行できます。</p>
         <form method="post">
           <input type="submit" value="ログアウトする">
         </form>
