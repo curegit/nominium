@@ -12,7 +12,7 @@ name = "Mercari"
 def get(driver, keyword):
 	query = {"keyword": keyword, "sort": "created_time", "order": "desc", "status": "on_sale"}
 	driver.get(f"https://jp.mercari.com/search?{urlencode(query)}")
-	WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#search-result mer-item-thumbnail, #search-result mer-empty-state")))
+	WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#search-result li, #search-result mer-empty-state")))
 	container = driver.find_element(By.ID, "search-result")
 	return container.get_attribute("innerHTML")
 
@@ -26,17 +26,18 @@ def extract(documents):
 			match = re.search("/products/([A-Za-z0-9]+)", path)
 			id = match.group(1)
 			url = "https://mercari-shops.com/products/" + id
-			thum = b.select_one("mer-item-thumbnail")
-			title = thum["item-name"]
+			title = b.select_one("figure + span").text
+			thum = b.select_one("img")
 			thumbnail = thum["src"]
 			img = thumbnail.replace("/small/", "/large/")
-			price = int(thum["price"])
+			price_text = b.select_one(".merPrice > span + span").text
+			price = int(price_text.replace(",", ""))
 		else:
 			id = match.group(1)
 			url = "https://jp.mercari.com/item/" + id
-			thum = b.select_one("mer-item-thumbnail")
-			title = thum["item-name"]
+			title = b.select_one("figure + span").text
 			img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
 			thumbnail = "https://static.mercdn.net/c!/w=240/thumb/photos/" + id + "_1.jpg"
-			price = int(thum["price"])
+			price_text = b.select_one(".merPrice > span + span").text
+			price = int(price_text.replace(",", ""))
 		yield id, url, title, img, thumbnail, price
