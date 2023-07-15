@@ -25,6 +25,10 @@ def extract(documents):
 		if match is None:
 			match = re.search("/products/([A-Za-z0-9]+)", path)
 			id = match.group(1)
+			# 一部プラットフォーム
+			if match is None:
+				match = re.search("/shops/product/([A-Za-z0-9]+)", path)
+				id = match.group(1)
 			url = "https://mercari-shops.com/products/" + id
 			title = b.select_one("figure + span").text
 			thum = b.select_one("img")
