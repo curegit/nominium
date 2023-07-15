@@ -23,7 +23,7 @@ def extract(documents):
 			url = item.select_one("a")["href"]
 			id = re.search("fril.jp/([0-9a-z]+)", url).group(1)
 			title = item.select_one(".item-box__item-name").get_text(strip=True)
-			img_url = urlparse(item.select_one("meta")["content"])
+			img_url = urlparse(item.select_one("img")["data-original"])
 			thumbnail = img_url.scheme + "://" + img_url.netloc + img_url.path
 			img = thumbnail.replace("/m/", "/l/")
 			price_str = item.select_one(".item-box__item-price").get_text(strip=True)
