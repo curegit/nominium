@@ -23,12 +23,12 @@ def extract(documents):
 		path = b.select_one("a")["href"]
 		match = re.search("/(m[0-9]+)", path)
 		if match is None:
+			# Shops
 			match = re.search("/products/([A-Za-z0-9]+)", path)
-			id = match.group(1)
 			# 一部プラットフォーム
 			if match is None:
 				match = re.search("/shops/product/([A-Za-z0-9]+)", path)
-				id = match.group(1)
+			id = match.group(1)
 			url = "https://mercari-shops.com/products/" + id
 			title = b.select_one("figure + span").text
 			thum = b.select_one("img")
