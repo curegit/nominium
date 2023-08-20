@@ -63,7 +63,7 @@ for fetcher in fetchers:
 
 # フェッチタスクのイテレータを用意する
 fetch_table = []
-def fetch_iterater():
+def fetch_iterator():
 	while True:
 		count = 0
 		for kid, keyword, probability in fetch_table:
@@ -73,7 +73,7 @@ def fetch_iterater():
 					yield site, kid, keyword
 		if count == 0:
 			yield None
-fetch_iter = fetch_iterater()
+fetch_iter = fetch_iterator()
 
 # フェッチ結果から新規のアイテムについて通知する
 def update(extractor, cursor, logger, least_one=False, timeout=15):
