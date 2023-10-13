@@ -74,7 +74,7 @@ def init_chrome_driver(chromium=False):
 		service = ChromeService(executable_path=driver_path, log_path=log_path)
 	options = ChromeOptions()
 	if headless:
-		options.add_argument("--headless")
+		options.add_argument("--headless=new")
 	options.add_argument("--no-sandbox")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--incognito")
