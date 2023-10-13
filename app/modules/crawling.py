@@ -65,7 +65,7 @@ def init_chrome_driver(chromium=False):
 	log_path = file_path(log_dir, "chromedrive", "log")
 	if use_wdm:
 		from webdriver_manager.chrome import ChromeDriverManager
-		from webdriver_manager.core.utils import ChromeType
+		from webdriver_manager.core.os_manager import ChromeType
 		if chromium:
 			service = ChromeService(ChromeDriverManager(path=wdm_dir, chrome_type=ChromeType.CHROMIUM).install(), log_path=log_path)
 		else:
