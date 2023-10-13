@@ -41,7 +41,8 @@ def init_gecko_driver():
 	log_path = file_path(log_dir, "geckodriver", "log")
 	if use_wdm:
 		from webdriver_manager.firefox import GeckoDriverManager
-		service = FirefoxService(GeckoDriverManager(path=wdm_dir).install(), log_path=log_path)
+		from webdriver_manager.core.driver_cache import DriverCacheManager
+		service = FirefoxService(GeckoDriverManager(cache_manager=DriverCacheManager(wdm_dir)).install(), log_path=log_path)
 	else:
 		service = FirefoxService(executable_path=driver_path, log_path=log_path)
 	options = FirefoxOptions()
@@ -65,11 +66,12 @@ def init_chrome_driver(chromium=False):
 	log_path = file_path(log_dir, "chromedrive", "log")
 	if use_wdm:
 		from webdriver_manager.chrome import ChromeDriverManager
+		from webdriver_manager.core.driver_cache import DriverCacheManager
 		from webdriver_manager.core.os_manager import ChromeType
 		if chromium:
-			service = ChromeService(ChromeDriverManager(path=wdm_dir, chrome_type=ChromeType.CHROMIUM).install(), log_path=log_path)
+			service = ChromeService(ChromeDriverManager(cache_manager=DriverCacheManager(wdm_dir), chrome_type=ChromeType.CHROMIUM).install(), log_path=log_path)
 		else:
-			service = ChromeService(ChromeDriverManager(path=wdm_dir).install(), log_path=log_path)
+			service = ChromeService(ChromeDriverManager(cache_manager=DriverCacheManager(wdm_dir)).install(), log_path=log_path)
 	else:
 		service = ChromeService(executable_path=driver_path, log_path=log_path)
 	options = ChromeOptions()
