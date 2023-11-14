@@ -192,7 +192,7 @@ class Extractor:
 		for i in range(qsize):
 			try:
 				site, kid, keyword, documents = self.queue.get(timeout=timeout)
-			except:
+			except Exception:
 				break
 			else:
 				fresh = (site.name, kid) not in self.history

@@ -10,7 +10,7 @@ from modules.notification import send
 print("WebDriver をテストします")
 try:
 	driver = init_driver()
-except:
+except Exception:
 	print("ブラウザの起動に失敗しました", file=stderr)
 	print("WebDriver の設定または環境に問題があります", file=stderr)
 	print("テストを中断します")
@@ -18,7 +18,7 @@ except:
 try:
 	driver.get("https://example.com/")
 	sleep(5)
-except:
+except Exception:
 	print("example.com の取得に失敗しました", file=stderr)
 	print("WebDriver の設定または環境に問題があります", file=stderr)
 	print("テストを中断します")
@@ -34,7 +34,7 @@ if mail_enabled:
 	print("SMTP 構成をテストします")
 	try:
 		send([("テストメール", "Nominium テストメールです。", "<html><head><title>テストメール</title></head><body><p>Nominium テストメールです。</p></body></html>")])
-	except:
+	except Exception:
 		print("メールを送信できませんでした", file=stderr)
 		print("SMTP の構成または環境に問題があります", file=stderr)
 		print("テストを中断します")
