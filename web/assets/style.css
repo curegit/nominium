@@ -75,8 +75,10 @@ nav.menu > ul > li > a {
   text-align: center;
 }
 
-nav.menu > ul > li > a:hover {
-  background-color: #00000024;
+@media (any-hover: hover) {
+  nav.menu > ul > li > a:hover {
+    background-color: #00000024;
+  }
 }
 
 main {
@@ -208,8 +210,10 @@ article.item > a {
   padding: 3px 3px 0px 3px;
 }
 
-article.item > a:hover {
-  background-color: #00000050;
+@media (any-hover: hover) {
+  article.item > a:hover {
+    background-color: #00000050;
+  }
 }
 
 article.item div.frame {
@@ -263,8 +267,10 @@ ul.checklist {
   list-style: none;
 }
 
-ul.checklist.delete label:hover {
-  color: #e34747;
+@media (any-hover: hover) {
+  ul.checklist.delete label:hover {
+    color: #e34747;
+  }
 }
 
 ul.checklist input[type="checkbox"] {
@@ -287,8 +293,10 @@ ol.reorderable > li {
   cursor: grab;
 }
 
-ol.reorderable > li:hover {
-  color: #36db8e;
+@media (any-hover: hover) {
+  ol.reorderable > li:hover {
+    color: #36db8e;
+  }
 }
 
 ol.reorderable > li.above {

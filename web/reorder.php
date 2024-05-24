@@ -41,7 +41,7 @@ define("PAGE_TITLE", "並べ替え");
       <section>
         <h2>キーワードの並べ替え</h2>
 <?php IF($keywords): ?>
-        <p>クロールしたい順番にキーワードを並べ替えできます。</p>
+        <p>クロールしたい順番にキーワードを並べ替えできます。（要ポインター操作）</p>
         <script defer src="./assets/reorder.js"></script>
         <form method="post">
           <ol class="reorderable">
