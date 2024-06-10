@@ -132,8 +132,10 @@ class SigTermExit(BaseException):
 # シャットダウンシグナルハンドラ
 def terminate(signum, frame):
 	global terminated
+	first_termination = not terminated
 	terminated = True
-	raise SigTermExit()
+	if first_termination:
+		raise SigTermExit()
 
 # データベースに繋いで作業する
 with connect() as connection:
