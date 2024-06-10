@@ -19,7 +19,7 @@ def get(driver, keyword):
 # フェッチしたデータの処理
 def extract(documents):
 	bs = BeautifulSoup(documents, "html.parser")
-	for b in bs.select("li"):
+	for b in bs.select("li:has(a)"):
 		path = b.select_one("a")["href"]
 		match = re.search("/(m[0-9]+)", path)
 		if match is None:
