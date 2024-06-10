@@ -126,6 +126,15 @@ def interrupt(signum, frame):
 	else:
 		logger.log_line("中断しています。")
 
+class SigTermExit(BaseException):
+	pass
+
+# シャットダウンシグナルハンドラ
+def terminate(signum, frame):
+	global terminated
+	terminated = True
+	raise SigTermExit()
+
 # データベースに繋いで作業する
 with connect() as connection:
 	cursor = connection.cursor()
@@ -143,7 +152,9 @@ with connect() as connection:
 				extractor.history.add((hr["site"], int(hr["keyword"])))
 		# 割り込みによる中断を設定
 		interrupted = False
+		terminated = False
 		signal.signal(signal.SIGINT, interrupt)
+		signal.signal(signal.SIGTERM, terminate)
 		logger.log_line("ループを開始します。")
 		logger.commit()
 		# 動作時間内なら続ける
@@ -183,6 +194,10 @@ with connect() as connection:
 		except:
 			pass
 		raise
+	# SIGTERM
+	except SigTermExit:
+		logger.log_line("シャットダウンシグナルを受け取りました。迅速に終了します。")
+		logger.commit()
 	# リソース開放などの後始末を行う
 	finally:
 		# WebDriverを終了させる
@@ -199,5 +214,7 @@ logger.log_line("プロセスを終了しました。")
 logger.commit()
 
 # 割り込み終了なら終了コードを特殊化
+if terminated:
+	sys.exit(143)
 if interrupted:
 	sys.exit(130)
