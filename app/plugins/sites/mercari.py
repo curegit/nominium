@@ -43,5 +43,8 @@ def extract(documents):
 			img = "https://static.mercdn.net/item/detail/orig/photos/" + id + "_1.jpg"
 			thumbnail = "https://static.mercdn.net/c!/w=240/thumb/photos/" + id + "_1.jpg"
 			price_text = b.select_one(".merPrice > span + span").text
-			price = int(price_text.replace(",", ""))
+			try:
+				price = int(price_text.replace(",", ""))
+			except ValueError:
+				price = 0
 		yield id, url, title, img, thumbnail, price
