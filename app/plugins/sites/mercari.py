@@ -46,5 +46,8 @@ def extract(documents):
 			try:
 				price = int(price_text.replace(",", ""))
 			except ValueError:
-				price = 0
+				if len(price_text) <= 3:
+					price = 0
+				else:
+					raise
 		yield id, url, title, img, thumbnail, price
