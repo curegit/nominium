@@ -26,16 +26,16 @@ PHP による WEB ページインターフェースからデータベースに�
 - PHP 7.0 以上
   - SQLite3 (PDO) のサポート
   - `shell_exec` 関数のサポート
-- Python 3.6 以上
-  - Selenium 4
+- Python 3.8 以上
+  - Selenium 4 系
   - WebDriver (Firefox または Chrome または Chromium)
   - Webdriver Manager（オプション）
-  - WebDriver はバイナリを手動指定するほか、Webdriver Manager による自動取得も利用可能
+  - WebDriver はバイナリを手動指定するほか、Webdriver Manager, Selenium Manager による自動取得も利用可能
 - パスワードでログインできる SMTP サーバー（標準の通知方法、要 SSL）
 
 ### プラグイン
 
-同梱プラグインの動作には以下が必要です。
+同梱プラグインの動作には以下が追加で必要です。
 
 - Requests (Python)
 - Beautiful Soup 4 (Python)
@@ -125,6 +125,7 @@ Firefox, Chrome, Chromium のいずれかです。
 
 `wdm` が 1 のとき、Webdriver Manager によって、対応する WebDriver が自動取得（さらにキャッシュ）されます。
 `wdm` が 0 のときは、`driver` フィールドに、使用する WebDriver のパスを記述してください。
+`driver` フィールドが空のときは、Selenium Manager による自動取得が行われます。
 
 `headless` が 0 だと通常の GUI モード、1 だと headless モードで起動します。
 CUI 環境では 1 にセットする必要があります。
