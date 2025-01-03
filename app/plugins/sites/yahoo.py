@@ -27,5 +27,12 @@ def extract(documents):
 			img_url = urlparse(thumbnail)
 			img = img_url.scheme + "://" + img_url.netloc + img_url.path
 			price_str = item.select_one("p").get_text(strip=True)
-			price = int("".join([c for c in price_str if c in [str(i) for i in range(10)]]))
+			price_digits = "".join([c for c in price_str if c in [str(i) for i in range(10)]])
+			try:
+				price = int(price_digits)
+			except ValueError:
+				if len(price_digits) <= 3:
+					price = 0
+				else:
+					raise
 			yield id, url, title, img, thumbnail, price
