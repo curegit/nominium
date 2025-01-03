@@ -44,7 +44,10 @@ def init_gecko_driver():
 		from webdriver_manager.core.driver_cache import DriverCacheManager
 		service = FirefoxService(GeckoDriverManager(cache_manager=DriverCacheManager(wdm_dir)).install(), log_path=log_path)
 	else:
-		service = FirefoxService(executable_path=driver_path, log_path=log_path)
+		if driver_path:
+			service = FirefoxService(executable_path=driver_path, log_path=log_path)
+		else:
+			service = None
 	options = FirefoxOptions()
 	if headless:
 		options.add_argument("-headless")
@@ -73,7 +76,10 @@ def init_chrome_driver(chromium=False):
 		else:
 			service = ChromeService(ChromeDriverManager(cache_manager=DriverCacheManager(wdm_dir)).install(), log_path=log_path)
 	else:
-		service = ChromeService(executable_path=driver_path, log_path=log_path)
+		if driver_path:
+			service = ChromeService(executable_path=driver_path, log_path=log_path)
+		else:
+			service = None
 	options = ChromeOptions()
 	if headless:
 		options.add_argument("--headless")
