@@ -4,15 +4,19 @@ function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
 }
 
-// クエリの組み立て方 JSON を返す
+// クエリの組み立て方JSONを返す
 function queries() {
-  $json_path = realpath(__DIR__."/../../data/queries.json");
-  $res = file_get_contents($json_path);
-  if ($res === false) {
-    return "{}";
-  } else {
-    return $res;
+  static $cache = null;
+  if ($cache === null) {
+    $json_path = realpath(__DIR__."/../../data/queries.json");
+    $res = file_get_contents($json_path);
+    if ($res === false) {
+      $cache = "{}";
+    } else {
+      $cache = $res;
+    }
   }
+  return $cache;
 }
 
 // データベースへの接続を開いて返す
