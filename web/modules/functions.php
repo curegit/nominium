@@ -4,6 +4,17 @@ function h($str) {
   return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
 }
 
+// クエリの組み立て方 JSON を返す
+function queries() {
+  $json_path = realpath(__DIR__."/../../data/queries.json");
+  $res = file_get_contents($json_path);
+  if ($res === false) {
+    return "{}";
+  } else {
+    return $res;
+  }
+}
+
 // データベースへの接続を開いて返す
 function open_db() {
   $db_path = realpath(__DIR__."/../../data/nominium.db");
