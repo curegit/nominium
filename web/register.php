@@ -42,6 +42,12 @@ define("PAGE_TITLE", "キーワード登録");
         <p>登録されました：<?= h($keyword) ?></p>
       </section>
 <?php ENDIF; ?>
+      <script defer src="./assets/query.js"></script>
+      <section class="query-test">
+        <h2>クエリテスト</h2>
+        <input type="text" id="query-input" size=12>
+        <div id="query-buttons"></div>
+      </section>
       <section>
         <h2>新規キーワード登録</h2>
         <p>検索キーワードと重要度を入力してください。</p>
