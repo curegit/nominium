@@ -42,7 +42,7 @@ define("PAGE_TITLE", "キーワード登録");
         <p>登録されました：<?= h($keyword) ?></p>
       </section>
 <?php ENDIF; ?>
-      <script defer src="./assets/query.js"></script>
+<?php include "./frames/query.php"; ?>
       <section class="query-test">
         <h2>クエリテスト</h2>
         <input type="text" id="query-input" size=12>

@@ -8,7 +8,7 @@
     const query = input.value.trim();
     if (query) {
       for (const [name, f] of Object.entries(queries)) {
-        const url = eval?.(`"use strict"; (${f})`)(query);
+        const url = f(query);
         const button = document.createElement("button");
         button.textContent = name;
         button.onclick = () => {

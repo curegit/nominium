@@ -20,9 +20,6 @@ require_once "./modules/functions.php";
     <link href="./assets/query.css" rel="stylesheet">
     <link href="./assets/ziraffe.png" rel="icon">
     <link href="./assets/ziraffe-sq.png" rel="apple-touch-icon">
-    <script type="application/json" id="queries">
-      <?= h(queries()) ?>
-    </script>
   </head>
   <body>
     <header>
