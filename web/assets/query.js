@@ -1,5 +1,4 @@
 (function () {
-  const queries = JSON.parse(document.getElementById("queries").textContent);
   const input = document.getElementById("query-input");
   const buttons = document.getElementById("query-buttons");
 
