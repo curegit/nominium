@@ -263,7 +263,7 @@ form.register > label, form.register > input {
 .buttons {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 
 .buttons button {
