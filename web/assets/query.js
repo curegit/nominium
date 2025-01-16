@@ -3,7 +3,7 @@
   const buttons = document.getElementById("query-buttons");
   const querylist = Object.entries(queries);
   if (querylist.length === 0) {
-    buttons.innerHTML = "<p>クエリを持つサイトがありません</p>";
+    buttons.innerHTML = "<p>クエリ構築方法が展開済みのサイトはありません。</p>";
   } else {
     input.addEventListener("input", () => {
       buttons.innerHTML = "";

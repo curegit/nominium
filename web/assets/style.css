@@ -260,6 +260,17 @@ form.register > label, form.register > input {
   margin-bottom: 4px;
 }
 
+.buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.buttons button {
+  margin-bottom: 4px;
+  padding: revert;
+}
+
 ul.checklist {
   margin-top: 15px;
   margin-bottom: 15px;
