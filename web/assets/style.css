@@ -267,7 +267,6 @@ form.register > label, form.register > input {
 }
 
 .buttons button {
-  margin-bottom: 4px;
   padding: revert;
 }
 
