@@ -20,7 +20,7 @@ define("PAGE_TITLE", "監査");
         <h2>クエリテスト</h2>
         <div>
           <label>
-            キーワード：<input type="text" id="query-input" placeholder="クエリを入力">
+            キーワード：<input type="text" id="query-input" placeholder="キーワードを入力">
           </label><div class="buttons" id="query-buttons"></div>
         </div>
       </section>
