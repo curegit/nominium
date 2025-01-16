@@ -18,7 +18,7 @@ define("PAGE_TITLE", "監査");
       <script defer src="./assets/query.js"></script>
       <section class="query-test">
         <h2>クエリテスト</h2>
-        <label>キーワード：<input type="text" id="query-input"></label>
+        <label>キーワード：<input type="text" id="query-input" placeholder="クエリを入力"></label>
         <div class="buttons" id="query-buttons"></div>
       </section>
 <?php IF($err_log === null): ?>

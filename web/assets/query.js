@@ -3,6 +3,7 @@
   const buttons = document.getElementById("query-buttons");
   const querylist = Object.entries(queries);
   if (querylist.length === 0) {
+    input.disabled = true;
     buttons.innerHTML = "<p>クエリ構築方法が展開済みのサイトはありません。</p>";
   } else {
     input.addEventListener("input", () => {
