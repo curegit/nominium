@@ -6,11 +6,29 @@ from selenium.webdriver.common.by import By
 # サイトの識別子
 name = "Yahoo"
 
-# フェッチャーにさせる動作
-def get(driver, keyword):
+# 検索URLを生成する関数 (JavaScript)
+queryjs = """
+	((keyword) => {
+		const path = encodeURIComponent(keyword);
+		const params = new URLSearchParams({
+			keyword: keyword,
+			sort: "openTime",
+			order: "desc",
+			open: "1"
+		});
+		return "https://paypayfleamarket.yahoo.co.jp/search/" + path + "?" + params.toString();
+	})
+"""
+
+# 検索URLを生成する関数
+def query(keyword):
 	path = quote(keyword, safe="")
 	query = urlencode({"sort": "openTime", "order": "desc", "open": "1"})
-	driver.get(f"https://paypayfleamarket.yahoo.co.jp/search/{path}?{query}")
+	return f"https://paypayfleamarket.yahoo.co.jp/search/{path}?{query}"
+
+# フェッチャーにさせる動作
+def get(driver, keyword):
+	driver.get(query(keyword))
 	container = driver.find_element(By.TAG_NAME, "body")
 	return container.get_attribute("innerHTML")
 

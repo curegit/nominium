@@ -1,10 +1,28 @@
 import re
 import requests
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 from bs4 import BeautifulSoup
 
 # サイトの識別子
 name = "Fril"
+
+# 検索URLを生成する関数 (JavaScript)
+queryjs = """
+	((keyword) => {
+		const params = new URLSearchParams({
+			query: keyword,
+			sort: "created_at",
+			order: "desc",
+			transaction: "selling"
+		});
+		return "https://fril.jp/s?" + params.toString();
+	})
+"""
+
+# 検索URLを生成する関数
+def query(keyword):
+	queries = {"query": keyword, "sort": "created_at", "order": "desc", "transaction": "selling"}
+	return f"https://fril.jp/s?{urlencode(queries)}"
 
 # フェッチャーにさせる動作
 def get(driver, keyword):
