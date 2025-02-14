@@ -70,11 +70,11 @@ fetch_table = []
 def fetch_iterator():
 	while True:
 		count = 0
-		for kid, keyword, probability in fetch_table:
+		for kid, keyword, probability, send, hook in fetch_table:
 			if random.random() < probability:
 				for site in sites:
 					count += 1
-					yield site, kid, keyword
+					yield site, kid, keyword, send, hook
 		if count == 0:
 			yield None
 fetch_iter = fetch_iterator()
