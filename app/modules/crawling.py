@@ -128,7 +128,7 @@ class Fetcher(Thread):
 			maybe_task = self.in_queue.get()
 			if maybe_task is None:
 				break
-			site, kid, keyword = maybe_task
+			site, kid, keyword, send, hook = maybe_task
 			if self.should_backoff(site, kid):
 				self.logger.log_line(f"フェッチャー {self.id} は {site.name} での「{keyword}」のロードをスキップします。")
 				continue
@@ -140,7 +140,7 @@ class Fetcher(Thread):
 				self.record_failure(site, kid)
 			else:
 				self.logger.log_line(f"フェッチャー {self.id} がフェッチを完了しました。")
-				self.out_queue.put((site, kid, keyword, documents))
+				self.out_queue.put((site, kid, keyword, documents, send, hook))
 				self.mark_as_successful(site, kid)
 			sleep(self.wait)
 			elapsed = time() - start
@@ -197,7 +197,7 @@ class Extractor:
 		qsize = max(1, self.queue.qsize()) if least_one else self.queue.qsize()
 		for i in range(qsize):
 			try:
-				site, kid, keyword, documents = self.queue.get(timeout=timeout)
+				site, kid, keyword, documents, send, hook = self.queue.get(timeout=timeout)
 			except Exception:
 				break
 			else:
@@ -219,6 +219,9 @@ class Extractor:
 						self.cache.add(id_pair)
 						notify = not fresh
 						notify_code = 0 if notify else 1
+						if not send and not hook:
+							notify = False
+							notify_code = 4
 						if price > self.max_price:
 							notify = False
 							notify_code = 2
@@ -228,7 +231,7 @@ class Extractor:
 									notify = False
 									notify_code = 3
 						put_count += 1
-						yield site, keyword, notify, notify_code, item
+						yield site, keyword, notify, notify_code, item, send, hook
 					if count >= self.enough:
 						break
 					if cut_count >= self.cut:
