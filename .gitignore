@@ -1,5 +1,6 @@
 *.db
 *.log
+/data/
 /app/caches
 /conf/settings.ini
 __pycache__/
