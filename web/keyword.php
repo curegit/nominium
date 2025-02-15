@@ -41,8 +41,8 @@ define("PAGE_TITLE", "キーワード表示");
           <tbody>
 <?php FOREACH($keywords as $keyword_record): ?>
             <tr class="queryrow">
-              <td><?= h($keyword_record["keyword"]) ?></td>
-              <td><?= h($keyword_record["importance"])?></td>
+              <td class="querykeyword"><?= h($keyword_record["keyword"]) ?></td>
+              <td class="queryimportance"><?= h($keyword_record["importance"])?></td>
               <td class="symbolic"><?= $keyword_record["send"] ? "○" : "" ?></td>
               <td class="symbolic"><?= $keyword_record["hook"] ? "○" : "" ?></td>
               <td class="querylinks"></td>
