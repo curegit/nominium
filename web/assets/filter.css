@@ -51,3 +51,13 @@
 .filtered.negative.code3 .item.ignored:not(.notify3) {
   display: none;
 }
+
+.filtered:has(.item).negative.code4:not(:has(.item.ignored.notify4))::after
+{
+  display: block;
+  content: var(--no-items);
+}
+
+.filtered.negative.code4 .item.ignored:not(.notify4) {
+  display: none;
+}
