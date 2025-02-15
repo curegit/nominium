@@ -54,8 +54,10 @@ define("PAGE_TITLE", "重要度の変更");
             <thead>
               <tr>
                 <th>キーワード</th>
-                <th class="numeric">現在</th>
-                <th class="numeric">変更後</th>
+                <th class="numeric">現在重要度</th>
+                <th class="numeric">変更後重要度</th>
+                <th class="symbolic">メール</th>
+                <th class="symbolic">フック</th>
               </tr>
             </thead>
             <tbody>
@@ -66,7 +68,11 @@ define("PAGE_TITLE", "重要度の変更");
                 <td>
                   <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
                   <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
+                </td>
+                <td class="symbolic">
                   <input type="checkbox" name="send[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["send"] ? "checked" : "" ?>>
+                </td>
+                <td class="symbolic">
                   <input type="checkbox" name="hook[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["hook"] ? "checked" : "" ?>>
                 </td>
               </tr>
