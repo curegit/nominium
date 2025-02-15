@@ -21,7 +21,8 @@ define("PAGE_TITLE", "監査");
         <div>
           <label>
             キーワード：<input type="text" id="query-input" placeholder="キーワードを入力">
-          </label><div class="buttons" id="query-buttons"></div>
+          </label>
+          <div class="buttons" id="query-buttons"></div>
         </div>
       </section>
 <?php IF($err_log === null): ?>
