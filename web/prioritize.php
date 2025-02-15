@@ -29,7 +29,7 @@ try {
   $error = $e->getMessage();
 }
 
-define("PAGE_TITLE", "重要度の変更");
+define("PAGE_TITLE", "割り付け変更");
 ?>
 <?php include "./frames/header.php"; ?>
     <main>
@@ -46,7 +46,7 @@ define("PAGE_TITLE", "重要度の変更");
       </section>
 <?php ELSE: ?>
       <section>
-        <h2>重要度の変更</h2>
+        <h2>割り付けの変更</h2>
 <?php IF($keywords): ?>
         <p>表中に変更後の値を入力してください。</p>
         <form method="post">
