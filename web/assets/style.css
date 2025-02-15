@@ -180,6 +180,10 @@ td:last-child {
   padding: 1px 4px 1px 4px;
 }
 
+th.symbolic {
+  text-align: left;
+}
+
 td.symbolic {
   text-align: center;
 }
