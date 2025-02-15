@@ -33,18 +33,18 @@ define("PAGE_TITLE", "キーワード表示");
             <tr>
               <th>キーワード</th>
               <th class="numeric">重要度</th>
-              <th class="numeric">メール</th>
-              <th class="numeric">フック</th>
+              <th class="symbolic">メール</th>
+              <th class="symbolic">フック</th>
               <th>クエリ</th>
             </tr>
           </thead>
           <tbody>
 <?php FOREACH($keywords as $keyword_record): ?>
             <tr class="queryrow">
-              <td class="querykeyword"><?= h($keyword_record["keyword"]) ?></td>
-              <td class="queryimportance"><?= h($keyword_record["importance"])?></td>
-              <td class="querysend"><?= $keyword_record["send"] ? "○" : "" ?></td>
-              <td class="queryhook"><?= $keyword_record["hook"] ? "○" : "" ?></td>
+              <td><?= h($keyword_record["keyword"]) ?></td>
+              <td><?= h($keyword_record["importance"])?></td>
+              <td class="symbolic"><?= $keyword_record["send"] ? "○" : "" ?></td>
+              <td class="symbolic"><?= $keyword_record["hook"] ? "○" : "" ?></td>
               <td class="querylinks"></td>
             </tr>
 <?php ENDFOREACH; ?>
