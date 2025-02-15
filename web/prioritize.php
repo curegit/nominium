@@ -8,10 +8,16 @@ try {
   $pdo = open_db();
   $keywords = array_filter(isset($_POST["keywords"]) ? (array)$_POST["keywords"] : [], "is_numeric");
   $importances = array_filter(isset($_POST["importances"]) ? (array)$_POST["importances"] : [], "is_numeric");
+  $sends = array_filter(isset($_POST["send"]) ? (array)$_POST["send"] : [], "is_numeric");
+  $hooks = array_filter(isset($_POST["hook"]) ? (array)$_POST["hook"] : [], "is_numeric");
   for ($i = 0; $i < count($keywords) && $i < count($importances); $i++) {
-    $stmt = $pdo->prepare("UPDATE keyword SET importance = ? WHERE id = ?");
+    $send = in_array($keywords[$i], $sends);
+    $hook = in_array($keywords[$i], $hooks);
+    $stmt = $pdo->prepare("UPDATE keyword SET importance = ?, send = ?, hook = ? WHERE id = ?");
     $stmt->bindValue(1, $importances[$i]);
-    $stmt->bindValue(2, $keywords[$i]);
+    $stmt->bindValue(2, $send ? 1 : 0);
+    $stmt->bindValue(3, $hook ? 1 : 0);
+    $stmt->bindValue(4, $keywords[$i]);
     $stmt->execute();
     $updated = true;
   }
@@ -23,7 +29,7 @@ try {
   $error = $e->getMessage();
 }
 
-define("PAGE_TITLE", "重要度の変更");
+define("PAGE_TITLE", "割り付け変更");
 ?>
 <?php include "./frames/header.php"; ?>
     <main>
@@ -40,7 +46,7 @@ define("PAGE_TITLE", "重要度の変更");
       </section>
 <?php ELSE: ?>
       <section>
-        <h2>重要度の変更</h2>
+        <h2>重要度と通知動作の変更</h2>
 <?php IF($keywords): ?>
         <p>表中に変更後の値を入力してください。</p>
         <form method="post">
@@ -48,8 +54,10 @@ define("PAGE_TITLE", "重要度の変更");
             <thead>
               <tr>
                 <th>キーワード</th>
-                <th class="numeric">現在</th>
-                <th class="numeric">変更後</th>
+                <th class="numeric">現在重要度</th>
+                <th class="numeric">変更後重要度</th>
+                <th class="symbolic">メール</th>
+                <th class="symbolic">フック</th>
               </tr>
             </thead>
             <tbody>
@@ -60,6 +68,12 @@ define("PAGE_TITLE", "重要度の変更");
                 <td>
                   <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
                   <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
+                </td>
+                <td class="symbolic">
+                  <input type="checkbox" name="send[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["send"] ? "checked" : "" ?>>
+                </td>
+                <td class="symbolic">
+                  <input type="checkbox" name="hook[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["hook"] ? "checked" : "" ?>>
                 </td>
               </tr>
 <?php ENDFOREACH; ?>

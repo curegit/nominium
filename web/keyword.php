@@ -27,18 +27,25 @@ define("PAGE_TITLE", "キーワード表示");
         <h2>登録中のキーワード</h2>
 <?php IF($keywords): ?>
         <p>クロールされる順番で表示しています。</p>
+        <script defer src="./assets/open.js"></script>
         <table>
           <thead>
             <tr>
               <th>キーワード</th>
               <th class="numeric">重要度</th>
+              <th class="symbolic">メール</th>
+              <th class="symbolic">フック</th>
+              <th>クエリ</th>
             </tr>
           </thead>
           <tbody>
 <?php FOREACH($keywords as $keyword_record): ?>
-            <tr>
-              <td><?= h($keyword_record["keyword"]) ?></td>
-              <td><?= h($keyword_record["importance"])?></td>
+            <tr class="queryrow">
+              <td class="querykeyword"><?= h($keyword_record["keyword"]) ?></td>
+              <td class="queryimportance"><?= h($keyword_record["importance"])?></td>
+              <td class="symbolic"><?= $keyword_record["send"] ? "○" : "" ?></td>
+              <td class="symbolic"><?= $keyword_record["hook"] ? "○" : "" ?></td>
+              <td class="querylinks"></td>
             </tr>
 <?php ENDFOREACH; ?>
           </tbody>

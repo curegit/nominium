@@ -11,9 +11,9 @@
         classes.remove("negative");
         classes.add("positive");
       } else {
-        classes.remove("positive", "code1", "code2", "code3");
+        classes.remove("positive", "code1", "code2", "code3", "code4");
         classes.add("negative");
-        if (1 <= code && code <= 3) {
+        if (1 <= code && code <= 4) {
           classes.add("code" + code);
         }
       }

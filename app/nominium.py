@@ -7,6 +7,7 @@ import signal
 from html import escape as h
 from queue import Queue
 from modules import config as conf
+from modules.web import save_queries
 from modules.logging import Logger
 from modules.database import connect
 from modules.crawling import init_driver, Fetcher, Extractor
@@ -37,6 +38,9 @@ documents_queue = Queue()
 nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 hook_ncs = [NotificationController(conf.max_notify_hourly) for h in hooks]
 
+# サイトごとのクエリの組み立て方を保存する
+save_queries(sites)
+
 # 子プロセスが割り込みで終了しないようにする
 signal.signal(signal.SIGINT, signal.SIG_IGN)
 
@@ -66,11 +70,11 @@ fetch_table = []
 def fetch_iterator():
 	while True:
 		count = 0
-		for kid, keyword, probability in fetch_table:
+		for kid, keyword, probability, send, hook in fetch_table:
 			if random.random() < probability:
 				for site in sites:
 					count += 1
-					yield site, kid, keyword
+					yield site, kid, keyword, send, hook
 		if count == 0:
 			yield None
 fetch_iter = fetch_iterator()
@@ -80,18 +84,21 @@ def update(extractor, cursor, logger, least_one=False, timeout=15):
 	# 新規のアイテムを取り出す
 	mails = []
 	hook_arg = []
-	for site, keyword, notify, notify_code, item in extractor.pop_all_items(least_one=least_one, timeout=timeout):
+	for site, keyword, notify, notify_code, item, send, hook in extractor.pop_all_items(least_one=least_one, timeout=timeout):
 		id, url, title, img, thumbnail, price = item
 		cursor.execute("SELECT COUNT(*) AS count FROM item WHERE site = ? AND id = ?", (site.name, id))
 		existence = bool(int(cursor.fetchone()["count"]))
 		if not existence:
 			cursor.execute("INSERT INTO item(site, id, url, title, img, thumbnail, price, notify) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (site.name, id, url, title, img, thumbnail, price, notify_code))
 			if notify:
-				subject = title
-				plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
-				html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{h(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
-				mails.append((subject, plain, html))
-				hook_arg.append((site.name, id, keyword, title, url, img, thumbnail, price))
+				if send:
+					subject = title
+					plain = f"{title}\n¥{price:,} – {site.name}\nリンク: {url}\nイメージ: {img}\n"
+					html = f"<html><head><title>{h(title)}</title></head><body><p><a href=\"{h(url)}\">{h(title)}</a></p><p>¥{price:,} – {h(site.name)}</p><a href=\"{h(img)}\"><img src=\"{h(thumbnail)}\"></a></body></html>\n"
+					mails.append((subject, plain, html))
+				if hook:
+					hook_arg.append((site.name, id, keyword, title, url, img, thumbnail, price))
+			if notify or notify_code == 1 or notify_code == 4:
 				logger.log_line(f"{site.name} で「{keyword}」についての新規発見：{title}")
 	# 履歴を更新する
 	for site, kid in extractor.pop_fresh():
@@ -163,7 +170,7 @@ with connect() as connection:
 		while not interrupted and time.time() - start < uptime:
 			# キーワードを取り出してイテレータを更新する
 			cursor.execute("SELECT * FROM keyword ORDER BY priority DESC")
-			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"])) for kr in cursor.fetchall()]
+			fetch_table = [(int(kr["id"]), kr["keyword"], float(kr["importance"]), bool(int(kr["send"])), bool(int(kr["hook"]))) for kr in cursor.fetchall()]
 			# フェッチタスクをキューに入るだけ入れる
 			for i in range(fetch_queue.maxsize - fetch_queue.qsize()):
 				maybe_fetch = next(fetch_iter)
