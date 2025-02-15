@@ -28,7 +28,7 @@ define("PAGE_TITLE", "キーワード表示");
 <?php IF($keywords): ?>
         <p>クロールされる順番で表示しています。</p>
         <script defer src="./assets/open.js"></script>
-        <?= var_dump($keyword_record) ?>
+        <?= var_dump($keywords) ?>
         <table>
           <thead>
             <tr>
