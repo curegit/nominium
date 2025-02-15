@@ -46,7 +46,7 @@ define("PAGE_TITLE", "割り付け変更");
       </section>
 <?php ELSE: ?>
       <section>
-        <h2>割り付けの変更</h2>
+        <h2>重要度と通知動作の変更</h2>
 <?php IF($keywords): ?>
         <p>表中に変更後の値を入力してください。</p>
         <form method="post">
