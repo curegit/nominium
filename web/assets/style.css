@@ -121,6 +121,10 @@ input[type="text"] {
   min-width: 220px;
 }
 
+input[type="checkbox"] {
+  vertical-align: middle;
+}
+
 select {
   padding: 0 2px;
 }
@@ -260,6 +264,7 @@ article.item h3.title {
 form.register {
   display: flex;
   flex-wrap: wrap;
+  gap: 2px 8px;
 }
 
 form.register > label, form.register > input {
