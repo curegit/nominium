@@ -46,7 +46,8 @@ define("IS_HOME", true);
               <option value="9">非通知アイテム</option>
               <option value="1">├─ 稼働時間外</option>
               <option value="2">├─ 価格上限越え</option>
-              <option value="3">└─ フィルタ</option>
+              <option value="3">├─ フィルタ</option>
+              <option value="4">└─ キーワード設定</option>
             </select>
           </div>
         </div>
