@@ -64,3 +64,39 @@ function get_recent_log($n, $error = false) {
     return false;
   }
 }
+
+// 実行中のメインアプリPID等を返す
+function get_running_status() {
+  $json_file = realpath(__DIR__."/../../data/process.json");
+  if (!file_exists($json_file) || filesize($json_file) <= 0) {
+    return false;
+  }
+  $res = file_get_contents($json_file);
+  if ($res === false) {
+    return false;
+  }
+  $json_data = json_decode($res, true);
+  if (!$json_data) {
+    return false;
+  }
+  $pid = $json_data["pid"];
+  $start_time = $json_data["start_time"];
+  $end_time = $json_data["end_time"];
+  $current_start_time = get_process_start_time($pid);
+  if ($current_start_time === $start_time) {
+    return array("pid" => $pid, "start" => $start_time, "end" => $end_time);
+  }
+  return false;
+}
+
+// プロセスの開始時刻を取得
+function get_process_start_time($pid) {
+  $pid_arg = escapeshellarg($pid);
+  $output = `ps -o lstart= -p $pid_arg`;
+  if (!$output) {
+    // プロセスが存在しない
+    return false;
+  }
+  // UNIX timestampに変換
+  return strtotime(trim($output));
+}

@@ -11,10 +11,16 @@ if ($err_log === null || $log === null) {
   http_response_code(500);
 }
 
+$proc = get_running_status();
+
 define("PAGE_TITLE", "監査");
 ?>
 <?php include "./frames/header.php"; ?>
     <main>
+      <section>
+        <h2>プロセス状態</h2>
+        <p><?= $proc ? "実行中 (PID: {$proc['pid']}, STARTTIME: ".date("Y-m-d H:i:s", $proc["start"]).", ENDTIME: ".date("Y-m-d H:i:s", $proc["end"]).")" : "停止中" ?></p>
+      </section>
       <script defer src="./assets/query.js"></script>
       <section class="query-test">
         <h2>クエリテスト</h2>

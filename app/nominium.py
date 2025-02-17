@@ -7,7 +7,7 @@ import signal
 from html import escape as h
 from queue import Queue
 from modules import config as conf
-from modules.web import save_queries
+from modules.web import save_queries, save_process_info
 from modules.logging import Logger
 from modules.database import connect
 from modules.crawling import init_driver, Fetcher, Extractor
@@ -37,6 +37,9 @@ documents_queue = Queue()
 # 通知コントローラを用意する
 nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 hook_ncs = [NotificationController(conf.max_notify_hourly) for h in hooks]
+
+# プロセス情報を残す
+save_process_info(length=uptime)
 
 # サイトごとのクエリの組み立て方を保存する
 save_queries(sites)
