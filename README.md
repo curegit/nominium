@@ -25,6 +25,7 @@ PHP による WEB ページインターフェースからデータベースに�
   - SQLite3 (PDO) のサポート
   - `shell_exec` 関数のサポート
 - Python 3.10 以上
+  - psutil
   - Selenium 4 系
   - WebDriver (Firefox または Chrome または Chromium)
   - Webdriver Manager（オプション）
