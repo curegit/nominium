@@ -58,7 +58,8 @@ function get_recent_log($n, $error = false) {
   $name = $error ? date("Y-m")."-error" : date("Y-m-d");
   $log_path = realpath(__DIR__."/../../logs/{$name}.log");
   if (file_exists($log_path) && filesize($log_path) > 0) {
-    return `tail -n $n $log_path`;
+    $log_path_arg = escapeshellarg($log_path);
+    return `tail -n $n $log_path_arg`;
   } else {
     return false;
   }
