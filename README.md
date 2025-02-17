@@ -56,6 +56,8 @@ PHP による WEB ページインターフェースからデータベースに�
 `app/nominium.py` は割り込みシグナル (SIGINT) で終了 (Graceful Shutdown) できます。
 シャットダウンシグナル (SIGTERM) で急速終了できます。
 
+`app/nominium.py` の多重起動は想定されていません。
+
 ## プラグイン
 
 各プラグインは `app/plugins/enabled.py` にモジュールを追加することで有効化されます。
