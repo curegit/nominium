@@ -46,7 +46,7 @@ define("PAGE_TITLE", "並べ替え");
         <form method="post">
           <ol class="reorderable">
 <?php FOREACH($keywords as $keyword_record): ?>
-            <li draggable="true"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>"><?= h($keyword_record["keyword"]) ?></li>
+            <li draggable="true"><input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"]) ?>"><?= h($keyword_record["keyword"]) ?></li>
 <?php ENDFOREACH; ?>
           </ol>
           <input type="submit" value="確定する">

@@ -64,16 +64,16 @@ define("PAGE_TITLE", "割り付け変更");
 <?php FOREACH($keywords as $keyword_record): ?>
               <tr>
                 <td><?= h($keyword_record["keyword"]) ?></td>
-                <td><?= h($keyword_record["importance"])?></td>
+                <td><?= h($keyword_record["importance"]) ?></td>
                 <td>
-                  <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"])?>">
-                  <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"])?>">
+                  <input type="hidden" name="keywords[]" value="<?= h($keyword_record["id"]) ?>">
+                  <input type="number" name="importances[]" size=12 min=0.01 max=1.0 step=0.01 value="<?= h($keyword_record["importance"]) ?>">
                 </td>
                 <td class="symbolic">
-                  <input type="checkbox" name="send[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["send"] ? "checked" : "" ?>>
+                  <input type="checkbox" name="send[]" value="<?= h($keyword_record["id"]) ?>" <?= $keyword_record["send"] ? "checked" : "" ?>>
                 </td>
                 <td class="symbolic">
-                  <input type="checkbox" name="hook[]" value="<?= h($keyword_record["id"])?>" <?= $keyword_record["hook"] ? "checked" : "" ?>>
+                  <input type="checkbox" name="hook[]" value="<?= h($keyword_record["id"]) ?>" <?= $keyword_record["hook"] ? "checked" : "" ?>>
                 </td>
               </tr>
 <?php ENDFOREACH; ?>
