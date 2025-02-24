@@ -27,7 +27,11 @@ function queries() {
   static $cache = null;
   if ($cache === null) {
     $json_path = realpath(__DIR__."/../../data/queries.json");
-    $res = file_get_contents($json_path);
+    if ($json_path === false) {
+      $res = false;
+    } else {
+      $res = @file_get_contents($json_path);
+    }
     if ($res === false) {
       $cache = json_decode("{}", true);
     } else {
@@ -57,7 +61,7 @@ function is_integrity_constraint_violation($error) {
 function get_recent_log($n, $error = false) {
   $name = $error ? date("Y-m")."-error" : date("Y-m-d");
   $log_path = realpath(__DIR__."/../../logs/{$name}.log");
-  if (file_exists($log_path) && filesize($log_path) > 0) {
+  if ($log_path !== false && @filesize($log_path) > 0) {
     $log_path_arg = escapeshellarg($log_path);
     return `tail -n $n $log_path_arg`;
   } else {
@@ -68,10 +72,10 @@ function get_recent_log($n, $error = false) {
 // 実行中のメインアプリPID等を返す
 function get_running_status() {
   $json_file = realpath(__DIR__."/../../data/process.json");
-  if (!file_exists($json_file) || filesize($json_file) <= 0) {
+  if ($json_file === false) {
     return false;
   }
-  $res = file_get_contents($json_file);
+  $res = @file_get_contents($json_file);
   if ($res === false) {
     return false;
   }
