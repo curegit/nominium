@@ -10,7 +10,7 @@ $nonce = nonce();
   <head>
     <meta charset="utf-8">
     <meta name="referrer" content="same-origin">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=640, viewport-fit=cover">
     <meta name="application-name" content="Nominium">
 <?php IF(defined("IS_HOME") && IS_HOME): ?>
     <title>Nominium</title>
