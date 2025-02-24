@@ -2,7 +2,7 @@
 require_once "./modules/auth.php";
 require_once "./modules/csrf.php";
 
-if (!$auth) {
+if (!isset($_SERVER["PHP_AUTH_USER"])) {
   http_response_code(404);
   header("Content-Type: text/plain; charset=utf-8");
   die("この機能は使用できません。".PHP_EOL);
