@@ -154,7 +154,7 @@ with connect() as connection:
 	try:
 		# 存在しないサイトのフェッチ履歴を削除する
 		holders = ", ".join(["?"] * len(sites))
-		site_names = tuple([site.name for site in sites])
+		site_names = tuple(site.name for site in sites)
 		cursor.execute(f"DELETE FROM history WHERE site NOT IN ({holders})", site_names)
 		# 抽出器を用意して必要なら履歴を引き継ぐ
 		extractor = Extractor(logger, documents_queue, conf.max_price, conf.cut, conf.enough)
