@@ -32,7 +32,7 @@ def init_driver():
 # ブラウザ共通の初期設定処理
 def setup_driver(driver):
 	driver.set_page_load_timeout(timeout)
-	driver.get("http://example.com/")
+	driver.get("https://example.com/")
 	driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
 	return driver
 
