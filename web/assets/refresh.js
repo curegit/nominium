@@ -65,8 +65,8 @@
     try {
       const enabled = checkbox.checked;
       const delaysec = +select.value;
-      localStorage.setItem("auto-update-enabled", enabled ? 1 : 0);
-      localStorage.setItem("auto-update-interval", delaysec);
+      localStorage.setItem("auto-update-enabled", enabled ? "1" : "0");
+      localStorage.setItem("auto-update-interval", `${delaysec}`);
     } catch { }
   }
 

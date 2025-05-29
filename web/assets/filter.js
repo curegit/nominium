@@ -26,7 +26,7 @@
     if (code === -1) {
       url.searchParams.delete("filter");
     } else {
-      url.searchParams.set("filter", code);
+      url.searchParams.set("filter", `${code}`);
     }
     history.pushState({filter: code}, "", url);
     applyfilter(code);
