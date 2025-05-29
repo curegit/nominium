@@ -2,7 +2,7 @@
 
 import os
 from shutil import rmtree
-from modules.logging import log_dir
+from modules.logging import log_dir, create_log_dir
 from modules.database import data_dir, db_path, connect
 from modules.crawling import wdm_dir
 from modules.utilities import mkdirp
@@ -13,7 +13,7 @@ rmtree(data_dir, ignore_errors=True)
 rmtree(wdm_dir, ignore_errors=True)
 
 # 各種ディレクトリをつくる
-mkdirp(log_dir)
+create_log_dir()
 mkdirp(data_dir)
 
 # データベース作成

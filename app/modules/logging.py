@@ -3,10 +3,14 @@ import datetime
 import traceback
 from queue import Queue
 from threading import Lock
-from modules.utilities import file_path, rel_path
+from modules.utilities import file_path, rel_path, mkdirp
 
 # ログを保存するディレクトリ
 log_dir = rel_path("../../logs")
+
+# ログを保存するディレクトリを作成する
+def create_log_dir():
+	mkdirp(log_dir)
 
 # 日付に応じてログファイルのパスを返す
 def log_file_path(dtime, error=False):
@@ -58,6 +62,7 @@ class Logger:
 				dtime, message = queue.get()
 				log_path = log_file_path(dtime, error=error)
 				while pending > 0:
+					create_log_dir()
 					with open(log_path, mode="a", encoding="utf-8") as file:
 						file.write(log_line_format(dtime, message))
 						pending -= 1
