@@ -41,7 +41,7 @@ class Logger:
 	def log_line(self, message, stderr=False):
 		dtime = datetime.datetime.now()
 		if self.tee:
-			with Logger.lock:
+			with self.lock:
 				print(log_line_format(dtime, message, eol=False), file=(sys.stderr if stderr else sys.stdout), flush=True)
 		self.queue.put((dtime, message))
 		if stderr:
