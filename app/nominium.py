@@ -115,7 +115,7 @@ def update(extractor, cursor, logger, least_one=False, timeout=15):
 			count = nc.send(mails)
 			logger.log_line(f"メール通知を {count} 件送信しました。")
 		except Exception as e:
-			logger.log_exception(e, f"メール通知の送信に失敗しました。")
+			logger.log_exception(e, "メール通知の送信に失敗しました。")
 	# 通知フックを実行する
 	if hook_arg:
 		for hook, hnc in zip(hooks, hook_ncs):
@@ -123,7 +123,7 @@ def update(extractor, cursor, logger, least_one=False, timeout=15):
 				count = hnc.run_hook(hook, hook_arg)
 				logger.log_line(f"{count} 件について通知フック {hook.__name__} を実行しました。")
 			except Exception as e:
-				logger.log_exception(e, f"フックの実行中にエラーが発生しました。")
+				logger.log_exception(e, "フックの実行中にエラーが発生しました。")
 
 # 割り込みシグナルハンドラ
 def interrupt(signum, frame):
