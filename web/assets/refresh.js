@@ -75,7 +75,7 @@
   try {
     const autoupdate = localStorage.getItem("auto-update-enabled");
     if (autoupdate !== null) {
-      checkbox.checked = +autoupdate ? true : false;
+      checkbox.checked = !!(+autoupdate);
     }
     const updateinterval = localStorage.getItem("auto-update-interval");
     if (updateinterval !== null) {
