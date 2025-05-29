@@ -4,3 +4,5 @@
 /app/caches
 /conf/settings.ini
 __pycache__/
+venv/
+.venv/
