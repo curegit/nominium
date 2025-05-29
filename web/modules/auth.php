@@ -1,5 +1,10 @@
 <?php
 $ini_path = realpath(__DIR__."/../../conf/settings.ini");
+if ($ini_path === false) {
+  http_response_code(500);
+  header("Content-Type: text/plain; charset=utf-8");
+  die("設定ファイルにアクセスできません。".PHP_EOL);
+}
 $ini_array = parse_ini_file($ini_path, true, INI_SCANNER_RAW);
 $auth = filter_var($ini_array["web"]["auth"], FILTER_VALIDATE_BOOLEAN);
 if ($auth) {

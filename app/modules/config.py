@@ -1,9 +1,12 @@
+import os.path
 import configparser
 from modules.utilities import file_path, rel_path
 
 # 設定を保存するファイルへのパス
 conf_dir = rel_path("../../conf")
 conf_path = file_path(conf_dir, "settings", "ini")
+if not os.path.lexists(conf_path):
+	raise RuntimeError(f"設定ファイル {conf_path} がありません。")
 
 # 設定値をすべて読み込む
 config = configparser.ConfigParser()
