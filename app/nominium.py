@@ -39,7 +39,9 @@ nc = NotificationController(conf.max_notify_hourly, dry=(not conf.mail_enabled))
 hook_ncs = [NotificationController(conf.max_notify_hourly) for h in hooks]
 
 # プロセス情報を残す
-save_process_info(length=uptime)
+pid = save_process_info(length=uptime)
+logger.log_line(f"PID = {pid}")
+logger.commit()
 
 # サイトごとのクエリの組み立て方を保存する
 save_queries(sites)

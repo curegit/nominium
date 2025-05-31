@@ -25,3 +25,4 @@ def save_process_info(length):
 	data = {"pid": pid, "start_time": start_time, "end_time": int(length) + start_time}
 	with open(file_path(data_dir, "process", "json"), "wb") as f:
 		f.write(json.dumps(data).encode("utf-8"))
+	return pid
