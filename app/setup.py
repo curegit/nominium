@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
+import sys
 import os
 from shutil import rmtree
 from modules.logging import log_dir, create_log_dir
 from modules.database import data_dir, db_path, connect
 from modules.crawling import wdm_dir
-from modules.utilities import mkdirp
+from modules.utilities import mkdirp, confirm_cui
+
+# 誤実行防止
+if not confirm_cui("初期化シーケンスを実行しますか？"):
+	sys.exit(1)
 
 # データのクリーンアップ
 rmtree(log_dir, ignore_errors=True)

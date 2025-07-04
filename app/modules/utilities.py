@@ -16,3 +16,12 @@ def rel_path(relpath):
 	filename = inspect.stack()[1].filename
 	dirpath = os.path.dirname(filename)
 	return os.path.join(dirpath, relpath)
+
+# コンソールで確認を求める
+def confirm_cui(message):
+	while True:
+		r = input(f"{message} [y/n]").strip().lower()
+		if r == "y":
+			return True
+		elif r == "n":
+			return False
